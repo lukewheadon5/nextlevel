@@ -8,7 +8,7 @@ class Sport extends Model
 {
     public function teams()
     {
-        return $this->belongsToMany('App\Team');
+        return $this->hasMany('App\Team');
 
     }
 

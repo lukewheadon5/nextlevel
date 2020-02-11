@@ -22,6 +22,27 @@ class User extends Authenticatable
 
     }
 
+    public function admins()
+    {
+        return $this->hasMany('App\Admin');
+
+    }
+
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
+
+    public function sports()
+    {
+        return $this->belongsToMany('App\Sport');
+    }
+
+    public function positions()
+    {
+        return $this->belongsToMany('App\Position');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

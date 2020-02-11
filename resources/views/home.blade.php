@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="{{ route('profile.create') }}" class="btn btn-primary btn-lg " tabindex="-1" role="button" >Create Profile</a>
                 </div>
             </div>
         </div>

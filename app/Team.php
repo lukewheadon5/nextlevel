@@ -14,6 +14,15 @@ class Team extends Model
     public function coaches()
     {
         return $this->hasMany('App\Coach');
+    }
 
+    public function sport()
+    {
+        return $this->belongsTo('App\Sport');
+    }
+
+    public function admins()
+    {
+        return $this->hasMany('App\Admin');
     }
 }

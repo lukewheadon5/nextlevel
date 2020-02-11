@@ -17,6 +17,7 @@ class CreateSportsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
+            
         });
     }
 
