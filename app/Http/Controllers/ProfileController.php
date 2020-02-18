@@ -26,7 +26,15 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        return view('profile.create');
+        if(auth()->user()->profile()->exists()==false){
+            return view('profile.create');
+        }
+        else{
+            $user = auth()->user();
+            return redirect()->route('profile.show', auth()->user()->profile()->value('id'))->with('danger','You Already have a Profile');
+        }
+
+        
     }
 
     /**
@@ -43,6 +51,7 @@ class ProfileController extends Controller
                 'weight'=>'required|digits_between:1,4',
                 'height'=>'required|digits_between:1,4',
                 'phone'=>'required|max:11',
+                'gender'=>'required',
 
             ]);
     
@@ -53,12 +62,14 @@ class ProfileController extends Controller
             $profile->weight=$request->weight;
             $profile->height=$request->height;  
             $profile->phone_num=$request->phone;
+            $profile->gender=$request->gender;
+            $profile->bio=$request->bio;
             
             if($request->hasFile('image')){
                 $image = $request->file('image');
                 $filename = time() . '.' . $image->getClientOriginalExtension();
                 $location = public_path('images/'.$filename);
-                Image::make($image)->resize(100,100)->save($location);
+                Image::make($image)->resize(250,250)->save($location);
     
                 $profile->image = $filename;
             }
@@ -79,7 +90,16 @@ class ProfileController extends Controller
     public function show($id)
     {
         $profile = Profile::findOrFail($id);
-        return view('profile.show', ['profile'=>$profile]);
+        $user = $profile->user;
+        $teams = $user->teams;
+
+        if(auth()->id() == $user->id){
+            return view('profile.show', ['profile'=>$profile], ['teams'=>$teams]);
+
+        }
+        else{
+            return view('profile.showO', ['profile'=>$profile], ['teams'=>$teams]);
+        }
     }
 
     /**
@@ -112,6 +132,7 @@ class ProfileController extends Controller
             'weight'=>'required|digits_between:1,4',
             'height'=>'required|digits_between:1,4',
             'phone'=>'required|max:11',
+            'gender'=>'required',
 
         ]);
 
@@ -121,12 +142,14 @@ class ProfileController extends Controller
         $profile->weight=$request->input('weight');
         $profile->height=$request->input('height');  
         $profile->phone_num=$request->input('phone');
+        $profile->gender=$request->input('gender');
+        $profile->bio=$request->input('bio');
         
         if($request->hasFile('image')){
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('images/'.$filename);
-            Image::make($image)->resize(100,100)->save($location);
+            Image::make($image)->resize(250,250)->save($location);
 
             $profile->image = $filename;
         }

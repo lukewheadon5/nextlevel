@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Next Level') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+   
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -37,8 +37,19 @@
                     @if (route::has('register'))
                     @endif
                     @else 
-                    <a href="{{ route('team.create') }}" class="btn btn-primary btn-lg " tabindex="-1" role="button" >Create New Team</a>
-                    @endguest
+                    <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Teams <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('myTeams') }}">My Teams</a>
+                                    <a class="dropdown-item" href="{{ route('team.index') }}">All Teams</a>
+                                    <a class="dropdown-item" href="{{ route('team.create') }}">Create a Team</a>
+                                    
+                                </div>
+                            </li>
+                        @endguest
 
                     </ul>
 
@@ -61,6 +72,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                @if (Auth::user()->profile()->exists() == false)
+                                    <a class="dropdown-item" href="{{ route('profile.create') }}">Create Profile</a>
+                                    @endif
+                                    @if (Auth::user()->profile()->exists() == true)
+                                    <a class="dropdown-item" href="{{ route('profile.show', auth()->user()->profile()->value('id') ) }}">Profile</a>
+                                    
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -70,6 +90,8 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
+                                   
                                 </div>
                             </li>
                         @endguest

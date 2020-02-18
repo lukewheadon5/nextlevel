@@ -24,6 +24,12 @@
     <div class="pb-2">
     </div>
 
+    <label for="gender"><b>Gender:</b></label>
+    <select class="form-control" name="gender">
+    <option value='Male'>Male</option>
+    <option value='Female'>Female</option>
+    </select>
+
     <label for="image"><b>Upload Profile Image:</b></label>
     <input type="file" class="form-control-file" name="image">
     <div class="pb-2">
@@ -41,8 +47,11 @@
 
     <label for="height"><b>Height(cm):</b></label>
     <textarea name="height" class="form-control">{{$profile->height}}</textarea>
+    <div class="pb-2">
+    </div>
 
-    
+    <label for="bio"><b>Bio:</b></label>
+    <textarea name="bio" class="form-control" rows="15">{{$profile->bio}}</textarea>
     <div class="pb-2">
     </div>
   <button type="submit" class="btn btn-outline-success">Submit</button>

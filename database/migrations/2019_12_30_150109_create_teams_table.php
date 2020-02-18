@@ -17,7 +17,11 @@ class CreateTeamsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('sport_id')->unsigned();
             $table->string('name');
-
+            $table->string('country');
+            $table->string('city');
+            $table->string('email')->unique();
+            $table->string('image')->nullable();
+            
             $table->foreign('sport_id')->references('id')->
             on('sports')->onDelete('cascade')->
             onUpdate('cascade');

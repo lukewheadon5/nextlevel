@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="{{ asset('js/app.js') }}" defer></script>
 <div class="row">
 <div class="col-md-2">
 </div>
@@ -23,12 +22,32 @@
     <div class="pb-2">
     </div>
 
+    <label for="image"><b>Upload Team Logo:</b></label>
+    <input type="file" class="form-control-file" name="image">
+    <div class="pb-2">
+    </div>
+
     <label for="sport"><b>Associated Sport:</b></label>
     <select class="form-control" name="sport">
     @foreach($sports as $sport)
     <option value='{{ $sport->id }}'>{{$sport->name}}</option>
     @endforeach
     </select>
+
+    <label for="email"><b>Team Email:</b></label>
+    <textarea name="email" class="form-control" placeholder="Enter Email"></textarea>
+    <div class="pb-2">
+    </div>
+
+    <label for="country"><b>County:</b></label>
+    <textarea name="country" class="form-control" placeholder="Enter Country"></textarea>
+    <div class="pb-2">
+    </div>
+
+    <label for="city"><b>City:</b></label>
+    <textarea name="city" class="form-control" placeholder="Enter City"></textarea>
+    <div class="pb-2">
+    </div>
 
     
     <div class="pb-2">

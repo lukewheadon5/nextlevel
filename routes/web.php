@@ -20,5 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('profile' , 'ProfileController')->middleware('auth');
 Route::resource('team' , 'TeamController')->middleware('auth');
+Route::get('/join/{id}', 'TeamController@join')->name('join')->middleware('auth');
+Route::get('/myTeams' , 'TeamController@myTeams')->name('myTeams')->middleware('auth');
+Route::get('/video/{id}' , 'VideoController@player')->name('player')->middleware('auth');
+
+
 
 

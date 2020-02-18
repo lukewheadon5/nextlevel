@@ -8,8 +8,16 @@
                     
                     <div class="col-md-3 pl-5">
                         <div class="profile-img">
+                        @if(empty($profile->image ))
+                            <img src="/images/blankPhoto.png" alt="Profile Picture" 
+                           width="200px" height="200px" class="rounded-circle"/>
+                        @else
                             <img src="{{asset('images/'. $profile->image)}}" alt="Profile Picture" 
                            width="200px" height="200px" class="rounded-circle"/>
+
+                        
+                        @endif
+                            
                         </div>
                     </div>
                     <div class="col-md-7 pt-3">
@@ -18,7 +26,12 @@
                                        {{$profile->screen_name}}
                                     </h5>
                                     <h6>
-                                       Teams*
+                                       Teams: 
+                                       @foreach ($teams as $team)
+                                      
+                                        <a href="{{ route('team.show', $team->id) }}">{{$team->name}},</a>
+                                     
+                                        @endforeach
                                     </h6>
                                     <p class="proile-rating">Positons : <span></span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -55,6 +68,14 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <label>Gender:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{$profile->gender}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <label>Height:</label>
                                             </div>
                                             <div class="col-md-6">
@@ -81,7 +102,7 @@
                                         <div class="row">
                                     <div class="col-md-12">
                                         <label>Bio:</label><br/>
-                                        <p>Your detail description</p>
+                                        <p>{{$profile->bio}}</p>
                                     </div>
                                 </div>
                                         
@@ -99,3 +120,4 @@
 
 
 @endsection
+

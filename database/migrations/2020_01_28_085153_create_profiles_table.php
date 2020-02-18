@@ -21,6 +21,8 @@ class CreateProfilesTable extends Migration
             $table->string('weight');
             $table->string('height');
             $table->string('phone_num');
+            $table->string('gender');
+            $table->string('bio')->nullable();
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
