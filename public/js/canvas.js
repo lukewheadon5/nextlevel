@@ -1,29 +1,95 @@
-function init () {
-    // set our config variables
-    canvas = document.getElementById('videoCanvas')
-    ctx = canvas.getContext('2d')
-  
-    // outlined square X: 50, Y: 35, width/height 50
-    ctx.beginPath()
-    ctx.strokeRect(50, 35, 50, 50)
-  
-    // filled square X: 125, Y: 35, width/height 50
-    ctx.beginPath()
-    ctx.fillRect(125, 35, 50, 50)
+ //variables
+ var canvasWidth = 700;
+ var canvasHeight = 400;
+ var canvas = null;
+ var bounds = null;
+ var ctx = null;
+ var startX = 0;
+ var startY = 0;
+
+ var hasLoaded = false;
+ var isDrawing = false;
+ var allowDraw = false;
+ var vid = document.getElementById("video");
+ var btn = document.getElementById("play-pause");
+
+ //load in function
+ window.onload = function() {
+   canvas = document.getElementById("videoCanvas");
+   canvas.width = canvasWidth;
+   canvas.height = canvasHeight;
+   canvas.onmousedown = onmousedown;
+   canvas.onmouseup = onmouseup;
+   canvas.onmousemove = onmousemove;
+ 
+   
+   bounds = canvas.getBoundingClientRect();
+   ctx = canvas.getContext("2d");
+   hasLoaded = true;
+ }
+
+ btn.addEventListener("click",function(){
+  allowDraw = false;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+});
+
+ line.addEventListener('click', function(){
+  vid.pause();
+  btn.classList = ("fa fa-play");
+  allowDraw = true;
+});
+
+ function takeSnap(){
+   snapshot = ctx.getImageData(0,0,canvas.width,canvas.height);
+ }
+
+ function restoreSnap(){
+   ctx.putImageData(snapshot,0,0);
+ }
+
+ function draw(x , y){
+   ctx.strokeStyle = 'yellow';
+   ctx.lineWidth = 6;
+   ctx.lineCap = 'round';
+   ctx.beginPath();
+   ctx.moveTo(startX,startY);
+   ctx.lineTo(x,y);
+   ctx.stroke();
+   ctx.beginPath();
+
+ }
+ 
+ function onmousedown(e) {
+   if(allowDraw){
+    startX = e.clientX - bounds.left;
+    startY = e.clientY - bounds.top;
+    isDrawing = true;
+    takeSnap();
+   }
+      
+   
+ }
+ 
+ function onmouseup(e) {
+  if(allowDraw){
+   isDrawing = false;
+   restoreSnap();
+   var endX = e.clientX - bounds.left;
+   var endY = e.clientY - bounds.top;
+   draw(endX, endY);
   }
-  
-  function myCanvas() {
-    var c = document.getElementById("videoCanvas");
-    var ctx = c.getContext("2d");
-    var vid = document.getElementById("video");
-    ctx.drawImage(vid,0,0,700,400);
-  
-    vid.addEventListener('play', function () {
-      (function loop() {
-          if (!vid.paused && !vid.ended) {
-              ctx.drawImage(vid, 0, 0,700,400);
-              setTimeout(loop, 1000 / 30); // drawing at 30fps
-          }
-      })();
-  }, 0);
-  }
+ 
+ }
+ 
+ function onmousemove(e) {
+
+ if(isDrawing){
+ restoreSnap();
+ e.preventDefault();
+ mouseX=parseInt(e.clientX-bounds.left);
+ mouseY=parseInt(e.clientY-bounds.top);
+ draw(mouseX, mouseY);
+ }
+
+ }
+ 

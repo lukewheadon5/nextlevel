@@ -3,6 +3,8 @@
 
 
 @section('content')
+<link href="{{ asset('css/video.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <ul style="list-style-type: none;
   margin: 0;
@@ -24,7 +26,12 @@
 
 <div class="row">
 <div class="col-md-5 pt-3">
+
+<div class="container" style="position: relative; height:500px; ">
+
+
 <div class="container" style="position: relative; height:400px; ">
+
 <video id="video" width="700" height="400" style="position: absolute;
   top: 0;
   left: 0;
@@ -32,15 +39,27 @@
   border:5px solid #000000;">
 <source src="/videos/test.mp4" type="video/mp4">
 </video>
+
 <div class="controls">
-  <div class="bar">
-    <div class="juice"></div>
+
+  <div class="progress-bar">
+  <input id="prog-bar" type="range" min="0" max="100" value="0" step="1">
+</input>
+    <div class="progress-juice" id="prog-juice" >
+    </div>
   </div>
   <div class="buttons">
-    <button id="play-pause"></button>
+    <button><i  id ="replay" class="fa fa-refresh"  style="font-size: 30px;"></i></button>
+    <button><i  id ="skipBack" class="fa fa-step-backward"  style="font-size: 30px;"></i></button>
+    <button><i onclick="togglePP()" id ="play-pause" class="fa fa-play" style="font-size: 30px;"></i></button>
+    <button><i  id ="skipFor" class="fa fa-step-forward"  style="font-size: 30px;"></i></button>
+    <button><i id ="lineDraw" class="fa fa-arrow-up"  style="font-size: 30px;"></i></button>
+    <button><i class="fa fa-expand"  style="font-size: 30px;"></i></button>
+    <button><i class="fa fa-cog"  style="font-size: 30px;"></i></button>
   </div>
 </div>
 
+<script src="{{ asset('js/video.js') }}" defer></script>
 
 <canvas id="videoCanvas" width="700" height="350" style="position: absolute;
   top: 0;
@@ -48,7 +67,11 @@
   z-index: 2; ">
 </canvas>
 
+<script src="{{ asset('js/canvas.js') }}" defer></script>
 
+
+
+</div>
 </div>
 </div>
 </div>
@@ -60,111 +83,7 @@
 
 
 
-<script>
-    //variables
-      var canvasWidth = 700;
-			var canvasHeight = 400;
-			var canvas = null;
-			var bounds = null;
-      var ctx = null;
-      var startX = 0;
-      var startY = 0;
-    
-      var hasLoaded = false;
-      var isDrawing = false;
-		
-      //load in function
-      window.onload = function() {
-				canvas = document.getElementById("videoCanvas");
-				canvas.width = canvasWidth;
-				canvas.height = canvasHeight;
-				canvas.onmousedown = onmousedown;
-        canvas.onmouseup = onmouseup;
-        canvas.onmousemove = onmousemove;
-			
-				
-				bounds = canvas.getBoundingClientRect();
-				ctx = canvas.getContext("2d");
-				hasLoaded = true;
-      }
 
-      function takeSnap(){
-        snapshot = ctx.getImageData(0,0,canvas.width,canvas.height);
-      }
-
-      function restoreSnap(){
-        ctx.putImageData(snapshot,0,0);
-      }
-
-      function draw(x , y){
-        ctx.strokeStyle = 'yellow';
-        ctx.lineWidth = 6;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(startX,startY);
-        ctx.lineTo(x,y);
-        ctx.stroke();
-        ctx.beginPath();
-
-      }
-      
-      function onmousedown(e) {
-						startX = e.clientX - bounds.left;
-            startY = e.clientY - bounds.top;
-            isDrawing = true;
-            takeSnap();
-				
-			}
-			
-			function onmouseup(e) {
-        isDrawing = false;
-        restoreSnap();
-        var endX = e.clientX - bounds.left;
-        var endY = e.clientY - bounds.top;
-        draw(endX, endY);
-      
-        
-        
-	
-      }
-      
-      function onmousemove(e) {
-
-      if(isDrawing){
-      restoreSnap();
-      e.preventDefault();
-      mouseX=parseInt(e.clientX-bounds.left);
-      mouseY=parseInt(e.clientY-bounds.top);
-      draw(mouseX, mouseY);
-      }
-
-      }
-			
-			
-      
-      
-    function myCanvas() {
-    var c = document.getElementById("videoCanvas");
-    var ctx = c.getContext("2d");
-    var vid = document.getElementById("video");
-    ctx.drawImage(vid,0,0,700,400);
-  
-    vid.addEventListener('play', function () {
-      (function loop() {
-          if (!vid.paused && !vid.ended) {
-              ctx.drawImage(vid, 0, 0,700,400);
-              setTimeout(loop, 1000 / 30); // drawing at 30fps
-          }
-      })();
-  }, 0);
-  }
-
-  function playVid() {
-    var vid = document.getElementById("video");
-    vid.play();
-}
-			
-</script>
 
 
 </div>
