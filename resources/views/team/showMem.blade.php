@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script src="{{ asset('js/app.js') }}" defer></script>
 <ul style="list-style-type: none;
   margin: 0;
   padding:0px;

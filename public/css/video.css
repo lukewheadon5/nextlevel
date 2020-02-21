@@ -1,14 +1,16 @@
+
 .controls {
 display:flex; 
 position: absolute;
 bottom: 0; 
 left: 0;
 z-index: 3;
-width: 700px;
+width: 100%;
 flex-wrap: wrap;
-background: rgba(0,0,0,0.8);
-transform: translateY(100%);
-
+justify-content: left;
+background:rgb(128, 118, 118);
+border: none;
+border-radius: 5px;
 }
 
 .buttons button{
@@ -16,12 +18,21 @@ transform: translateY(100%);
     border: 0; 
     outline: 0; 
     cursor: pointer;
-    color: #fff
+    color: #fff;
+    
 }
 
 .buttons {
     padding: 10px;
+    margin: auto;
 }
+
+.buttons button:hover{
+    background: rgb(0,0,0);
+    border: none;
+    border-radius: 2px;
+}
+
 
 .buttons button:before{
     width:30px;
@@ -31,8 +42,65 @@ transform: translateY(100%);
     color: #fff;
 }
 
+.drawBtn button{
+    background:none; 
+    border: 0; 
+    outline: 0; 
+    cursor: pointer;
+    color: #fff;
+    
+}
+
+.drawBtn {
+    padding: 10px;
+    margin: auto;
+}
+
+.drawBtn button:hover{
+    background: rgb(0, 0, 0);
+    border: none;
+    border-radius: 2px;
+}
+
+
+.drawBtn button:before{
+    width:30px;
+    height:30px;
+    display:inline-block;
+    font-size: 28px;
+    color: #fff;
+}
+
+.extraBtn button{
+    background:none; 
+    border: 0; 
+    outline: 0; 
+    cursor: pointer;
+    color: #fff;
+    
+}
+
+.extraBtn {
+    padding: 10px;
+    margin: auto;
+}
+
+.extraBtn button:hover{
+    background: rgb(0, 0, 0);
+    border: none;
+    border-radius: 2px;
+}
+
+
+.extraBtn button:before{
+    width:30px;
+    height:30px;
+    display:inline-block;
+    font-size: 28px;
+    color: #fff;
+}
 .progress-bar{
-    height:5px;
+    height:8px;
     top: 0;
     left: 0;
     width: 100%;
@@ -45,4 +113,86 @@ transform: translateY(100%);
     background-color: crimson;
 
 
+}
+
+.input{
+    background-color: crimson;
+
+
+}   
+
+
+input[type="range"] { 
+    margin: auto;
+    -webkit-appearance: none;
+    position: relative;
+    overflow: hidden;
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 0; /* iOS */
+}
+
+::-webkit-slider-runnable-track {
+    background: #ddd;
+}
+
+/*
+ * 1. Set to 0 width and remove border for a slider without a thumb
+ */
+::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px; /* 1 */
+    height: 40px;
+    border-radius: 50%;
+    background: rgb(36, 35, 35);;
+    box-shadow: -100vw 0 0 100vw crimson;
+    border: 2px solid rgb(36, 35, 35); /* 1 */
+}
+
+::-moz-range-track {
+    height: 40px;
+    background: #ddd;
+}
+
+::-moz-range-thumb {
+    background: rgb(36, 35, 35);;
+    height: 40px;
+    width: 15px;
+    border: 3px solid rgb(36, 35, 35);
+    border-radius: 50%;
+    box-shadow: -100vw 0 0 100vw crimson;
+    box-sizing: border-box;
+}
+
+::-ms-fill-lower { 
+    background: crimson;
+}
+
+::-ms-thumb { 
+    background: rgb(36, 35, 35);
+    border: 2px solid rgb(36, 35, 35);
+    height: 40px;
+    width: 15px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+::-ms-ticks-after { 
+    display: none; 
+}
+
+::-ms-ticks-before { 
+    display: none; 
+}
+
+::-ms-track { 
+    background: #ddd;
+    color: transparent;
+    height: 40px;
+    border: none;
+}
+
+::-ms-tooltip { 
+    display: none;
 }

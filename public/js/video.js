@@ -4,10 +4,14 @@ var juice = document.getElementById("prog-juice");
 var btn = document.getElementById("play-pause");
 var line = document.getElementById("lineDraw");
 var seekslider = document.getElementById("prog-bar");
+var player = document.getElementById("player");
+var fullBtn = document.getElementById("fullscreen");
+var durationTime = document.getElementById("durationTime");
+var currentTime = document.getElementById("currentTime");
+var isFullScreen = false;
 
 seekslider.addEventListener("change",function(){
     var seekto = vid.duration * (seekslider.value / 100);
-    console.log(seekto);
 	vid.currentTime = seekto;
 });
 
@@ -24,8 +28,21 @@ document.getElementById("skipBack").addEventListener("click",function(){
 document.getElementById("skipFor").addEventListener("click",function(){
     var newTime = vid.currentTime + 10;
     vid.currentTime = newTime;
+    
 });
 
+fullBtn.addEventListener("click",function(){
+  fullBtn.classList.toggle("fa-compress");
+  if(isFullScreen == false){
+    player.requestFullscreen();
+    isFullScreen = true;
+  }else{
+    document.exitFullscreen();
+    isFullScreen = false;
+  }
+
+  
+});
 
 function togglePP(){
   btn.classList.toggle("fa-pause");
@@ -45,4 +62,33 @@ if(vid.ended){
 
 
 })
+
+vid.addEventListener("timeupdate", function() {
+  function formatTime(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    minutes = (minutes >= 10) ? minutes : minutes;
+    var hours = Math.floor(minutes / 60);
+    hours = (minutes >= 10) ? hours : hours;
+    var seconds = Math.floor(seconds % 60);
+    seconds = (seconds >= 10) ? seconds : seconds;
+    return hours + ":" + minutes + ":" + seconds;
+}
+var seconds = video.currentTime;
+currentTime.innerHTML = formatTime(seconds);
+});
+
+
+vid.addEventListener("timeupdate", function() {
+function formatTime(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    minutes = (minutes >= 10) ? minutes : minutes;
+    var seconds = Math.floor(seconds % 60);
+    seconds = (seconds >= 10) ? seconds : seconds;
+    return minutes + ":" + seconds;
+}
+var seconds = video.duration;
+durationTime.innerHTML = formatTime(seconds);
+});
+
+
         
