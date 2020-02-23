@@ -4,7 +4,7 @@ display:flex;
 position: absolute;
 bottom: 0; 
 left: 0;
-z-index: 3;
+z-index: 4;
 width: 100%;
 flex-wrap: wrap;
 justify-content: left;
@@ -30,6 +30,7 @@ border-radius: 5px;
 .buttons button:hover{
     background: rgb(0,0,0);
     border: none;
+    
     border-radius: 2px;
 }
 
@@ -196,3 +197,5 @@ input[type="range"] {
 ::-ms-tooltip { 
     display: none;
 }
+
+

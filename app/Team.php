@@ -25,4 +25,8 @@ class Team extends Model
     {
         return $this->hasMany('App\Admin');
     }
+
+    public function playlists(){
+        return $this->hasMany('App\Playlist');
+    }
 }

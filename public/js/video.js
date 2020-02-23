@@ -44,14 +44,6 @@ fullBtn.addEventListener("click",function(){
   
 });
 
-function togglePP(){
-  btn.classList.toggle("fa-pause");
-  if(vid.paused){
-    vid.play();
-  }else{
-    vid.pause();
-  }
-}
 
 vid.addEventListener('timeupdate', function(){
     var nt = vid.currentTime * (100 / vid.duration);

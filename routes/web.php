@@ -23,6 +23,8 @@ Route::resource('team' , 'TeamController')->middleware('auth');
 Route::get('/join/{id}', 'TeamController@join')->name('join')->middleware('auth');
 Route::get('/myTeams' , 'TeamController@myTeams')->name('myTeams')->middleware('auth');
 Route::get('/video/{id}' , 'VideoController@player')->name('player')->middleware('auth');
+Route::get('/video/{id}/create' , 'VideoController@create')->name('vidCreate')->middleware('auth');
+Route::post('/video/{id}/store' , 'VideoController@store')->name('vidStore')->middleware('auth');
 
 
 
