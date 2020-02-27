@@ -25,10 +25,10 @@
   Statistics</a></li>
 </ul>
 
-<div class="container-fluid" style="background: rgba(162, 175, 159, 0.842);">
+<div class="container-fluid">
 
 <div class="row">
-<div class="col-md-8 pt-3" style="border:5px solid">
+<div class="col-md-8 pt-3">
 
 <div class="container" id="player" style="position: relative; width:800px; height:500px; ">
 
@@ -41,7 +41,7 @@
   border:5px solid #000000;
   border-radius: 2px;
   background: #000000;">
-<source src="/videos/test.mp4" type="video/mp4">
+<source src="" type="video/mp4">
 </video>
 
 <div class="controls">
@@ -53,10 +53,12 @@
     </div>
   </div>
   <div class="buttons">
-    <button><i  id ="replay" class="fa fa-refresh" title="Restart Video" style="font-size: 30px;"></i></button>
+  <button><i  id ="replay" class="fa fa-refresh" title="Restart Video" style="font-size: 30px;"></i></button>
+    <button><i  id ="previous" class="fa fa-fast-backward" title="Previous Clip" style="font-size: 30px;"></i></button>
     <button><i  id ="skipBack" class="fa fa-step-backward" title="Skip Back 10s" style="font-size: 30px;"></i></button>
     <button><i  id ="play-pause" class="fa fa-play" title="Play/Pause" style="font-size: 30px;"></i></button>
     <button><i  id ="skipFor" class="fa fa-step-forward" title="Skip Forward 10s" style="font-size: 30px;"></i></button>
+    <button><i  id ="next" class="fa fa-fast-forward" title="Next Clip" style="font-size: 30px;"></i></button>
   </div>
   <div class="drawBtn">
   <button><i id ="selector" class="fa fa-hand-pointer-o" aria-hidden="true" title="Select"style="font-size: 30px;"></i></button>
@@ -67,7 +69,7 @@
   <div class="extraBtn">
   <button><i id ="fullscreen" class="fa fa-expand" title="FullScreen" style="font-size: 30px;"></i></button>
   <button><i class="fa fa-cog" title="Settings" style="font-size: 30px;"></i></button>
-  <span id="currentTime">00:00</span> / <span id="durationTime">00:00</span>
+  <span id="currentTime" style="color:white">00:00</span><span style="color:white"> / </span><span id="durationTime" style="color:white">00:00</span>
   </div>
 </div>
 
@@ -78,14 +80,12 @@
   top: 0;
   left: 0;
   z-index: 2;
-  border: 2px solid green;
   width:100%; 
   height:100%; ">
 <canvas id="videoCanvas" style="position: absolute;
   top: 0;
   left: 0;
   z-index: 3;
-  border: 2px solid red;
   width:100%; 
   height:100%; ">
 </canvas>
@@ -96,8 +96,13 @@
 
 </div>
 <div class="col-md-4 pt-3">
-<a href="{{ route('vidCreate', $team->id) }}" class="btn btn-secondary" tabindex="-1" role="button" >Upload Film</a>
 
+<div style="padding:10px; float:right;">
+<a href="{{ route('vidCreate', $team->id) }}" class="btn btn-secondary" tabindex="-1" role="button" >Upload Film</a>
+</div>
+
+
+<div>
 <table class="table table-striped table-bordered table-sm" cellspacing="0"
   width="100%">
   <thead class="thead-dark" >
@@ -108,23 +113,84 @@
   </thead>
   <tbody>
 
-  @foreach ($team->playlists as $play)
+@foreach ($team->playlists as $play)
  <tr>
 <td>{{$play->name}}</td>
-<td><button class="btn btn-secondary">Play Vids</button></td>
+<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select Playlist</button></td>
 </tr>
 @endforeach
 </table>
-
+</div>
 
 
 </div>
 
 </div>
 
+<div style = "padding:10px;">
+<table class="table table-striped table-bordered table-sm" cellspacing="0" id="clips" width="100%">
+  <thead class="thead-dark" >
+  <tr>
+      <th></th>
+      <th scope="col">Clips:</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+</table>
 </div>
 
 
+
+</div>
+
+
+
+
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+var vidList = [];
+function getPlaylist(id){
+  $.ajax({
+        type: 'GET', 
+        videos: {},
+        team: {!! $team->toJson() !!},
+        url: '/api/video/playlist/'+id+'/videos',
+        dataType: 'json',
+        success: function (data) {
+          vidList = [];
+          for(var i = 0; i < data.length; i++){
+                var clip = data[i].video;
+                vidList.push(clip);
+          }
+          $('#clips tr').not(':first').remove();
+          var html = '';
+          for(var i = data.length -1; i >= 0; i--){
+              html = '<tr>'+
+              '<td>' + (i+1) + '</td>' +
+              '<td>' + data[i].video + '</td>' +
+              '<td>' +"<button id='playClip' class='btn btn-primary btn-xs' " +
+                        "onclick='pickVid(\""+
+                          data[i].video+
+                          "\")'>Play Clip</button>"+ '</td>' +
+              '</tr>';   
+
+              $('#clips tr').first().after(html);
+          };
+          vid.src = "/videos/" + vidList[0];
+          currentVid = 0;
+          highlightRow(); 
+          play();
+        },
+          error:function(){ 
+             console.log(error);
+          }
+  });
+
+}
+
+
+</script>
 
 
 @endsection

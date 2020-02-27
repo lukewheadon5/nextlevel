@@ -9,15 +9,54 @@ var fullBtn = document.getElementById("fullscreen");
 var durationTime = document.getElementById("durationTime");
 var currentTime = document.getElementById("currentTime");
 var isFullScreen = false;
+var currentVid = 0;
+
+
+function highlightRow(){
+  var rows = document.querySelectorAll("#clips tr");
+  for (var i = 1; i < rows.length; i++){
+    if(i == currentVid + 1){
+      rows[i].className += 'highlight';
+    }else{
+      rows[i].classList.remove("highlight");
+    }
+  }
+}
+
 
 seekslider.addEventListener("change",function(){
     var seekto = vid.duration * (seekslider.value / 100);
 	vid.currentTime = seekto;
 });
 
+document.getElementById("next").addEventListener("click",function(){
+  if(currentVid === vidList.length -1){
+    currentVid = 0;
+    vid.src = "/videos/"+vidList[currentVid];
+  }else{
+    currentVid = currentVid + 1;
+    vid.src = "/videos/"+vidList[currentVid];
+  }
+  highlightRow();
+  play();
+});
+
+document.getElementById("previous").addEventListener("click",function(){
+  if(currentVid === 0){
+    currentVid = vidList.length -1;
+    vid.src = "/videos/"+vidList[currentVid];
+  }else{
+    currentVid = currentVid - 1;
+    vid.src = "/videos/"+vidList[currentVid];
+  }
+  highlightRow();
+  play();
+});
+
 document.getElementById("replay").addEventListener("click",function(){
     var newTime = 0;
     vid.currentTime = newTime;
+    play();
 });
 
 document.getElementById("skipBack").addEventListener("click",function(){
@@ -81,6 +120,30 @@ function formatTime(seconds) {
 var seconds = video.duration;
 durationTime.innerHTML = formatTime(seconds);
 });
+
+
+
+function pickVid(id){
+  for(var i = 0; i < vidList.length; i++){
+    if(vidList[i] === id){
+        vid.src = "/videos/"+ vidList[i]
+        currentVid = i;
+        btn.classList.toggle("fa-pause"); 
+        vid.play();
+    }
+  }
+  highlightRow();
+}
+
+function play(){
+  btn.classList.toggle("fa-pause"); 
+  vid.play();
+}
+
+
+
+
+
 
 
         

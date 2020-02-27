@@ -9,9 +9,20 @@ use App\Playlist;
 
 class VideoController extends Controller
 {
+    public function index(Playlist $playlist){
+        return response()->json($playlist->videos()->get());
+    }
+
+
     public function player($id){
         $team = Team::findOrFail($id);
         return view('video.player',['team'=>$team]);
+    }
+
+    public function playlist($teamid , $playid){
+        $team = Team::findOrFail($teamid);
+        $playlist = Playlist::findOrFail($playid);
+        return view ('video.playlist', ['team'=>$team],['playlist'=>$playlist]);
     }
 
 
@@ -38,7 +49,8 @@ class VideoController extends Controller
             foreach ($request->file as $file){
 
                 $filename = $file->getClientOriginalName();
-                $file ->storeAs('videos',$filename);
+                
+                $file->move(public_path("/videos"),$filename);
                 $filem = new Video;
                 $filem->team_id = $team->id;
                 $filem->playlist_id = $playlist->id;

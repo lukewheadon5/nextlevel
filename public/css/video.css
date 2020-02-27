@@ -8,7 +8,7 @@ z-index: 4;
 width: 100%;
 flex-wrap: wrap;
 justify-content: left;
-background:rgb(128, 118, 118);
+background:rgb(31, 29, 29);
 border: none;
 border-radius: 5px;
 }
@@ -28,7 +28,7 @@ border-radius: 5px;
 }
 
 .buttons button:hover{
-    background: rgb(0,0,0);
+    background: rgb(83, 81, 81);
     border: none;
     
     border-radius: 2px;
@@ -197,5 +197,11 @@ input[type="range"] {
 ::-ms-tooltip { 
     display: none;
 }
+
+.highlight {
+    background-color: rgb(66, 66, 66);
+    color: white;
+  }
+
 
 

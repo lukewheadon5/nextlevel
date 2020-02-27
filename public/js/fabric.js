@@ -23,22 +23,27 @@ canvas.selection = false;
  var lineD = document.getElementById("lineDraw");
  var select = document.getElementById("selector");
  var bin = document.getElementById("deletor");
- var line = document.getElementById("circleDraw");
+ var circleD = document.getElementById("circleDraw");
 
 
  btn.addEventListener("click",function(){
-  btn.classList.toggle("fa-pause");
-  if(vid.paused){
-    vid.play();
-    if(allowDraw = true){
-      lineD.style.borderStyle = "none";
-      lineD.style.padding ="0px"
-      lineD.style.borderTopColor ="";
-    }
-    allowDraw = false;
+  if(vid.src == ""){
+
   }else{
-    vid.pause();
+    btn.classList.toggle("fa-pause");
+    if(vid.paused){
+      vid.play();
+      if(allowDraw = true){
+        lineD.style.borderStyle = "none";
+        lineD.style.padding ="0px"
+        lineD.style.borderTopColor ="";
+      }
+      allowDraw = false;
+    }else{
+      vid.pause();
+    }
   }
+  
  })
  
  //resizing listeners 
@@ -150,6 +155,19 @@ select.addEventListener('click', function(){
     lineD.style.padding ="2px"
     lineD.style.borderTopColor ="red";
 
+  });
+
+  circleD.addEventListener('click', function(){
+    vid.pause();
+    btn.classList = ("fa fa-play");
+    canvas.add(new fabric.Circle({ radius: 40, fill: 'rgba(0,0,0,0)', top: 100, left: 100, stroke:'red', strokeWidth:5}));
+    
+    canvas.selection = false;
+    canvas.forEachObject(function(o) {
+        o.selectable = false;
+      });
+    canvas.hoverCursor = 'default'
+    allowDraw = true;
   });
 
   bin.addEventListener('click', function(){

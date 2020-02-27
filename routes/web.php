@@ -25,6 +25,7 @@ Route::get('/myTeams' , 'TeamController@myTeams')->name('myTeams')->middleware('
 Route::get('/video/{id}' , 'VideoController@player')->name('player')->middleware('auth');
 Route::get('/video/{id}/create' , 'VideoController@create')->name('vidCreate')->middleware('auth');
 Route::post('/video/{id}/store' , 'VideoController@store')->name('vidStore')->middleware('auth');
+Route::get('/video/{teamid}/playlist/{playid}' , 'VideoController@playlist')->name('playlistVid')->middleware('auth');
 
 
 
