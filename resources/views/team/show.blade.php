@@ -2,8 +2,10 @@
 
 @section('content')
 <script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/tHighlight.js') }}" defer></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{{ asset('css/video2.css') }}" rel="stylesheet">
 <div class="container emp-profile">
-            <form method="post">
                 <div class="row">
                     
                     <div class="col-md-3 pl-5">
@@ -31,7 +33,7 @@
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Highlights</a>
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="highlight" aria-selected="false">Highlights</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="member" aria-selected="false">Members</a>
@@ -84,17 +86,51 @@
                                         </div>
                                         
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="highlight-tab">
+                                @foreach ($team->thighlights as $highlight)
+                                <div class="card" style="width:100%; height:100%; padding:5px; margin:10px; background-color:black"> 
+                                <h2 style="padding:2px;text-align:center; color:white;">{{$highlight->title}}</h2>
+                                <div class="containerP" id="playerH" style="position: relative; width:100%; height:100%;">
+                                <video class="vid" id="{{$highlight->id}}" style="
+                                    top: 0;
+                                    left: 0;
+                                    z-index: 1;
+                                    width:100%; 
+                                    height:90%;
+                                    border:5px solid black;
+                                    border-radius: 2px;
+
+                                    background: #000000;">
+                                <source src="{{asset('videos/'. $highlight->video->video)}}" type="video/mp4">
+                                </video>
+                                <div class="controls" >
+                                <div class="progress-bar">
+                                <input class="bar" id="prog-bar{{$highlight->id}}" type="range" min="0" max="100" value="0" step="1">
+                                </input>
+                                    <div class="progress-juice" id="prog-juice" >
+                                    </div>
+                                </div>
+                                <div class="buttons">
+                                    <button><i  id ="play{{$highlight->id}}" onClick="play(this.id)" class="fa fa-play" title="Play/Pause" style="font-size: 30px;"></i></button>
+                                </div>
+                                <div class="extraBtn">
+                                <button><i id ="fullscreen{{$highlight->id}}" class="fa fa-expand" title="FullScreen" style="font-size: 30px;"></i></button>
+                                </div>
+                                </div>
+
+                                </div>
+                                </div>
+                            @endforeach
+                            </div>         
                                 
-                            </div>
+                            
 
                             <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
 
                             <h2>Members:</h2>
-                            @foreach ($team->users as $team)
+                            @foreach ($team->users as $team1)
                             <div>
-                            <a href="{{ route('profile.show', $team->profile()->value('id')) }}">{{$team->name}}</a>
+                            <a href="{{ route('profile.show', $team1->profile()->value('id')) }}">{{$team1->name}}</a>
                             </div>
                             @endforeach
 
@@ -102,8 +138,13 @@
                         </div>
                     </div>
                 </div>
-            </form>           
+                  
         </div>
+
+
+<script>
+var high = <?php echo json_encode($team->thighlights); ?>;
+</script>
 
 
 

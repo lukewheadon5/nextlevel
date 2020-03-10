@@ -31,7 +31,7 @@
     <div class="pb-2">
     </div>
   <button type="submit" class="btn btn-outline-success">Submit</button>
-  <a href="{{ route('home') }}" class="btn btn-outline-danger">Cancel</a>
+  <a href="{{ route('player', $team->id) }}" class="btn btn-outline-danger">Cancel</a>
 </form>
 
 </div>

@@ -18,12 +18,16 @@ canvas.selection = false;
  var hasLoaded = false;
  var isDrawing = false;
  var allowDraw = false;
+ var isDrawLine = false;
+ var isDrawCircle = false;
  var vid = document.getElementById("video");
  var btn = document.getElementById("play-pause");
  var lineD = document.getElementById("lineDraw");
  var select = document.getElementById("selector");
  var bin = document.getElementById("deletor");
  var circleD = document.getElementById("circleDraw");
+ var ob;
+ var selectOn = false;
 
 
  btn.addEventListener("click",function(){
@@ -32,19 +36,39 @@ canvas.selection = false;
   }else{
     btn.classList.toggle("fa-pause");
     if(vid.paused){
+      clearCanvas();
       vid.play();
+      drawn = false;
+      found = false;
+      canvas.discardActiveObject();
+      canvas.renderAll();
+      canvas.selection = false;
+      canvas.forEachObject(function(o) {
+        o.selectable = false;
+      });
+    canvas.hoverCursor = 'default'
       if(allowDraw = true){
-        lineD.style.borderStyle = "none";
-        lineD.style.padding ="0px"
-        lineD.style.borderTopColor ="";
+        clearBtns();
       }
+      if(selectOn = true){
+        clearBtns();
+      }
+      selectOn = false;
       allowDraw = false;
     }else{
       vid.pause();
     }
   }
-  
  })
+
+ function clearBtns(){
+  lineD.style.borderStyle = "none";
+  lineD.style.padding ="0px"
+  lineD.style.borderTopColor ="";
+  select.style.borderStyle = "none";
+  select.style.padding ="0px"
+  select.style.borderTopColor ="";
+ }
  
  //resizing listeners 
  window.addEventListener("scroll",function(){
@@ -54,13 +78,11 @@ canvas.selection = false;
     canvas.setWidth(wrapperWidth);
     canvas.setHeight(wrapperHeight);
 
-    canvas.forEachObject(function(o) {
-       console.log(o);
-      });
    })
   
 
 window.addEventListener("resize", reportWindowSize);
+window.addEventListener("resize", resizeSaved);
 
 function reportWindowSize() {
   var oldX1;
@@ -79,34 +101,16 @@ function reportWindowSize() {
   var oldCHeight = canvas.getHeight();
   var wrapperWidth = player.offsetWidth;
   var wrapperHeight = player.offsetHeight;
+  console.log(wrapperWidth);
 
   canvas.forEachObject(function(o) {
-    oldX1 = o.x1;
-    oldX2 = o.x2;
-    oldY1 = o.y1;
-    oldY2 = o.y2;
-    oldWidth = o.width;
-    oldHeight = o.height;
     oldTop = o.top;
     oldLeft = o.left;
-
     topPer = (100 / (oldCHeight/oldTop));
     leftPer = (100 / (oldCWidth/oldLeft));
-    widthPer = (100 / (oldCWidth/oldWidth));
-    heightPer = (100 / (oldCHeight/oldHeight));
-    x1Per = (100/(oldCWidth/oldX1));
-    x2Per = (100/(oldCWidth/oldX2));
-    y1Per = (100/(oldCHeight/oldY1));
-    y2Per = (100/(oldCHeight/oldY2));
-
-    o.width = (wrapperWidth*widthPer) / 100;
-    o.height = (wrapperHeight*heightPer) / 100;
     o.left = (wrapperWidth*leftPer) / 100;
     o.top = (wrapperHeight*topPer) / 100; 
-    o.x1 = (wrapperWidth*x1Per) / 100;
-    o.x2 = (wrapperWidth*x2Per) / 100;
-    o.y1 = (wrapperHeight*y1Per) / 100;
-    o.y2 = (wrapperHeight*y2Per) / 100;
+    o.setCoords();
   });
   canvas.setWidth(wrapperWidth);
   canvas.setHeight(wrapperHeight);
@@ -115,19 +119,62 @@ function reportWindowSize() {
   canvas.renderAll();
   
   }
+
+  function resizeSaved(){
+    console.log("resize called" + anns);
+    console.log(anns.length);
+    var wrapperWidth = player.offsetWidth;
+    var wrapperHeight = player.offsetHeight;
+    for(var i = 0; i < anns.length; i++ ){
+      console.log("in loop");
+      var oldCWidth = anns[i].cWidth;
+      var oldCHeight = anns[i].cHeight;
+      oldWidth = anns[i].width;
+      oldHeight = anns[i].height;
+      oldTop = anns[i].top;
+      oldLeft = anns[i].left;
+      
+      topPer = (100 / (oldCHeight/oldTop));
+      leftPer = (100 / (oldCWidth/oldLeft));
+      widthPer = (100 / (oldCWidth/oldWidth));
+      heightPer = (100 / (oldCHeight/oldHeight));
   
+      anns[i].cWidth = wrapperWidth;
+      console.log("raw" + anns[i].cWidth);
+      console.log(wrapperWidth);
+      anns[i].cHeight = wrapperHeight;
+      anns[i].width = (wrapperWidth*widthPer) / 100;
+      anns[i].height = (wrapperHeight*heightPer) / 100;
+      anns[i].left = (wrapperWidth*leftPer) / 100;
+      anns[i].top = (wrapperHeight*topPer) / 100; 
+      
+    }
+     console.log(anns);  
+  }
+
+  
+
+
 
 
 
 //toolbar button listeners 
 
 select.addEventListener('click', function(){
+  if(vid.src == ""){
+
+  }else{
+    selectOn = true;
+    isDrawLine = false;
+    isDrawCircle = false;
+    if(!vid.paused){
     vid.pause();
-    btn.classList = ("fa fa-play");
+    btn.classList.toggle("fa-pause");
+    }
     canvas.forEachObject(function(o) {
         o.selectable = true;
       });
-    canvas.selection = true;
+    
     canvas.hoverCursor = 'move';
     allowDraw = false;
     select.style.borderStyle = "solid";
@@ -137,30 +184,57 @@ select.addEventListener('click', function(){
     lineD.style.padding ="0px"
     lineD.style.borderTopColor ="";
 
+  }
+  
+
   });
 
  lineD.addEventListener('click', function(){
+
+  if(vid.src == ""){
+
+  }else{
+    canvas.discardActiveObject();
+    canvas.renderAll();
+    if(!vid.paused){
     vid.pause();
-    btn.classList = ("fa fa-play");
+    btn.classList.toggle("fa-pause");
+    }
     canvas.selection = false;
     canvas.forEachObject(function(o) {
         o.selectable = false;
       });
     canvas.hoverCursor = 'default'
     allowDraw = true;
+    selectOn = false;
     select.style.borderStyle = "none";
     select.style.padding ="0px"
     select.style.borderTopColor ="";
     lineD.style.borderStyle = "solid";
     lineD.style.padding ="2px"
     lineD.style.borderTopColor ="red";
-
+  }
   });
 
-  circleD.addEventListener('click', function(){
+circleD.addEventListener('click', function(){
+  if(vid.src == ""){
+
+  }else{
+    if(allowDraw){
+    isDrawCircle = true;
     vid.pause();
-    btn.classList = ("fa fa-play");
-    canvas.add(new fabric.Circle({ radius: 40, fill: 'rgba(0,0,0,0)', top: 100, left: 100, stroke:'red', strokeWidth:5}));
+    checkBtn();
+      circle =new fabric.Circle(
+        { radius: 40, 
+          fill: 'rgba(0,0,0,0)', 
+          top: 200, 
+          left: 200, 
+          stroke:'red', 
+          strokeWidth:5
+        });
+    canvas.add(circle);
+    circle.setCoords();
+    makeAn(circle);
     
     canvas.selection = false;
     canvas.forEachObject(function(o) {
@@ -168,6 +242,8 @@ select.addEventListener('click', function(){
       });
     canvas.hoverCursor = 'default'
     allowDraw = true;
+    }
+  }
   });
 
   bin.addEventListener('click', function(){
@@ -176,16 +252,25 @@ select.addEventListener('click', function(){
     deleteObjects();
   });
 
+  canvas.on("object:moving", function(e) {
+    var actObj = e.target;
+    var coords = actObj.calcCoords(); 
+    // calcCoords returns an object of corner points like this 
+    //{bl:{x:val, y:val},tl:{x:val, y:val},br:{x:val, y:val},tr:{x:val, y:val}}
+    var left = coords.tl.x;
+    var top = coords.tl.y;
+    return {left:left,top:top};
+})
 
 
 //mouse listeners 
 
   canvas.on('mouse:down', function(o){
-    isDrawing = true;
-    var pointer = canvas.getPointer(o.e);
-    var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
-     
     if(allowDraw){
+      isDrawing = true;
+      var pointer = canvas.getPointer(o.e);
+      var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
+      isDrawLine = true;
       line = new fabric.Line(points, {
       strokeWidth: 5,
       fill: 'red',
@@ -194,8 +279,31 @@ select.addEventListener('click', function(){
       originY: 'center',
   
     });
+    line.toObject;
     canvas.add(line);}
   });
+
+
+  canvas.on('mouse:down',function(e){
+    if(selectOn){
+      ob = e.target;
+    }
+  })
+
+  canvas.on('mouse:up', function(e){
+    if(selectOn){
+      console.log(ob);
+      for(var i = 0; i<anns2.length; i++){
+        console.log(anns2[i]);
+        if((anns2[i].x1 == ob.x1.toFixed(2)) && (anns2[i].x2 == ob.x2.toFixed(2)) && (anns2[i].y1 == ob.y1.toFixed(2)) && (anns2[i].y2 == ob.y2.toFixed(2))){
+          console.log("matched if update");
+          console.log(ob.angle);
+        updateAn(anns2[i].id , ob.left, ob.top ,ob.scaleX ,ob.scaleY ,ob.angle);
+        break;
+        }
+      }
+    }
+  })
    
   canvas.on('mouse:move', function(o){
     if (!isDrawing) return;
@@ -208,9 +316,14 @@ select.addEventListener('click', function(){
   
   canvas.on('mouse:up', function(o){
     isDrawing = false;
-    line.setCoords();
-
+    if (isDrawLine){
+      line.setCoords();
+      canvas.renderAll();
+      makeAn(line);
+    }
   });
+
+
    
 
 //functions 
@@ -220,15 +333,96 @@ select.addEventListener('click', function(){
     if (activeObjects.length) {
          activeObjects.forEach(function (object) {
                 canvas.remove(object);
+                for(var i = 0; i < anns.length; i++){
+                  console.log("inLoop");
+                  console.log(vidIds[currentVid]);
+                  console.log(anns[i].video_id);
+                  if(vidIds[currentVid] == anns[i].video_id){
+                      var isMatch = false;
+                    if(object.x1.toFixed(2) == anns[i].x1){
+                      isMatch = true;
+                      console.log("check 1");
+                    }else{
+                      console.log("check failed");
+                      isMatch = false;
+                    }
+                    if(object.x2.toFixed(2) == anns[i].x2){
+                      isMatch = true;
+                      console.log("check 2");
+                    }else{
+                      console.log("check failed");
+                      isMatch = false;
+                    }
+                    if(object.y1.toFixed(2) == anns[i].y1){
+                      isMatch = true;
+                      console.log("check 3");
+                    }else{
+                      console.log("check failed");
+                      isMatch = false;
+                    }
+                    if(object.y2.toFixed(2) == anns[i].y2){
+                      isMatch = true;
+                      console.log("check 4");
+                    }else{
+                      console.log("check failed");
+                      isMatch = false;
+                    }
+
+                    if(isMatch){
+                      console.log("check complete");
+                      deletor(anns[i].id);
+                    }
+
+                  }
+                }
+
+
+
             });
-        
     }
     else {
         alert('Please select the drawing to delete')
     }
+
+    loadAn();
+    resizeSaved();
 }
-    
-    
+
+
+function clearCanvas(){
+  canvas.forEachObject(function(o) {
+    canvas.remove(o);
+  });
+
+}
+ 
+
+function circleAn(i){
+
+}
+  
+function lineAn(i){
+  var points = [anns[i].x1, anns[i].y1, anns[i].x2, anns[i].y2,]
+  line = new fabric.Line(points, {
+    left: anns[i].left,
+    top: anns[i].top,
+    scaleX: anns[i].scaleX,
+    scaleY: anns[i].scaleY,
+    height: anns[i].height,
+    width: anns[i].width,
+    angle: anns[i].angle,
+    strokeWidth: 5,
+    fill: 'red',
+    stroke: 'red',
+    originX: 'center',
+    originY: 'center',
+
+  });
+
+  canvas.add(line);
+  line.setCoords;
+  canvas.renderAll();
+}
 
 
 

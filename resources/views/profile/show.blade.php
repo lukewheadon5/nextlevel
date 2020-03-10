@@ -2,9 +2,13 @@
 
 @section('content')
 <script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/tHighlight.js') }}" defer></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{{ asset('css/video2.css') }}" rel="stylesheet">
+
 
 <div class="container emp-profile">
-            <form method="post">
+    
                 <div class="row">
                     
                     <div class="col-md-3 pl-5">
@@ -13,7 +17,7 @@
                             <img src="/images/blankPhoto.png" alt="Profile Picture" 
                            width="200px" height="200px" class="rounded-circle"/>
                         @else
-                            <img src="{{asset('images/'. $profile->image)}}" alt="Profile Picture" 
+                            <img src="{{asset('images/'. $user->profile->image)}}" alt="Profile Picture" 
                            width="200px" height="200px" class="rounded-circle"/>
 
                         
@@ -24,7 +28,7 @@
                     <div class="col-md-7 pt-3">
                         <div class="profile-head">
                                     <h5>
-                                       {{$profile->screen_name}}
+                                       {{$user->profile->screen_name}}
                                     </h5>
                                     <h6>
                                        Teams: 
@@ -46,7 +50,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                    <a href="{{ route('profile.edit', $profile->id) }}" class="profile-edit-btn" role="button">Edit Profile</a>
+                    <a href="{{ route('profile.edit', $user->profile->id) }}" class="profile-edit-btn" role="button">Edit Profile</a>
                     </div>
                 </div>
                 <div class="row">
@@ -64,7 +68,7 @@
                                                 <label>Email:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->user->email}}</p>
+                                                <p>{{$user->profile->user->email}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -72,7 +76,7 @@
                                                 <label>Gender:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->gender}}</p>
+                                                <p>{{$user->profile->gender}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -80,7 +84,7 @@
                                                 <label>Height:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->height}}cm</p>
+                                                <p>{{$user->profile->height}}cm</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -88,7 +92,7 @@
                                                 <label>Weight:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->weight}}kg</p>
+                                                <p>{{$user->profile->weight}}kg</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -96,28 +100,82 @@
                                                 <label>Phone</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->phone_num}}</p>
+                                                <p>{{$user->profile->phone_num}}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                     <div class="col-md-12">
                                         <label>Bio:</label><br/>
-                                        <p>{{$profile->bio}}</p>
+                                        <p>{{$user->profile->bio}}</p>
                                     </div>
                                 </div>
                                         
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        
-                                
+                            @foreach ($user->highlights as $highlight)
+                            <div class="card" style="width:100%; height:100%; padding:5px; margin:10px; background-color:black"> 
+                            <h2 style="padding:2px;text-align:center; color:white;">{{$highlight->title}}</h2>
+                            <button type="submit" class="btn btn-danger" onClick="del({{$highlight->id}})">Delete</button>
+                            <div class="containerP" id="playerH" style="position: relative; width:100%; height:100%;">
+                            <video class="vid" id="{{$highlight->id}}" style="
+                                top: 0;
+                                left: 0;
+                                z-index: 1;
+                                width:100%; 
+                                height:90%;
+                                border:5px solid black;
+                                border-radius: 2px;
+
+                                background: #000000;">
+                            <source src="{{asset('videos/'. $highlight->video->video)}}" type="video/mp4">
+                            </video>
+                            <div class="controls" >
+                            <div class="progress-bar">
+                            <input class="bar" id="prog-bar{{$highlight->id}}" type="range" min="0" max="100" value="0" step="1">
+                            </input>
+                                <div class="progress-juice" id="prog-juice" >
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <button><i  id ="play{{$highlight->id}}" onClick="play(this.id)" class="fa fa-play" title="Play/Pause" style="font-size: 30px;"></i></button>
+                            </div>
+                            <div class="extraBtn">
+                            <button><i id ="fullscreen{{$highlight->id}}" class="fa fa-expand" title="FullScreen" style="font-size: 30px;"></i></button>
+                            </div>
+                            </div>
+
+                            </div>
+                            </div>
+                            @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>           
+                    
         </div>
 
+<script>
+var high = <?php echo json_encode($user->highlights); ?>;
+var pro = <?php echo json_encode($user->profile->id); ?>;
+
+function del(id){
+  $.ajax({
+    type: 'POST', 
+        url: '/highlight/delete',
+        data: {"_token": "{{ csrf_token() }}", "id":id},
+        success: function (data) {
+            alert("Successfully deleted highlight")
+            window.location = '/profile/'+pro;
+        },
+        error:function(data){ 
+           console.log(data);
+           alert("Something went wrong.");
+        }
+        
+});
+}
+</script>
 
 
 @endsection

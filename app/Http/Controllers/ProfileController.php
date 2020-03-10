@@ -90,11 +90,12 @@ class ProfileController extends Controller
     public function show($id)
     {
         $profile = Profile::findOrFail($id);
-        $user = $profile->user;
+        $uid = $profile->user->id;
+        $user = User::findOrFail($uid);
         $teams = $user->teams;
 
         if(auth()->id() == $user->id){
-            return view('profile.show', ['profile'=>$profile], ['teams'=>$teams]);
+            return view('profile.show', ['user'=>$user], ['teams'=>$teams]);
 
         }
         else{

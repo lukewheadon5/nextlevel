@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="{{ asset('css/video.css') }}" rel="stylesheet">
+<script src="{{ asset('js/app.js') }}" defer></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
 </head>
@@ -32,6 +33,16 @@
 
 <div class="container" id="player" style="position: relative; width:800px; height:500px; ">
 
+<button><i id="highlight" class="fa fa-star"  onclick="goToH()" data-toggle="modal" data-target="#myModal" title="Highlight Video" aria-hidden="true" style="font-size: 30px;
+top:0;
+right:0;
+padding:5px;
+margin:10px;
+position:absolute;
+background: #000000;
+z-index: 10;
+color: white;"></i></button>
+
 <video id="video" style="position: absolute;
   top: 0;
   left: 0;
@@ -45,7 +56,6 @@
 </video>
 
 <div class="controls">
-
   <div class="progress-bar">
   <input id="prog-bar" type="range" min="0" max="100" value="0" step="1">
 </input>
@@ -98,6 +108,7 @@
 <div class="col-md-4 pt-3">
 
 <div style="padding:10px; float:right;">
+<button class="btn btn-secondary" onClick="share()" >Share Annotations</button>
 <a href="{{ route('vidCreate', $team->id) }}" class="btn btn-secondary" tabindex="-1" role="button" >Upload Film</a>
 </div>
 
@@ -139,9 +150,6 @@
   <tbody>
 </table>
 </div>
-
-
-
 </div>
 
 
@@ -149,7 +157,74 @@
 
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+
 var vidList = [];
+var vidIds = [];
+var anns = [];
+var anns2 = [];
+var team = <?php echo json_encode($team->id); ?>;
+
+
+function makeAn(o){
+  $.ajax({
+    type: 'POST',
+    url: '/annotation/save',
+    data: {"_token": "{{ csrf_token() }}", 
+            'team_id': team,
+            'video_id': vidIds[currentVid],
+            'vidTime': vid.currentTime,
+            'cWidth': canvas.getWidth(),
+            'cHeight': canvas.getHeight(),
+            'type': o.type ,
+            'version': o.version,
+            'originX': o.originX,
+            'originY': o.originY,
+            'left': o.left,
+            'top': o.top,
+            'width': o.width,
+            'height': o.height,
+            'fill': o.fill,
+            'stroke': o.stroke,
+            'strokeWidth': o.strokeWidth,
+            'strokeDashArray': o.strokeDashArray,
+            'strokeLineCap': o.strokeLineCap,
+            'strokeDashOffset': o.strokeDashOffset,
+            'strokeLineJoin': o.strokeLineJoin,
+            'strokeMiterLimit': o.strokeMiterLimit,
+            'scaleX': o.scaleX,
+            'scaleY': o.scaleY,
+            'angle': o.angle,
+            'flipX': o.flipX,
+            'flipY': o.flipY,
+            'opacity': o.opacity,
+            'shadow': o.shadow,
+            'visible': o.visible,
+            'clipTo': o.clipTo,
+            'backgroundColor': o.backgroundColor,
+            'fillRule': o.fillRule,
+            'paintFirst': o.paintFirst,
+            'globalCompositeOperation': o.globalCompositeOperation,
+            'trosformMatrix': o.trosformMatrix,
+            'skewX': o.skewX,
+            'skewY': o.skewY,
+            'x1': o.x1,
+            'x2': o.x2,
+            'y1': o.y1,
+            'y2': o.y2},
+    success: function (data) {
+              console.log("success");
+          },complete: function (data) {
+              loadAn();
+           },error:function(data){ 
+             console.log(data);
+             alert("Something went wrong.");
+          }
+  });
+}
+  
+  
+
+
 function getPlaylist(id){
   $.ajax({
         type: 'GET', 
@@ -161,7 +236,10 @@ function getPlaylist(id){
           vidList = [];
           for(var i = 0; i < data.length; i++){
                 var clip = data[i].video;
+                var cId = data[i].id;
                 vidList.push(clip);
+                vidIds[i] = cId;
+                
           }
           $('#clips tr').not(':first').remove();
           var html = '';
@@ -180,14 +258,128 @@ function getPlaylist(id){
           vid.src = "/videos/" + vidList[0];
           currentVid = 0;
           highlightRow(); 
-          play();
-        },
-          error:function(){ 
+          loadInit();
+          checkBtn();
+          
+        },complete: function(data){
+        },error:function(){ 
              console.log(error);
           }
   });
-
+ 
 }
+
+function loadInit(){
+  anns = [];
+  anns2 = [];
+  console.log("loadInit");
+  for(var i = 0; i < vidIds.length; i++){
+            $.ajax({
+               type: 'GET', 
+               url: '/api/video/playlist/'+vidIds[i]+'/videos/annotation',
+               dataType: 'json',
+               success: function (data) {
+                for(var x=0; x<data.length; x++){
+                  anns.push(data[x]);
+                  anns2.push(data[x]);
+                }
+              },complete: function(data){
+                resizeSaved();
+              },error:function(){ 
+                  console.log(data);
+                }
+            });
+  };
+}
+
+function loadAn(){
+  console.log("loadAn");
+  anns = [];
+  anns2 = [];
+  for(var i = 0; i < vidIds.length; i++){
+            $.ajax({
+               type: 'GET', 
+               url: '/api/video/playlist/'+vidIds[i]+'/videos/annotation',
+               dataType: 'json',
+               success: function (data) {
+                for(var x=0; x<data.length; x++){
+                  anns.push(data[x]);
+                  anns2.push(data[x]);
+                }
+              },complete: function(data){
+                resizeSaved();
+              },error:function(){ 
+                  console.log(data);
+                }
+            });
+  };
+}
+
+function updateAn(id, left, top, scaleX, scaleY, angle, ){
+  $.ajax({
+    type: 'POST', 
+        url: '/annotation/update',
+        data: {"_token": "{{ csrf_token() }}", "id":id,"left":left, 
+        "top":top,"scaleX":scaleX, "scaleY":scaleY, "angle":angle,
+        'cWidth': canvas.getWidth(),'cHeight': canvas.getHeight(),},
+        success: function (data) {
+        },complete: function (data) {
+            loadAn();
+        },error:function(data){ 
+           console.log(data);
+           alert("Something went wrong.");
+        }
+        
+});
+}
+
+function deletor(id){
+  $.ajax({
+    type: 'POST', 
+        url: '/annotation/delete',
+        data: {"_token": "{{ csrf_token() }}", "id":id},
+        success: function (data) {
+            alert("Successfully deleted annotation")
+        },complete: function (data) {
+                loadAn();
+        },error:function(data){ 
+           console.log(data);
+           alert("Something went wrong.");
+        }
+        
+});
+}
+
+function share(){
+  for(var i =0; i <anns.length; i++){
+    if(anns[i].video_id == vidIds[currentVid]){
+      $.ajax({
+        type: 'POST', 
+            url: '/annotation/share',
+            data: {"_token": "{{ csrf_token() }}", "id":anns[i].id},
+            success: function (data) {
+                alert("Successfully shared this videos annotations")
+            },complete: function (data) {
+                for(var i = 0; i < anns.length; i++){
+                  anns[i].share == "true"
+                }
+            },error:function(data){ 
+              console.log(data);
+              alert("Something went wrong.");
+            }
+            
+      });
+    }
+    
+  }
+}
+
+
+
+
+
+
+
 
 
 </script>

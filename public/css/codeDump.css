@@ -1,10 +1,44 @@
+for(var i = 0; i < anns.length; i++){
+  console.log("inLoop");
+  console.log(vidIds[currentVid]);
+  console.log(anns[i].video_id);
+  if(vidIds[currentVid] == anns[i].video_id){
+      var isMatch = false;
+    if(object.x1 == anns[i].x1){
+      isMatch = true;
+      console.log("check 1");
+    }else{
+      console.log("check failed");
+      isMatch = false;
+    }
+    if(object.x2 == anns[i].x2){
+      isMatch = true;
+      console.log("check 2");
+    }else{
+      console.log("check failed");
+      isMatch = false;
+    }
+    if(object.y1 == anns[i].y1){
+      isMatch = true;
+      console.log("check 3");
+    }else{
+      console.log("check failed");
+      isMatch = false;
+    }
+    if(object.y2 == anns[i].y2){
+      isMatch = true;
+      console.log("check 4");
+    }else{
+      console.log("check failed");
+      isMatch = false;
+    }
 
+    if(isMatch){
+      console.log("check complete");
+      deletor(anns[i].id);
+    }
 
-            
-    public function team(){
-      return $this->belongsTo('App\Team');
   }
+}
 
-  public function videos(){
-      return $this->hasMany('App\Video');
-  }
+  

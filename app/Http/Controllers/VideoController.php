@@ -13,6 +13,22 @@ class VideoController extends Controller
         return response()->json($playlist->videos()->get());
     }
 
+    public function highlight($id){
+        $video = Video::findOrFail($id);
+        $team = $video->team;
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->users()->where('user_id', auth()->id())->exists();
+        
+
+        if($exists == true){
+            return view('video.highlightAd' , ['video'=>$video]);
+        }
+        else{
+            return view('video.highlight' , ['video'=>$video]);
+        } 
+
+    }
+
 
     public function player($id){
         $team = Team::findOrFail($id);
@@ -34,7 +50,8 @@ class VideoController extends Controller
     public function store(Request $request, $id){
         $validatedData = $request->validate([
             'name'=>'required|max:250',
-            'file' => 'required',
+            'file.*' => 'required|file|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv',
+            
         ]);
 
         $team = Team::findOrFail($id);

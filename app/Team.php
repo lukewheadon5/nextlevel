@@ -29,4 +29,9 @@ class Team extends Model
     public function playlists(){
         return $this->hasMany('App\Playlist');
     }
+
+    public function thighlights()
+    {
+        return $this->hasMany('App\Thighlight');
+    }
 }

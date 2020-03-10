@@ -43,13 +43,18 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Position');
     }
 
+    public function Highlights()
+    {
+        return $this->hasMany('App\Highlight');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'api_token'
     ];
 
     /**

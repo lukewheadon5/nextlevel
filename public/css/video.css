@@ -13,6 +13,7 @@ border: none;
 border-radius: 5px;
 }
 
+
 .buttons button{
     background:none; 
     border: 0; 
@@ -58,7 +59,7 @@ border-radius: 5px;
 }
 
 .drawBtn button:hover{
-    background: rgb(0, 0, 0);
+    background: rgb(83, 81, 81);
     border: none;
     border-radius: 2px;
 }
@@ -87,7 +88,7 @@ border-radius: 5px;
 }
 
 .extraBtn button:hover{
-    background: rgb(0, 0, 0);
+    background: rgb(83, 81, 81);
     border: none;
     border-radius: 2px;
 }

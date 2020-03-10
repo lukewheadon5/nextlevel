@@ -26,6 +26,18 @@ Route::get('/video/{id}' , 'VideoController@player')->name('player')->middleware
 Route::get('/video/{id}/create' , 'VideoController@create')->name('vidCreate')->middleware('auth');
 Route::post('/video/{id}/store' , 'VideoController@store')->name('vidStore')->middleware('auth');
 Route::get('/video/{teamid}/playlist/{playid}' , 'VideoController@playlist')->name('playlistVid')->middleware('auth');
+Route::get('/highlight/{videoid}' , 'VideoController@highlight')->name('highlightVid')->middleware('auth');
+
+Route::post('/highlight/save', 'HighlightController@store');
+Route::post('/highlight/save/team', 'HighlightController@storeT');
+Route::post('highlight/delete', 'HighlightController@destroyH')->middleware('auth');
+Route::post('thighlight/delete', 'HighlightController@destroyTH')->middleware('auth');
+
+Route::post('annotation/save', 'AnnotationController@store')->middleware('auth');
+Route::post('annotation/delete', 'AnnotationController@destroy')->middleware('auth');
+Route::post('annotation/share', 'AnnotationController@share')->middleware('auth');
+Route::post('annotation/update', 'AnnotationController@update')->middleware('auth');
+
 
 
 

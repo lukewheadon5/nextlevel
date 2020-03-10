@@ -26,13 +26,11 @@
   <tbody>
 
  @foreach ($team as $team)
- <tr>
+<tr>
 <td>{{$team->name}}</td>
 <td>{{$team->sport->name}}</td>
 <td><a href="{{ route('team.show', $team->id) }}" class="btn btn-secondary" tabindex="-1" role="button" >View Team</a></td>
 </tr>
-</table>
-    
 @endforeach
-    
+</table>   
 @endsection

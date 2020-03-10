@@ -14,8 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/video/playlist/{playlist}/videos', 'VideoController@index');
+Route::get('/video/playlist/{video}/videos/annotation', 'AnnotationController@index');
 
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    
 });
