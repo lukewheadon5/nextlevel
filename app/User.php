@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Highlight');
     }
 
+    public function Annotations()
+    {
+        return $this->hasMany('App\Annotation');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

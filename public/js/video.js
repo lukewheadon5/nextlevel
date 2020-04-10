@@ -41,9 +41,13 @@ document.getElementById("next").addEventListener("click",function(){
   if(currentVid === vidList.length -1){
     currentVid = 0;
     vid.src = "/videos/"+vidList[currentVid];
+    btn.className = "fa fa-play";
+    loadAn();
   }else{
     currentVid = currentVid + 1;
     vid.src = "/videos/"+vidList[currentVid];
+    btn.className = "fa fa-play";
+    loadAn();
   }
   if(allowDraw = true){
     clearBtns();
@@ -55,8 +59,6 @@ document.getElementById("next").addEventListener("click",function(){
     canvas.selection = false;
   }
   highlightRow();
-  play();
-  checkBtn();
   clearCanvas();
   
 });
@@ -65,9 +67,13 @@ document.getElementById("previous").addEventListener("click",function(){
   if(currentVid === 0){
     currentVid = vidList.length -1;
     vid.src = "/videos/"+vidList[currentVid];
+    btn.className = "fa fa-play";
+    loadAn();
   }else{
     currentVid = currentVid - 1;
     vid.src = "/videos/"+vidList[currentVid];
+    btn.className = "fa fa-play";
+    loadAn();
   }
   if(allowDraw = true){
     clearBtns();
@@ -80,8 +86,6 @@ document.getElementById("previous").addEventListener("click",function(){
   }
 
   highlightRow();
-  play();
-  checkBtn();
   clearCanvas();
   
   
@@ -107,6 +111,7 @@ document.getElementById("replay").addEventListener("click",function(){
 document.getElementById("skipBack").addEventListener("click",function(){
     var newTime = vid.currentTime -10;
     vid.currentTime = newTime;
+    clearCanvas();
     if(allowDraw = true){
       clearBtns();
       allowDraw = false;
@@ -122,6 +127,7 @@ document.getElementById("skipBack").addEventListener("click",function(){
 document.getElementById("skipFor").addEventListener("click",function(){
     var newTime = vid.currentTime + 10;
     vid.currentTime = newTime;
+    clearCanvas();
     if(allowDraw = true){
       clearBtns();
       allowDraw = false;
@@ -189,7 +195,8 @@ vid.addEventListener("timeupdate", function(){
   if(!drawn){
     for(var i = 0; i < anns.length; i++){
       console.log("looped");
-      if((anns[i].video_id == vidIds[currentVid]) && ((vid.currentTime >= (anns[i].vidTime - 0.15)) && (vid.currentTime <= (anns[i].vidTime + 0.15)))){
+      console.log(anns[i].share == "true");
+      if(((anns[i].user_id == user.id)|| (anns[i].share == "true")) && ((vid.currentTime >= (anns[i].vidTime - 0.15)) && (vid.currentTime <= (anns[i].vidTime + 0.15)))){
         found = true;
         vid.pause();
         btn.classList.toggle("fa-pause"); 
@@ -200,17 +207,22 @@ vid.addEventListener("timeupdate", function(){
     if(found && !drawn){
         for(var x = 0; x < anns.length; x++){
           if(anns[x].video_id == vidIds[currentVid]){
-            if((vid.currentTime >= (anns[x].vidTime - 0.2)) && (vid.currentTime <= (anns[x].vidTime + 0.2))){
+            if(((anns[i].user_id == user.id)|| (anns[i].share == "true")) && (vid.currentTime >= (anns[x].vidTime - 0.2)) && (vid.currentTime <= (anns[x].vidTime + 0.2))){
               if(lastDrawn == anns[x].id){
                 }else{ 
                   if(anns[x].type == "circle"){
+                    lastDrawn = anns[x].id;
                     console.log("draw circ");
-                    lastDrawn = anns[x].id;
+                    circleAn(x);
                   }else if(anns[x].type == "line"){
-                    console.log("draw Line" + anns[x].vidTime);
                     lastDrawn = anns[x].id;
-                    console.log(lastDrawn);
                     lineAn(x);
+                  }else if(anns[x].type == "rect"){
+                    lastDrawn = anns[x].type.id;
+                    rectAn(x);
+                  }else if(anns[x].type == "arrow"){
+                    lastDrawn = anns[x].type.id;
+                    arrowAn(x);
                   }
                 }  
             }
@@ -229,16 +241,16 @@ function pickVid(id){
     if(vidList[i] === id){
         vid.src = "/videos/"+ vidList[i]
         currentVid = i;
-        btn.classList.toggle("fa-pause"); 
-        vid.play();
         lastDrawn = null;
         drawn = false;
         found = false;
-        checkBtn();
+        loadAn();
         clearCanvas();
     }
   }
   highlightRow();
+  vid.pause();
+  btn.className = "fa fa-play";
 }
 
 function play(){

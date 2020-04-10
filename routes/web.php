@@ -34,9 +34,15 @@ Route::post('highlight/delete', 'HighlightController@destroyH')->middleware('aut
 Route::post('thighlight/delete', 'HighlightController@destroyTH')->middleware('auth');
 
 Route::post('annotation/save', 'AnnotationController@store')->middleware('auth');
+Route::post('annotation/save/circle', 'AnnotationController@storeCirc')->middleware('auth');
+Route::post('annotation/save/rect', 'AnnotationController@storeRect')->middleware('auth');
+Route::post('annotation/save/arrow', 'AnnotationController@storeArrow')->middleware('auth');
+Route::post('annotation/save/text', 'AnnotationController@storeText')->middleware('auth');
 Route::post('annotation/delete', 'AnnotationController@destroy')->middleware('auth');
 Route::post('annotation/share', 'AnnotationController@share')->middleware('auth');
 Route::post('annotation/update', 'AnnotationController@update')->middleware('auth');
+Route::post('annotation/update/arrow', 'AnnotationController@updateArrow')->middleware('auth');
+Route::post('annotation/update/text', 'AnnotationController@updateText')->middleware('auth');
 
 
 

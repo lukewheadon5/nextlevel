@@ -1,0 +1,70 @@
+.dropbtn {
+    background-color: rgb(31, 29, 29);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+  }
+  
+  .dropup {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropup-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(31, 29, 29);
+    color: white;
+    bottom: 50px;
+    z-index: 1;
+    text-align: center;
+  }
+  
+  .dropup-content a {
+    color: white;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropup-content a:hover {background-color: rgb(31, 29, 29)}
+  
+  .dropup:hover .dropup-content {
+    display: block;
+    background-color: rgb(31, 29, 29);
+  }
+  
+  .dropup:hover .dropbtn {
+    background-color: rgb(83, 81, 81);
+  }
+ 
+
+  button{
+    background:none; 
+    border: 0; 
+    outline: 0; 
+    cursor: pointer;
+    color: #fff;
+    
+}
+
+.dropup-content {
+    padding: 10px;
+    margin: auto;
+}
+
+.dropup-content button:hover{
+    background: rgb(83, 81, 81);
+    border: none;
+    
+    border-radius: 2px;
+}
+
+
+.dropup-content button:before{
+    width:30px;
+    height:30px;
+    display:inline-block;
+    font-size: 28px;
+    color: #fff;
+}

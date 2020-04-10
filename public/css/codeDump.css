@@ -1,44 +1,32 @@
-for(var i = 0; i < anns.length; i++){
-  console.log("inLoop");
-  console.log(vidIds[currentVid]);
-  console.log(anns[i].video_id);
-  if(vidIds[currentVid] == anns[i].video_id){
-      var isMatch = false;
-    if(object.x1 == anns[i].x1){
-      isMatch = true;
-      console.log("check 1");
-    }else{
-      console.log("check failed");
-      isMatch = false;
-    }
-    if(object.x2 == anns[i].x2){
-      isMatch = true;
-      console.log("check 2");
-    }else{
-      console.log("check failed");
-      isMatch = false;
-    }
-    if(object.y1 == anns[i].y1){
-      isMatch = true;
-      console.log("check 3");
-    }else{
-      console.log("check failed");
-      isMatch = false;
-    }
-    if(object.y2 == anns[i].y2){
-      isMatch = true;
-      console.log("check 4");
-    }else{
-      console.log("check failed");
-      isMatch = false;
-    }
 
-    if(isMatch){
-      console.log("check complete");
-      deletor(anns[i].id);
-    }
+    public function updateArrow(Request $request){
+      $id = $request->id;
+      $cWidth = $request->cWidth;
+      $cHeight = $request->cHeight;
+      $left = $request->left;
+      $top = $request->top;
+      $scaleX = $request->scaleX;
+      $scaleY = $request->scaleY;
+      $angle = $request->angle;
+      $x0 = $request->x0;
+      $x1 = $request->x1;
+      $y0 = $request->y0;
+      $y1 = $request->y1;
+      $annotation = Annotation::findOrFail($id);
+      $annotation->cWidth = $cWidth;
+      $annotation->cHeight = $cHeight;
+      $annotation->left = $left;
+      $annotation->top = $top;
+      $annotation->x0 = $x0
+      $annotation->x1 = $x1
+      $annotation->y0 = $y0
+      $annotation->y1 = $y1
+      $annotation->scaleX = $scaleX;
+      $annotation->scaleY = $scaleY;
+      $annotation->angle = $angle;
+      $annotation->save();
 
   }
-}
 
+  Route::post('annotation/update/arrow', 'AnnotationController@updateArrow')->middleware('auth');
   
