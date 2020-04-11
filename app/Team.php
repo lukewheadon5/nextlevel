@@ -34,4 +34,14 @@ class Team extends Model
     {
         return $this->hasMany('App\Thighlight');
     }
+
+    public function seasons()
+    {
+        return $this->hasMany('App\Season');
+    }
+
+    public function games()
+    {
+        return $this->hasMany('App\Game');
+    }
 }

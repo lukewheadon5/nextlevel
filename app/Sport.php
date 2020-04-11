@@ -23,4 +23,14 @@ class Sport extends Model
         return $this->hasMany('App\Position');
 
     }
+
+    public function seasons()
+    {
+        return $this->hasMany('App\Season');
+    }
+
+    public function games()
+    {
+        return $this->hasMany('App\Game');
+    }
 }

@@ -53,6 +53,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Annotation');
     }
 
+    public function usergames()
+    {
+        return $this->hasMany('App\Usergame');
+    }
+
+    public function userseasons()
+    {
+        return $this->hasMany('App\Userseason');
+    }
+
+    
+
     /**
      * The attributes that are mass assignable.
      *
