@@ -53,7 +53,12 @@
                 <div class="row">
                     <div class="col-md-4 pt-2">
                         <div class="profile-work">
-                            <p>Stats</p>
+                        <h4>
+                            <u>Statistics</u>
+                        </h4>
+                            @foreach($user->userseasons as $uss)
+                            <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}} Stats</a>
+                            @endforeach
                             
                         </div>
                     </div>
