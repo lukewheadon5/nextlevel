@@ -352,17 +352,15 @@ circleD.addEventListener('click', function(){
     var end = canvas._objects[canvas._objects.length-1];
     if(end.name == "triangle"){
       var endline = canvas._objects[canvas._objects.length-2];
-      canvas.remove(end);
-      arrowDelete(endline);
-      canvas.remove(endline);
+     
+      arrowDelete(endline, end);
+      
     }else{
       for(var i = canvas._objects.length-1; i >= 0; i--){
         if(canvas._objects[i].name == "triangle"){
           end = canvas._objects[i]
           var endline = canvas._objects[i-1];
-          canvas.remove(end);
-          arrowDelete(endline);
-          canvas.remove(endline);
+          arrowDelete(endline, end);
           break;
         }
       }
@@ -372,7 +370,7 @@ circleD.addEventListener('click', function(){
   };
 
 
-  function arrowDelete(endline){
+  function arrowDelete(endline, end){
     var isMatch1 = false;
     var isMatch2 = false;
     var isMatch3 = false;
@@ -408,8 +406,12 @@ circleD.addEventListener('click', function(){
     }
   
   if(isMatch1 && isMatch2 && isMatch3 && isMatch4){
-  console.log("check complete");
-  deletor(anns[i].id);
+    if(anns[i].user_id == user.id){
+      canvas.remove(end);
+      canvas.remove(endline);
+      console.log("check complete");
+      deletor(anns[i].id);
+    }
   }
 }
 
@@ -482,7 +484,9 @@ circleD.addEventListener('click', function(){
      if(ob.radius){
         for(var i = 0; i<anns2.length; i++){
             if((vid.currentTime >= (anns[i].vidTime - 0.15)) && (vid.currentTime <= (anns[i].vidTime + 0.15)) && (anns[i].top.toFixed(2) == ot.toFixed(2)) && (anns[i].left.toFixed(2) == ol.toFixed(2))){
-              updateCirAn(anns[i].id , ob.left, ob.top ,ob.scaleX ,ob.scaleY ,ob.angle);
+              if(anns2[i].user_id == user.id){
+                updateCirAn(anns[i].id , ob.left, ob.top ,ob.scaleX ,ob.scaleY ,ob.angle);
+              }
               ot = ob.top;
               ol = ob.left;
               break;
@@ -491,7 +495,9 @@ circleD.addEventListener('click', function(){
      }else if(ob.name == "rectangle"){
       for(var i = 0; i<anns2.length; i++){
         if((vid.currentTime >= (anns[i].vidTime - 0.15)) && (vid.currentTime <= (anns[i].vidTime + 0.15)) && (anns[i].top.toFixed(2) == ot.toFixed(2)) && (anns[i].left.toFixed(2) == ol.toFixed(2))){
-          updateAn(anns[i].id , ob.left, ob.top ,ob.scaleX ,ob.scaleY ,ob.angle);
+          if(anns2[i].user_id == user.id){
+            updateAn(anns[i].id , ob.left, ob.top ,ob.scaleX ,ob.scaleY ,ob.angle);
+          }
           ot = ob.top;
           ol = ob.left;
           break;
@@ -500,24 +506,10 @@ circleD.addEventListener('click', function(){
      }else if(ob.name == "line"){
         for(var i = 0; i<anns2.length; i++){
           if((anns2[i].x1 == ob.x1.toFixed(2)) && (anns2[i].x2 == ob.x2.toFixed(2)) && (anns2[i].y1 == ob.y1.toFixed(2)) && (anns2[i].y2 == ob.y2.toFixed(2))){
-          updateAn(anns2[i].id , ob.left, ob.top ,ob.scaleX ,ob.scaleY ,ob.angle);
-          break;
-          }
-        }
-      }else{
-        for(var i = 0; i<anns2.length; i++){
-          if((anns2[i].x1 == ob._objects[0].x1.toFixed(2)) && (anns2[i].x2 == ob._objects[0].x2.toFixed(2)) && (anns2[i].y1 == ob._objects[0].y1.toFixed(2)) && (anns2[i].y2 == ob._objects[0].y2.toFixed(2))){
-          var aTop = ob._objects[0].calcTransformMatrix()[5];
-          var aLeft = ob._objects[0].calcTransformMatrix()[4];
-          var xdif =  aLeft - anns2[i].left;
-          var ydif =  aTop - anns2[i].top;
-          var x1 = anns2[i].x1 + xdif;
-          var x2 = anns2[i].x2 + xdif;
-          var y1 = anns2[i].y1 + ydif;
-          var y2 = anns2[i].y2 + ydif;
-         
-          updateAnArrow(anns2[i].id , aLeft, aTop , anns2[i].scaleX ,anns2[i].scaleY ,anns2[i].angle, x1, x2, y1, y2);
-          break;
+            if(anns2[i].user_id == user.id){
+              updateAn(anns2[i].id , ob.left, ob.top ,ob.scaleX ,ob.scaleY ,ob.angle);
+            }
+            break;
           }
         }
       } 
@@ -540,7 +532,8 @@ circleD.addEventListener('click', function(){
       points = [line.x1 , line.y1, line.x2, line.y2]
       line.type = "arrow";
       makeArrowAn(line);
-      createArrowHead(points);
+      var colour = "yellow";
+      createArrowHead(points, colour);
       canvas.renderAll();
       line.selectable = false;
     }
@@ -664,7 +657,9 @@ circleD.addEventListener('click', function(){
                   }
                   if(isMatch1 && isMatch2 && isMatch3 && isMatch4){
                     console.log("check complete");
-                    deletor(anns[i].id);
+                    if((anns[i].user_id == user.id)){
+                      deletor(anns[i].id);
+                    }
                   }
                 }
 
@@ -751,6 +746,39 @@ function lineAn(i){
   canvas.renderAll();
 }
 
+function rectAn(i){
+  if(anns[i].user_id == user.id){
+    var colour = "yellow";
+  }
+  if((anns[i].user_id != user.id) && anns[i].share == "true"){
+    colour = "red"; 
+  }
+  rect = new fabric.Rect(
+    { 
+      fill: 'rgba(0,0,0,0)',
+      top: anns[i].top, 
+      left: anns[i].left, 
+      stroke: colour, 
+      strokeWidth:5,
+      scaleX: anns[i].scaleX,
+      scaleY: anns[i].scaleY,
+      height: anns[i].height,
+      width: anns[i].width,
+    });
+  rect.toObject = (function(toObject){
+    return function(){
+      return fabric.util.object.extend(toObject.call(this),{
+        name: this.name
+      })
+    }
+  })(rect.toObject);
+
+    console.log(rect);
+canvas.add(rect);
+rect.name = "rectangle";
+canvas.renderAll();
+}
+
 function arrowAn(i){
   if(anns[i].user_id == user.id){
     var colour = "yellow";
@@ -786,64 +814,14 @@ function arrowAn(i){
   
   canvas.add(line);
   line.name = "arrow";
-  createArrowHead(points);
+  
+  createArrowHead(points, colour);
+ 
 
 }
 
-function rectAn(i){
-  if(anns[i].user_id == user.id){
-    var colour = "yellow";
-  }
-  if((anns[i].user_id != user.id) && anns[i].share == "true"){
-    colour = "red"; 
-  }
-  rect = new fabric.Rect(
-    { 
-      fill: 'rgba(0,0,0,0)',
-      top: anns[i].top, 
-      left: anns[i].left, 
-      stroke: colour, 
-      strokeWidth:5,
-      scaleX: anns[i].scaleX,
-      scaleY: anns[i].scaleY,
-      height: anns[i].height,
-      width: anns[i].width,
-    });
-  rect.toObject = (function(toObject){
-    return function(){
-      return fabric.util.object.extend(toObject.call(this),{
-        name: this.name
-      })
-    }
-  })(rect.toObject);
 
-    console.log(rect);
-canvas.add(rect);
-rect.name = "rectangle";
-canvas.renderAll();
-}
-
-function textAn(i){
-  if(anns[i].user_id == user.id){
-    var colour = "yellow";
-  }
-  if((anns[i].user_id != user.id) && anns[i].share == "true"){
-    colour = "red"; 
-  }
-  tb =new fabric.Textbox(anns[i].text,
-  {
-    top: anns[i].top, 
-    left: anns[i].left, 
-    width: anns[i].width,
-    fontSize: 20,
-  });
-canvas.add(tb);
-canvas.renderAll();
-}
-
-
-
-function createArrowHead(points) {
+function createArrowHead(points, colour) {
   var headLength = 15,
 
       x1 = points[0],
@@ -861,7 +839,7 @@ function createArrowHead(points) {
 
   var triangle = new fabric.Triangle({
     angle: angle,
-    fill: 'yellow',
+    fill: colour,
     top: y2,
     left: x2,
     height: headLength,

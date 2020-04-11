@@ -25,6 +25,8 @@
   Video</a></li>
   <li style="float:left"><a href="#stats" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Membership</a></li>
 </ul>
 
 <div class="container-fluid">
@@ -93,7 +95,7 @@ color: white;"></i></button>
 
   <div class="drawBtn">
   <button><i id ="deletor" class="fa fa-trash" title="Delete Selected" style="font-size: 30px;"></i></button>
-  <button><i id ="undo" title="undo arrow" style="font-size: 30px;">Undo</i></button>
+  <button><i id ="undo" title="undo arrow" style="font-size: 22px;">undo</i></button>
   </div>
 
   <div class="extraBtn">

@@ -32,7 +32,15 @@ class VideoController extends Controller
 
     public function player($id){
         $team = Team::findOrFail($id);
-        return view('video.player',['team'=>$team]);
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+
+        if($exists == true || $exists2 == true){
+            return view('video.player', ['team'=>$team]);
+        }
+        else{
+            return view('video.playerUser', ['team'=>$team]);
+        } 
     }
 
     public function playlist($teamid , $playid){

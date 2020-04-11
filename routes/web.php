@@ -28,6 +28,9 @@ Route::post('/video/{id}/store' , 'VideoController@store')->name('vidStore')->mi
 Route::get('/video/{teamid}/playlist/{playid}' , 'VideoController@playlist')->name('playlistVid')->middleware('auth');
 Route::get('/highlight/{videoid}' , 'VideoController@highlight')->name('highlightVid')->middleware('auth');
 
+Route::get('/team/{id}/members' , 'TeamController@members')->name('members')->middleware('auth');
+Route::get('/coach/{tid}/{uid}' , 'TeamController@addCoach')->name('coach')->middleware('auth');
+
 Route::post('/highlight/save', 'HighlightController@store');
 Route::post('/highlight/save/team', 'HighlightController@storeT');
 Route::post('highlight/delete', 'HighlightController@destroyH')->middleware('auth');

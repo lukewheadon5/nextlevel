@@ -8,6 +8,7 @@ use App\Profile;
 use App\Team;
 use App\User;
 use App\Admin;
+use App\Coach;
 use Image;
 
 class TeamController extends Controller
@@ -93,8 +94,9 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
         $exists = $team->admins()->where('user_id', auth()->id())->exists();
         $exists2 = $team->users()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->coaches()->where('user_id', auth()->id())->exists();
 
-        if($exists == true){
+        if($exists == true || $exists3 == true){
             return view('team.showAd', ['team'=>$team]);
         }
         elseif($exists2 == true){
@@ -206,5 +208,21 @@ class TeamController extends Controller
         
         return view('team.userTeams', ['user'=>$user],['teams'=>$teams]);
         
+    }
+
+
+    public function members($id){
+        $team = Team::findOrFail($id);
+        return view('team.members', ['team'=>$team]);
+    }
+
+    public function addCoach($tid, $uid){
+        $team = Team::findOrFail($tid);
+        $coach = new Coach;
+        $coach->user_id = $uid;
+        $coach->team_id = $tid;
+        $coach->save();
+
+        return view('team.members', ['team'=>$team]);
     }
 }

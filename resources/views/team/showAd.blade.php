@@ -22,6 +22,8 @@
   Video</a></li>
   <li style="float:left"><a href="#stats" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Membership</a></li>
 </ul>
 <div class="container emp-profile">
                 <div class="row">
