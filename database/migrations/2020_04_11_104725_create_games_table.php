@@ -19,7 +19,23 @@ class CreateGamesTable extends Migration
             $table->bigInteger('season_id')->unsigned();
             $table->bigInteger('sport_id')->unsigned();
             $table->string('opponent');
+            $table->string('passingTD');
+            $table->string('passingYards');
+            $table->string('RushingTD');
+            $table->string('RushingYards');
+            $table->string('Receptions');
+            $table->string('Carries');
+            $table->string('ReceivingYards');
+            $table->string('allowedPassTD');
+            $table->string('allowedPassYards');
+            $table->string('allowedRunTD');
+            $table->string('allowedRunYards');
+            $table->string('tacklesFL');
             $table->string('tackles');
+            $table->string('sacks');
+            $table->string('interceptions');
+            $table->string('pick6');
+            $table->string('penalties');
             $table->timestamps();
 
             $table->foreign('team_id')->references('id')->on('teams')

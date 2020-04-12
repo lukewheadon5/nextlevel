@@ -50,7 +50,8 @@ Route::post('annotation/update/text', 'AnnotationController@updateText')->middle
 Route::get('/statistics/team/{id}' , 'StatisticController@statScreen')->name('stats')->middleware('auth');
 Route::get('/statistic/team/{tid}/season/{sid}' , 'StatisticController@showSeason')->middleware('auth');
 Route::get('/statistic/team/{tid}/game/{gid}' , 'StatisticController@showGame')->middleware('auth');
-Route::get('/statistic/team/{tid}/career/{uid}' , 'StatisticController@playerCareer')->middleware('auth');
+Route::get('/statistic/team/{tid}/user/{uid}' , 'StatisticController@playerCareer')->middleware('auth');
+Route::get('/statistic/career/{cid}/user/{uid}' , 'StatisticController@playerCareer2')->middleware('auth');
 Route::get('/statistic/season/{sid}/user/{uid}' , 'StatisticController@playerSeason')->middleware('auth');
 Route::get('/statistic/game/{gid}/user/{uid}' , 'StatisticController@playerGame')->middleware('auth');
 
@@ -58,4 +59,9 @@ Route::get('/statistic/{id}/season/create' , 'StatisticController@createSeason')
 Route::get('/statistic/{id}/game/create' , 'StatisticController@createGame')->name('createG')->middleware('auth');
 Route::post('/season/save' , 'StatisticController@storeSeason');
 Route::post('/game/save' , 'StatisticController@storeGame');
+
+Route::get('/statistic/team/{tid}/game/{gid}/update' , 'StatisticController@updateview')->middleware('auth');
+Route::post('/game/player/update' , 'StatisticController@updatePGame');
+Route::post('/game/offence/update' , 'StatisticController@updateOGame');
+Route::post('/game/defence/update' , 'StatisticController@updateDGame');
 

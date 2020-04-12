@@ -9,6 +9,7 @@ use App\Team;
 use App\User;
 use App\Admin;
 use App\Coach;
+use App\Usercareer;
 use Image;
 
 class TeamController extends Controller
@@ -194,6 +195,23 @@ class TeamController extends Controller
         $exists = $team->users()->where('user_id', auth()->id())->exists();
         if($exists == false){
             auth()->user()->teams()->attach($team);
+            $usercareer = new Usercareer;
+            $usercareer->user_id = auth()->id();
+            $usercareer->team_id = $team->id;
+            $usercareer->passingTD = "0";
+            $usercareer->passingYards = "0";
+            $usercareer->rushingTD = "0";
+            $usercareer->rushingYards = "0";
+            $usercareer->receptions = "0";
+            $usercareer->carries = "0";
+            $usercareer->ReceivingYards = "0";
+            $usercareer->tacklesFL = "0";
+            $usercareer->tackles = "0";
+            $usercareer->sacks = "0";
+            $usercareer->interceptions = "0";
+            $usercareer->pick6 = "0";
+            $usercareer->penalties = "0";
+            $usercareer->save();
             return view('team.showMem', ['team'=>$team]);
         }else{
             return view('team.show', ['team'=>$team])->with('danger','You are already a member');

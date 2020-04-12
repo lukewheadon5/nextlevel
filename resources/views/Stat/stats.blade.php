@@ -27,23 +27,23 @@
 </ul>
 
 <div class="container-fluid">
-	<div class="row">
+	<div class="row pt-2">
 		<div class="col-md-12">
 			<h3 class="text-center">
 				<u>Statistics Hub</u>
 			</h3>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row pt-1">
 		<div class="col-md-4">
 			<h3>
-				Seasons
+				Seasons <a href="/statistic/{{$team->id}}/season/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Season</a>
 			</h3>
 
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Season</th>
+                <th scope="col">Season</th> 
                 <th></th>
                 </tr>
                 </thead>
@@ -58,12 +58,40 @@
 
 		</div>
 		<div class="col-md-4">
-        <a href="/statistic/{{$team->id}}/season/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Season</a>
-        <a href="/statistic/{{$team->id}}/game/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Game</a>
+        <h3 class="text-center">
+        @if(empty($team->image ))
+                <img src="/images/sportsballs.png" alt="Team Logo" 
+                width="200px" height="200px" class="rounded-circle"/>
+            @else
+                <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+                width="200px" height="200px" class="rounded-circle"/>         
+            @endif
+        </h3>
+        <h3>
+        Player Careers
+        </h3>
+        <table class="table pt-2">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">Name</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach ($team->usercareers as $usercareer)
+        @if($usercareer->user->admins()->where('team_id' , $team->id)->exists())
+        @else
+            <tr>
+            <td>{{$usercareer->user->name}}</td>
+            <td><a href="/statistic/career/{{$usercareer->id}}/user/{{$usercareer->user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View Player</a></td>
+            </tr>
+        @endif
+        @endforeach
+    </table>
 		</div>
 		<div class="col-md-4">
 			<h3>
-				Games
+				Games  <a href="/statistic/{{$team->id}}/game/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Game</a>
 			</h3>
             <table class="table">
         <thead class="thead-dark">
@@ -85,30 +113,7 @@
 
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h3>
-				Players
-			</h3>
-
-            <table class="table">
-        <thead class="thead-dark">
-            <tr>
-            <th scope="col">Name</th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach ($team->users as $user)
-            <tr>
-            <td>{{$user->name}}</td>
-            <td><a href="/statistic/team/{{$team->id}}/career/{{$user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View Player</a></td>
-            </tr>
-        @endforeach
-    </table>
-
-		</div>
-	</div>
+	
 </div>
 
 

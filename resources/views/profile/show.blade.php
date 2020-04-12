@@ -13,13 +13,13 @@
                     
                     <div class="col-md-3 pl-5">
                         <div class="profile-img">
-                        @if(empty($profile->image ))
+
+                        @if(empty($user->profile->image ))
                             <img src="/images/blankPhoto.png" alt="Profile Picture" 
-                           width="200px" height="200px" class="rounded-circle"/>
+                           width="200px" height="200px" class="rounded-circle"/> 
                         @else
                             <img src="{{asset('images/'. $user->profile->image)}}" alt="Profile Picture" 
-                           width="200px" height="200px" class="rounded-circle"/>
-
+                           width="200px" height="200px" class="rounded-circle"/> 
                         
                         @endif
                             
@@ -57,7 +57,13 @@
                     <div class="col-md-4 pt-2">
                         <div class="profile-work">
                         <h4>
-                            <u>Statistics</u>
+                            <u>Career Statistics</u>
+                        </h4>
+                            @foreach($user->usercareers as $usc)
+                            <a href="/statistic/career/{{$usc->id}}/user/{{$user->id}}">{{$usc->user->name}}'s {{$usc->team->name}} Stats</a>
+                            @endforeach
+                        <h4>
+                            <u>Season Statistics</u>
                         </h4>
                             @foreach($user->userseasons as $uss)
                             <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}} Stats</a>

@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Userseason');
     }
 
+    public function usercareers()
+    {
+        return $this->hasMany('App\Usercareer');
+    }
+
     
 
     /**

@@ -15,4 +15,9 @@ class Userseason extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function usercareer()
+    {
+        return $this->belongsTo('App\Usercareer');
+    }
 }

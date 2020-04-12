@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeasonsTable extends Migration
+class CreateUsercareersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateSeasonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seasons', function (Blueprint $table) {
+        Schema::create('usercareers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('team_id')->unsigned();
-            $table->bigInteger('sport_id')->unsigned();
-            $table->string('year');
             $table->string('passingTD');
             $table->string('passingYards');
             $table->string('RushingTD');
@@ -25,10 +24,6 @@ class CreateSeasonsTable extends Migration
             $table->string('Receptions');
             $table->string('Carries');
             $table->string('ReceivingYards');
-            $table->string('allowedPassTD');
-            $table->string('allowedPassYards');
-            $table->string('allowedRunTD');
-            $table->string('allowedRunYards');
             $table->string('tacklesFL');
             $table->string('tackles');
             $table->string('sacks');
@@ -37,12 +32,14 @@ class CreateSeasonsTable extends Migration
             $table->string('penalties');
             $table->timestamps();
 
-            $table->foreign('team_id')->references('id')->on('teams')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('sport_id')->references('id')->on('sports')
+            $table->foreign('team_id')->references('id')->on('teams')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
+
+
     }
 
     /**
@@ -52,6 +49,6 @@ class CreateSeasonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seasons');
+        Schema::dropIfExists('usercareers');
     }
 }

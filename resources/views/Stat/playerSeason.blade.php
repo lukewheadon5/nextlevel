@@ -30,38 +30,45 @@
 
 	<div class="row pt-2">
 		<div class="col-md-12">
-			<h3>
+			<h3 class="text-center">
 				<u>{{$userseason->user->name}}'s {{$userseason->season->year}} Statistics</u>
 			</h3>
-            <img src="/images/blankPhoto.png" alt="Profile Picture" 
-          width="200px" height="200px" class="rounded-circle"/>
+      <h3  class="text-center">
+      @if(empty($userseason->user->profile->image ))
+          <img src="/images/blankPhoto.png" alt="Profile Picture" 
+        width="200px" height="200px" class="rounded-circle"/> 
+     @else
+          <img src="{{asset('images/'. $userseason->user->profile->image)}}" alt="Profile Picture" 
+        width="200px" height="200px" class="rounded-circle"/> 
+     @endif
+      <h3>
 		</div>
 	</div>
 	<div class="row pt-1">
 		<div class="col-md-12">
-        <h4>
+    <h4>
 				Defensive Statistics 
 		</h4>
         <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Allowed Passing TD's</th>
-                <th scope="col">Allowed Rushing TD's</th>
-                <th scope="col">Allowed Passing Yards</th>
-                <th scope="col">Allowed Rushing Yards</th>
                 <th scope="col">Tackles</th>
+                <th scope="col">Tackles For Loss</th>
+                <th scope="col">Sacks</th>
                 <th scope="col">Interceptions</th>
+                <th scope="col">Pick 6</th>
+                <th scope="col">Penalties</th>
                 </tr>
                 </thead>
         <tbody>
        
             <tr>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
             <td>{{$userseason->tackles}}</td>
-            <td>result</td>
+            <td>{{$userseason->tacklesFL}}</td>
+            <td>{{$userseason->sacks}}</td>
+            <td>{{$userseason->interceptions}}</td>
+            <td>{{$userseason->pick6}}</td>
+            <td>{{$userseason->penalties}}</td>
             </tr>
        
     </table> 
@@ -79,21 +86,23 @@
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Passing TD's</th>
-                <th scope="col">Rushing TD's</th>
                 <th scope="col">Passing Yards</th>
+                <th scope="col">Rushing TD's</th>
                 <th scope="col">Rushing Yards</th>
-                <th scope="col">Receptions</th>
                 <th scope="col">Carries</th>
+                <th scope="col">Receptions</th>
+                <th scope="col">Receiving Yards</th>
                 </tr>
                 </thead>
         <tbody>
             <tr>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
+            <td>{{$userseason->passingTD}}</td>
+            <td>{{$userseason->passingYards}}</td>
+            <td>{{$userseason->RushingTD}}</td>
+            <td>{{$userseason->RushingYards}}</td>
+            <td>{{$userseason->Carries}}</td>
+            <td>{{$userseason->Receptions}}</td>
+            <td>{{$userseason->ReceivingYards}}</td>
             </tr>
     </table> 
 
