@@ -60,6 +60,9 @@ class StatisticController extends Controller
         $team = Team::findOrFail($request->id);
         $userseason = $game->season->userseasons->where('season_id' , $game->season->id)->first();
         foreach($team->users as $user){
+            if($user->admins()->where('team_id' , $team->id)->exists()){
+
+            }else{
             
             $usergame = new Usergame;
             $usergame->game_id = $game->id;
@@ -79,6 +82,7 @@ class StatisticController extends Controller
             $usergame->pick6 = "0";
             $usergame->penalties = "0";
             $usergame->save();
+            }
         }
     }
 
@@ -115,6 +119,9 @@ class StatisticController extends Controller
 
         $team = Team::findOrFail($request->id);
         foreach($team->users as $user){
+            if($user->admins()->where('team_id' , $team->id)->exists()){
+
+            }else{
 
             $usercareer = $team->usercareers()->where('user_id' , $user->id)->first(); 
     
@@ -136,6 +143,7 @@ class StatisticController extends Controller
             $userseason->pick6 = "0";
             $userseason->penalties = "0";
             $userseason->save();
+            }
         }
 
     }
@@ -329,6 +337,20 @@ class StatisticController extends Controller
         $season->increment("interceptions", $request->int);
         $season->increment("pick6", $request->pic);
         $season->increment("penalties", $request->pen);
+
+    }
+
+
+    public function get_by_season($sid){
+        $season = Season::findOrFail($sid);
+            $html = '';
+            $games = Game::where('season_id', $sid)->get();
+            foreach ($games as $game) {
+                $html .= '<option value="'.$game->id.'">Vs '.$game->opponent.'</option>';
+            }
+
+    
+        return response()->json(['html' => $html]);
 
     }
 

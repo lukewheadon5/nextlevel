@@ -27,5 +27,12 @@ class Game extends Model
         return $this->hasMany('App\Usergame');
     }
 
+    public function playlists()
+    {
+        return $this->hasMany('App\Playlist');
+    }
+
+    
+
 
 }

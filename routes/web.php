@@ -64,4 +64,4 @@ Route::get('/statistic/team/{tid}/game/{gid}/update' , 'StatisticController@upda
 Route::post('/game/player/update' , 'StatisticController@updatePGame');
 Route::post('/game/offence/update' , 'StatisticController@updateOGame');
 Route::post('/game/defence/update' , 'StatisticController@updateDGame');
-
+Route::get('/statistic/games/get/{sid}' , 'StatisticController@get_by_season');

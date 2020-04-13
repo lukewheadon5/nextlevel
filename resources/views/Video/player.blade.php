@@ -129,10 +129,32 @@ color: white;"></i></button>
 </div>
 <div class="col-md-4 pt-3">
 
+<div>
+<table class="table table-striped table-bordered table-sm" cellspacing="0"
+  width="100%">
+  <thead class="thead-dark" >
+    <tr>
+      <th scope="col">PlayList:</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+@foreach ($team->playlists as $play)
+<tr>
+<td>{{$play->name}}</td>
+<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select Playlist</button></td>
+</tr>
+@endforeach
+</table>
+</div>
+
+
 <div style="padding:10px; float:right;">
 <button class="btn btn-secondary" onClick="share()" >Share Annotations</button>
 <a href="{{ route('vidCreate', $team->id) }}" class="btn btn-secondary" tabindex="-1" role="button" >Upload Film</a>
 </div>
+
 
 
 <div>

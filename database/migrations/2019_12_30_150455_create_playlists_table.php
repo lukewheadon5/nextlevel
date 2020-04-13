@@ -16,11 +16,22 @@ class CreatePlaylistsTable extends Migration
         Schema::create('playlists', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('team_id')->unsigned();
+            $table->bigInteger('game_id')->unsigned();
+            $table->bigInteger('season_id')->unsigned();
+            $table->string('isTraining');
             $table->string('name');
             $table->timestamps();
 
             $table->foreign('team_id')->references('id')->
             on('teams')->onDelete('cascade')->
+            onUpdate('cascade');
+
+            $table->foreign('season_id')->references('id')->
+            on('seasons')->onDelete('cascade')->
+            onUpdate('cascade');
+
+            $table->foreign('game_id')->references('id')->
+            on('games')->onDelete('cascade')->
             onUpdate('cascade');
         });
     }

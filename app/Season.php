@@ -24,6 +24,11 @@ class Season extends Model
         return $this->hasMany('App\Userseason');
     }
 
+    public function playlists()
+    {
+        return $this->hasMany('App\Playlist');
+    }
+
 
 
 }

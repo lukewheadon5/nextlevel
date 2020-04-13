@@ -58,6 +58,9 @@ class VideoController extends Controller
     public function store(Request $request, $id){
         $validatedData = $request->validate([
             'name'=>'required|max:250',
+            'season'=>'required',
+            'game'=>'required',
+            'training'=>'required',
             'file.*' => 'required|file|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv',
             
         ]);
@@ -67,6 +70,9 @@ class VideoController extends Controller
         $playlist = new Playlist;
         $playlist->team_id = $team->id;
         $playlist->name = $request->name;
+        $playlist->season_id = $request->season;
+        $playlist->game_id = $request->game;
+        $playlist->isTraining = $request->training;
         $playlist->save();
 
 
