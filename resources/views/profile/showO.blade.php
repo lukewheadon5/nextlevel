@@ -54,20 +54,20 @@
                     <div class="col-md-4 pt-2">
                         <div class="profile-work">
                         <h4>
-                            <h4>
                             <u>Career Statistics</u>
-                        </h4>
-                            @foreach($user->usercareers as $usc)
-                            <a href="/statistic/career/{{$usc->id}}/user/{{$user->id}}">{{$usc->user->name}}'s {{$usc->team->name}} Stats</a>
-                            @endforeach
-                        <h4>
-                            <u>Season Statistics</u>
-                        </h4>
-                            @foreach($user->userseasons as $uss)
-                            <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}} Stats</a>
-                            @endforeach
-                    
-                            
+                         </h4>
+                                    @foreach($user->usercareers as $usc)
+                                        <a href="/statistic/career/{{$usc->id}}/user/{{$user->id}}">{{$usc->team->name}}</a>
+                                    @endforeach
+
+                                    <h4 class="pt-3">
+                                        <u>Season Statistics</u>
+                                    </h4>
+                                    @foreach($user->userseasons as $uss)
+                                        <div>
+                                        <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}}</a>
+                                        </div>
+                                    @endforeach
                         </div>
                     </div>
                     <div class="col-md-8">

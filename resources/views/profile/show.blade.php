@@ -56,18 +56,22 @@
                 <div class="row">
                     <div class="col-md-4 pt-2">
                         <div class="profile-work">
-                        <h4>
-                            <u>Career Statistics</u>
-                        </h4>
-                            @foreach($user->usercareers as $usc)
-                            <a href="/statistic/career/{{$usc->id}}/user/{{$user->id}}">{{$usc->user->name}}'s {{$usc->team->name}} Stats</a>
-                            @endforeach
-                        <h4>
-                            <u>Season Statistics</u>
-                        </h4>
-                            @foreach($user->userseasons as $uss)
-                            <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}} Stats</a>
-                            @endforeach
+                                    <h4>
+                                        <u>Career Statistics</u>
+                                    </h4>
+                                    @foreach($user->usercareers as $usc)
+                                        <a href="/statistic/career/{{$usc->id}}/user/{{$user->id}}">{{$usc->team->name}}</a>
+                                    @endforeach
+
+                                    <h4 class="pt-3">
+                                        <u>Season Statistics</u>
+                                    </h4>
+                                    @foreach($user->userseasons as $uss)
+                                        <div>
+                                        <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}}</a>
+                                        </div>
+                                    @endforeach
+                        
                             
                         </div>
                     </div>
@@ -123,7 +127,11 @@
                                 </div>
                                         
                             </div>
+                            
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            
+                            <div class="col-md-10">
+
                             @foreach ($user->highlights as $highlight)
                             <div class="card" style="width:100%; height:100%; padding:5px; margin:10px; background-color:black"> 
                             <h2 style="padding:2px;text-align:center; color:white;">{{$highlight->title}}</h2>

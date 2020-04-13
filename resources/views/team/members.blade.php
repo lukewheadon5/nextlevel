@@ -25,31 +25,67 @@
   <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Membership</a></li>
 </ul>
-<div class="container emp-profile">
-                <div class="row">
-                    <div class="col-md-3 pl-5">
-<h2>Members:</h2>
-@foreach ($team->users as $team1)
-<div>
-<a href="{{ route('profile.show', $team1->profile()->value('id')) }}">{{$team1->name}}</a> 
-<a href="/coach/{{$team->id}}/{{$team1->id}}" class="btn btn-secondary" tabindex="-1" role="button" >Add Coach</a>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+    <h1 class="text-center">
+    <u>{{$team->name}} Members</u>
+    </h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+    Club Admin = <a href="{{ route('profile.show', '$team->admins->first()->user->profile->id') }}">{{$team->admins->first()->user->name}}</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+    <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                <th scope="col">Player</th>
+                <th scope="col"></th>
+                </tr>
+                </thead>
+        <tbody>
+          @foreach($team->users as $user)
+          @if($team->admins()->where('user_id' , $user->id)->exists())
+
+          @else
+          @if($team->coaches()->where('user_id' , $user->id)->exists())
+
+          @else
+            <tr>
+            <td>{{$user->name}}</td>
+            <td>
+            <a href="/coach/{{$team->id}}/{{$user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >Add Coach</a>
+            </td>
+            </tr>
+          @endif
+          @endif
+          @endforeach
+    </table> 
+		</div>
+		<div class="col-md-6">
+    <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                <th scope="col">Coaches</th>
+                </tr>
+                </thead>
+    <tbody>
+    @foreach ($team->coaches as $coach)
+            <tr>
+            <td>{{$coach->user->name}}</td>
+            </tr>
+    @endforeach
+    </table>
+		</div>
+	</div>
 </div>
-@endforeach
-<h2>admins:</h2>
-@foreach ($team->admins as $admin)
-<div>
-<a href="{{ route('profile.show', $admin->user->profile()->value('id')) }}">{{$admin->user->name}}</a>
-</div>
-@endforeach
-<h2>coaches:</h2>
-@foreach ($team->coaches as $coach)
-<div>
-<a href="{{ route('profile.show', $coach->user->profile()->value('id')) }}">{{$coach->user->name}}</a>
-</div>
-@endforeach
-</div>
-</div>
-</div>
+
+
 
 
 

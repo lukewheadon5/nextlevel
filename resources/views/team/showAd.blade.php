@@ -152,11 +152,64 @@
                             <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
 
                             <h2>Members:</h2>
-                            @foreach ($team->users as $team1)
-                            <div>
-                            <a href="{{ route('profile.show', $team1->profile()->value('id')) }}">{{$team1->name}}</a>
-                            </div>
+                            <table class="table table-striped table-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                            <th scope="col">Players</th>
+                            <th scope="col"></th>
+                            </tr>
+                            </thead>
+                                <tbody>
+                                @foreach($team->users as $user)
+                                @if($team->admins()->where('user_id' , $user->id)->exists())
+
+                                @else
+                                @if($team->coaches()->where('user_id' , $user->id)->exists())
+
+                                @else
+                                    <tr>
+                                    <td class="text-center">{{$user->name}}</td>
+                                    <td>
+                                    @if(empty($user->profile->image ))
+                                        <img src="/images/blankPhoto.png" alt="Profile Picture" 
+                                    width="40px" height="40px" class="rounded-circle"/> 
+                                     @else
+                                        <img src="{{asset('images/'. $user->profile->image)}}" alt="Profile Picture" 
+                                    width="40px" height="40px" class="rounded-circle"/> 
+                        
+                                     @endif
+                                    </td>
+                                    </tr>
+                                @endif
+                                @endif
+                                @endforeach
+                            </table> 
+
+                            <table class="table table-striped table-sm pt-2">
+                            <thead class="thead-dark">
+                            <tr>
+                            <th scope="col">Coaches</th>
+                            <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($team->coaches as $coach)
+                                    <tr>
+                                    <td class="text-center">{{$coach->user->name}}</td>
+                                    <td class="text-left">
+                                    @if(empty($coach->user->profile->image ))
+                                        <img src="/images/blankPhoto.png" alt="Profile Picture" 
+                                    width="40px" height="40px" class="rounded-circle"/> 
+                                     @else
+                                        <img src="{{asset('images/'. $user->profile->image)}}" alt="Profile Picture" 
+                                    width="40px" height="40px" class="rounded-circle"/> 
+                        
+                                     @endif
+
+                                    </td>
+                                    </tr>
                             @endforeach
+                            </table>
 
                             </div>
                         </div>
