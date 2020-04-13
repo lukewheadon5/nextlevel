@@ -17,7 +17,7 @@ class CreateUserseasonsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('season_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('career_id')->unsigned();
+            $table->bigInteger('usercareer_id')->unsigned();
             $table->string('passingTD');
             $table->string('passingYards');
             $table->string('RushingTD');
@@ -36,7 +36,7 @@ class CreateUserseasonsTable extends Migration
             $table->foreign('season_id')->references('id')->on('seasons')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('career_id')->references('id')->on('usercareers')
+            $table->foreign('usercareer_id')->references('id')->on('usercareers')
                 ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('user_id')->references('id')->on('users')

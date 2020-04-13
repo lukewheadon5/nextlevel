@@ -22,6 +22,8 @@
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Membership</a></li>
 </ul>
 
 <div class="container-fluid">
@@ -35,7 +37,7 @@
 	<div class="row pt-1">
 		<div class="col-md-4">
 			<h3>
-				Seasons
+				Seasons <a href="/statistic/{{$team->id}}/season/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Season</a>
 			</h3>
 
             <table class="table">
@@ -89,7 +91,7 @@
 		</div>
 		<div class="col-md-4">
 			<h3>
-				Games 
+				Games  <a href="/statistic/{{$team->id}}/game/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Game</a>
 			</h3>
             <table class="table">
         <thead class="thead-dark">
@@ -116,14 +118,3 @@
 
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-

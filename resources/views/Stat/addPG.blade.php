@@ -28,76 +28,58 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12">
-			<h3 class="text-center">
-				<u>{{$team->name}} Vs {{$game->opponent}}</u>
-                <h3 class="text-center">
-                <u>{{$game->season->year}}</u>
-                </h3>
-			</h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h4>
-				Offence Statistics 
-			</h4>
 
-            <table class="table">
+        <div class="col-md-4">
+            <h2 class="text-left pl-1 pt-1">
+            <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}" class="btn btn-secondary" tabindex="-1" role="button" >Back</a>
+            </h2>
+        </div>
+		<div class="col-md-4">
+			<h2 class="text-center">
+            <u>Players</u>
+            </h2>
+        </div>
+        <div class="col-md-4">
+		</div>
+    </div>
+
+    <div class="row">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+        <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Passing TD's</th>
-                <th scope="col">Rushing TD's</th>
-                <th scope="col">Passing Yards</th>
-                <th scope="col">Rushing Yards</th>
-                <th scope="col">Receptions</th>
-                <th scope="col">Carries</th>
+                <th scope="col">Player Name:</th>
+                <th></th>
                 </tr>
                 </thead>
         <tbody>
+        @foreach ($game->team->users as $user)
+        @if($user->admins()->where('team_id' , $team->id)->exists())
+
+        @else
+        @if($user->usergames()->where('game_id',$game->id)->exists())
+        
+        @else
             <tr>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
+            <td>{{$user->name}}</td>
+            <td>
+            <a href="/statistic/add/{{$team->id}}/game/{{$game->id}}/user/{{$user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >Add Player</a>
+            </td>
             </tr>
+        @endif
+        @endif
+        @endforeach
     </table> 
+
 
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h4>
-				Defence Statistics
-			</h4>
-
-            <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                <th scope="col">Allowed Passing TD's</th>
-                <th scope="col">Allowed Rushing TD's</th>
-                <th scope="col">Allowed Passing Yards</th>
-                <th scope="col">Allowed Rushing Yards</th>
-                <th scope="col">Tackles</th>
-                <th scope="col">Interceptions</th>
-                </tr>
-                </thead>
-        <tbody>
-
-            <tr>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>result</td>
-            <td>{{$game->tackles}}</td>
-            <td>result</td>
-            </tr>
-    </table> 
-
+		<div class="col-md-4">
 		</div>
 	</div>
 
+
+</div>
 
 @endsection

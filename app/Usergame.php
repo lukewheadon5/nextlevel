@@ -15,4 +15,9 @@ class Usergame extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function userseason()
+    {
+        return $this->belongsTo('App\Userseason');
+    }
 }

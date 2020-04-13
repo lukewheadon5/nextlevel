@@ -26,7 +26,7 @@
                     <div class="col-md-7 pt-3">
                         <div class="profile-head">
                                     <h5>
-                                       {{$profile->screen_name}}
+                                       {{$user->profile->screen_name}}
                                     </h5>
                                     <h6>
                                        Teams: 
@@ -66,11 +66,7 @@
                             @foreach($user->userseasons as $uss)
                             <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}} Stats</a>
                             @endforeach
-                            
-                        </h4>
-                            @foreach($user->userseasons as $uss)
-                            <a href="/statistic/season/{{$uss->id}}/user/{{$user->id}}">{{$uss->season->year}} {{$uss->season->team->name}} Stats</a>
-                            @endforeach
+                    
                             
                         </div>
                     </div>
@@ -82,7 +78,7 @@
                                                 <label>Email:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->user->email}}</p>
+                                                <p>{{$user->profile->user->email}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -90,7 +86,7 @@
                                                 <label>Gender:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->gender}}</p>
+                                                <p>{{$user->profile->gender}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -98,7 +94,7 @@
                                                 <label>Height:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->height}}cm</p>
+                                                <p>{{$user->profile->height}}cm</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -106,7 +102,7 @@
                                                 <label>Weight:</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->weight}}kg</p>
+                                                <p>{{$user->profile->weight}}kg</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -114,20 +110,20 @@
                                                 <label>Phone</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{$profile->phone_num}}</p>
+                                                <p>{{$user->profile->phone_num}}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                     <div class="col-md-12">
                                         <label>Bio:</label><br/>
-                                        <p>{{$profile->bio}}</p>
+                                        <p>{{$user->profile->bio}}</p>
                                     </div>
                                 </div>
                                         
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            @foreach ($profile->user->highlights as $highlight)
+                            @foreach ($user->highlights as $highlight)
                             <div class="card" style="width:100%; height:100%; padding:5px; margin:10px; background-color:black"> 
                             <h2 style="padding:2px;text-align:center; color:white;">{{$highlight->title}}</h2>
                             <div class="containerP" id="playerH" style="position: relative; width:100%; height:100%;">
@@ -169,7 +165,7 @@
         </div>
 
 <script>
-var high = <?php echo json_encode($profile->user->highlights); ?>;
+var high = <?php echo json_encode($user->highlights); ?>;
 </script>
 
 @endsection

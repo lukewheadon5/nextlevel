@@ -20,4 +20,9 @@ class Userseason extends Model
     {
         return $this->belongsTo('App\Usercareer');
     }
+
+    public function usergames()
+    {
+        return $this->hasMany('App\Usergame');
+    }
 }

@@ -17,7 +17,7 @@ class CreateUsergamesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('game_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('us_id')->unsigned();
+            $table->bigInteger('userseason_id')->unsigned();
             $table->string('passingTD');
             $table->string('passingYards');
             $table->string('RushingTD');
@@ -39,7 +39,7 @@ class CreateUsergamesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('us_id')->references('id')->on('userseasons')
+            $table->foreign('userseason_id')->references('id')->on('userseasons')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

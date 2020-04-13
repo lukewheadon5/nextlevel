@@ -54,6 +54,14 @@ Route::get('/statistic/team/{tid}/user/{uid}' , 'StatisticController@playerCaree
 Route::get('/statistic/career/{cid}/user/{uid}' , 'StatisticController@playerCareer2')->middleware('auth');
 Route::get('/statistic/season/{sid}/user/{uid}' , 'StatisticController@playerSeason')->middleware('auth');
 Route::get('/statistic/game/{gid}/user/{uid}' , 'StatisticController@playerGame')->middleware('auth');
+Route::get('/statistic/team/{gid}/game/{uid}/training' , 'StatisticController@showTrain')->middleware('auth');
+
+
+Route::get('/statistic/add/{tid}/game/{gid}' ,'StatisticController@addPG')->middleware('auth');
+Route::get('/statistic/add/{tid}/season/{sid}' ,'StatisticController@addPS')->middleware('auth');
+
+Route::get('/statistic/add/{tid}/game/{gid}/user/{uid}' ,'StatisticController@addPGU')->middleware('auth');
+Route::get('/statistic/add/{tid}/season/{gid}/user/{uid}' ,'StatisticController@addPSU')->middleware('auth');
 
 Route::get('/statistic/{id}/season/create' , 'StatisticController@createSeason')->name('createS')->middleware('auth');
 Route::get('/statistic/{id}/game/create' , 'StatisticController@createGame')->name('createG')->middleware('auth');
@@ -65,3 +73,4 @@ Route::post('/game/player/update' , 'StatisticController@updatePGame');
 Route::post('/game/offence/update' , 'StatisticController@updateOGame');
 Route::post('/game/defence/update' , 'StatisticController@updateDGame');
 Route::get('/statistic/games/get/{sid}' , 'StatisticController@get_by_season');
+Route::post('/increment/stat', 'StatisticController@incStat');

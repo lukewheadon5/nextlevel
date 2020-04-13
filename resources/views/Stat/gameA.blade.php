@@ -22,54 +22,24 @@
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Membership</a></li>
 </ul>
-
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<h3 class="text-center">
-				<u>{{$season->year}} Season Statistics</u>
+				<u>{{$team->name}} Vs {{$game->opponent}}</u>
+                <h3 class="text-center">
+                <u><a href="/statistic/team/{{$team->id}}/season/{{$game->season->id}}">{{$game->season->year}}</a></u>
+                </h3>
+                <h3 class="text-right">
+                <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}/training" class="btn btn-secondary pr-2" tabindex="-1" role="button" >View Training</a>
+                <a href="/statistic/add/{{$team->id}}/game/{{$game->id}}" class="btn btn-secondary pr-2" tabindex="-1" role="button" >Add players</a>
+                <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}/update" class="btn btn-secondary" tabindex="-1" role="button" >Update Stats</a>
+                </h3>
 			</h3>
-            
-		</div>
-	</div>
-    <div class="row">
-		<div class="col-md-4"> 
-		</div>
-		<div class="col-md-4 pt-1">
-        <h3 class="text-center">
-        @if(empty($team->image ))
-                <img src="/images/sportsballs.png" alt="Team Logo" 
-                width="200px" height="200px" class="rounded-circle"/>
-            @else
-                <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
-                width="200px" height="200px" class="rounded-circle"/>         
-            @endif
-        </h3>
-		</div>
-		<div class="col-md-4">	
-            <h3>
-				Games
-			</h3>
-            <table class="table">
-        <thead class="thead-dark">
-            <tr>
-            <th scope="col">Game</th>
-            <th scope="col">Season</th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach ($season->games as $game)
-            <tr>
-            <td>Vs {{$game->opponent}}</td>
-            <td>{{$game->season->year}}</td>
-            <td><a href="/statistic/team/{{$team->id}}/game/{{$game->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View Game</a></td>
-            </tr>
-        @endforeach
-    </table>
-
 		</div>
 	</div>
 	<div class="row">
@@ -92,13 +62,13 @@
                 </thead>
         <tbody>
             <tr>
-            <td>{{$season->passingTD}}</td>
-            <td>{{$season->passingYards}}</td>
-            <td>{{$season->RushingTD}}</td>
-            <td>{{$season->RushingYards}}</td>
-            <td>{{$season->Carries}}</td>
-            <td>{{$season->Receptions}}</td>
-            <td>{{$season->ReceivingYards}}</td>
+            <td>{{$game->passingTD}}</td>
+            <td>{{$game->passingYards}}</td>
+            <td>{{$game->RushingTD}}</td>
+            <td>{{$game->RushingYards}}</td>
+            <td>{{$game->Carries}}</td>
+            <td>{{$game->Receptions}}</td>
+            <td>{{$game->ReceivingYards}}</td>
             </tr>
     </table> 
 
@@ -128,16 +98,16 @@
         <tbody>
        
             <tr>
-            <td>{{$season->allowedPassTD}}</td>
-            <td>{{$season->allowedPassYards}}</td>
-            <td>{{$season->allowedRunTD}}</td>
-            <td>{{$season->allowedRunYards}}</td>
-            <td>{{$season->tackles}}</td>
-            <td>{{$season->tacklesFL}}</td>
-            <td>{{$season->sacks}}</td>
-            <td>{{$season->interceptions}}</td>
-            <td>{{$season->pick6}}</td>
-            <td>{{$season->penalties}}</td>
+            <td>{{$game->allowedPassTD}}</td>
+            <td>{{$game->allowedPassYards}}</td>
+            <td>{{$game->allowedRunTD}}</td>
+            <td>{{$game->allowedRunYards}}</td>
+            <td>{{$game->tackles}}</td>
+            <td>{{$game->tacklesFL}}</td>
+            <td>{{$game->sacks}}</td>
+            <td>{{$game->interceptions}}</td>
+            <td>{{$game->pick6}}</td>
+            <td>{{$game->penalties}}</td>
             </tr>
        
     </table> 
@@ -166,10 +136,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->passingYards}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->passingYards}}</td>
             </tr>
         @endforeach
     </table> 
@@ -188,10 +158,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->passingTD}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->passingTD}}</td>
             </tr>
         @endforeach
     </table> 
@@ -210,10 +180,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->RushingYards}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->RushingYards}}</td>
             </tr>
         @endforeach
     </table> 
@@ -234,10 +204,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->RushingTD}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->RushingTD}}</td>
             </tr>
         @endforeach
     </table> 
@@ -256,10 +226,10 @@
                 </tr>
                 </thead>
             <tbody>
-            @foreach ($season->userseasons as $usses)
+            @foreach ($game->usergames as $usg)
                 <tr>
-                <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-                <td>{{$usses->Carries}}</td>
+                <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+                <td>{{$usg->Carries}}</td>
                 </tr>
             @endforeach
             </table> 
@@ -278,10 +248,10 @@
                 </tr>
                 </thead>
                 <tbody>
-            @foreach ($season->userseasons as $usses)
+            @foreach ($game->usergames as $usg)
                 <tr>
-                <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-                <td>{{$usses->Receptions}}</td>
+                <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+                <td>{{$usg->Receptions}}</td>
                 </tr>
             @endforeach
             </table> 
@@ -304,10 +274,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->ReceivingYards}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->ReceivingYards}}</td>
             </tr>
         @endforeach
         </table>
@@ -337,10 +307,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->tackles}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->tackles}}</td>
             </tr>
         @endforeach
     </table> 
@@ -359,10 +329,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->tacklesFL}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->tacklesFL}}</td>
             </tr>
         @endforeach
 
@@ -382,10 +352,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->sacks}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->sacks}}</td>
             </tr>
         @endforeach
     </table> 
@@ -406,10 +376,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->interceptions}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->interceptions}}</td>
             </tr>
         @endforeach
     </table> 
@@ -429,10 +399,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->pick6}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->pick6}}</td>
             </tr>
         @endforeach
     </table> 
@@ -451,10 +421,10 @@
                 </tr>
                 </thead>
         <tbody>
-        @foreach ($season->userseasons as $usses)
+        @foreach ($game->usergames as $usg)
             <tr>
-            <td><a href="/statistic/season/{{$usses->id}}/user/{{$usses->user_id}}">{{$usses->user->name}}</a></td>
-            <td>{{$usses->penalties}}</td>
+            <td><a href="/statistic/game/{{$usg->id}}/user/{{$usg->user_id}}">{{$usg->user->name}}</a></td>
+            <td>{{$usg->penalties}}</td>
             </tr>
         @endforeach
     </table> 

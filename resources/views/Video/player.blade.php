@@ -23,7 +23,7 @@
   News</a></li>
   <li style="float:left"><a href="{{route('player' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
-  <li style="float:left"><a href="#stats" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
   <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Membership</a></li>
@@ -134,17 +134,36 @@ color: white;"></i></button>
   width="100%">
   <thead class="thead-dark" >
     <tr>
-      <th scope="col">PlayList:</th>
-      <th></th>
+      <th scope="col">Player:</th>
+      <th>
+      <select class="form-control" name="stat" id="stat">     
+      <option value='passingTD'>Passing TD</option>
+      <option value='RushingTD'>Rushing TD</option>
+      <option value='Carries'>Carry</option>
+      <option value='Receptions'>Reception</option>
+      <option value='tackles'>Tackle</option>
+      <option value='tacklesFL'>Tackle For Loss</option>
+      <option value='sacks'>Sack</option>
+      <option value='interceptions'>Interception</option>
+      <option value='pick6'>Pick6</option>
+      <option value='penalties'>Penalty</option>
+      </select>
+      
+      </th>
     </tr>
   </thead>
   <tbody>
 
-@foreach ($team->playlists as $play)
+@foreach ($team->users as $user)
+@if($user->admins()->where('team_id' , $team->id)->exists())
+@else
 <tr>
-<td>{{$play->name}}</td>
-<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select Playlist</button></td>
+<td>{{$user->name}}</td>
+<td class="text-center">
+<button class="btn btn-secondary" id="{{$user->id}}" onClick="incrementStat(this.id)" tabindex="-1" role="button" >+</button>
+</td>
 </tr>
+@endif
 @endforeach
 </table>
 </div>
@@ -208,6 +227,35 @@ var anns = [];
 var anns2 = [];
 var team = <?php echo json_encode($team->id); ?>;
 var user = <?php echo json_encode(auth()->user()); ?>;
+
+
+
+function incrementStat(id){
+  var vgid = vidIds[0];
+  var typeS = document.getElementById("stat").value;
+  
+  if(vid.src == ""){
+
+  }else{
+    console.log(typeS);
+    $.ajax({
+      type: 'POST',
+      url: '/increment/stat',
+      data: {"_token": "{{ csrf_token() }}", 
+            'user_id': id,
+            'type': typeS,
+            'vid_id': vgid,
+          },
+          success: function(data){
+            console.log("success");
+          },error:function(data){ 
+             console.log(data);
+             alert("Something went wrong. Check player has training or game stat sheet");
+          }
+    });
+    
+  }
+}
 
 function makeAn(o){
   $.ajax({

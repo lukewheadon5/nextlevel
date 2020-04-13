@@ -11,6 +11,9 @@ use App\User;
 use App\Usercareer;
 use App\Season;
 use App\Game;
+use App\Video;
+use App\Playlist;
+use App\Usertraining;
 
 class StatisticController extends Controller
 {
@@ -82,6 +85,25 @@ class StatisticController extends Controller
             $usergame->pick6 = "0";
             $usergame->penalties = "0";
             $usergame->save();
+
+            $usertraining = new Usertraining;
+            $usertraining->game_id = $game->id;
+            $usertraining->user_id = $user->id;
+            $usertraining->us_id = $userseason->id;
+            $usertraining->passingTD = "0";
+            $usertraining->passingYards = "0";
+            $usertraining->rushingTD = "0";
+            $usertraining->rushingYards = "0";
+            $usertraining->receptions = "0";
+            $usertraining->ReceivingYards = "0";
+            $usertraining->carries = "0";
+            $usertraining->tacklesFL = "0";
+            $usertraining->tackles = "0";
+            $usertraining->sacks = "0";
+            $usertraining->interceptions = "0";
+            $usertraining->pick6 = "0";
+            $usertraining->penalties = "0";
+            $usertraining->save();
             }
         }
     }
@@ -152,49 +174,132 @@ class StatisticController extends Controller
 
     }
 
-    public function increment(){
+    public function incStat(Request $request){
+        $user = $request->user_id;
+        $type = $request->type;
+        $vidI = $request->vgid;
+        $play = Video::findOrFail($request->vid_id)->playlist;
+        $game = $play->game;
+        $train = $play->isTraining; 
+
+        if($train == "true"){
+            $usertraining = $game->usertrainings->where('user_id', $user)->first();
+            $usertraining->increment($type);
+        }else{
+            $usergame = $game->usergames->where('user_id', $user)->first();
+            $userseason = $usergame->game->season->userseasons->where('user_id', $user)->first();
+            $usercareer = $userseason->season->team->usercareers->where('user_id', $user)->first();
+            $season = $game->season;
+
+
+            $usergame->increment($type);
+            $userseason->increment($type);
+            $usercareer->increment($type);
+            $season->increment($type);
+            $game->increment($type);
+        }
 
     }
 
     public function statScreen($id){
         $team = Team::findOrFail($id);
-        return view('Stat.stats', ['team'=>$team]);
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
+        if($exists == true || $exists2 == true){
+            return view('Stat.statsA', ['team'=>$team]);
+        }else if($exists3 == true){
+            return view('Stat.stats', ['team'=>$team]);
+        }
     }
 
     public function showSeason($tid , $sid){
         $team = Team::findOrFail($tid);
         $season = Season::findOrFail($sid);
-
-        return view('Stat.season', ['season'=>$season], ['team'=>$team]);
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
+        if($exists == true || $exists2 == true){
+            return view('Stat.seasonA', ['season'=>$season], ['team'=>$team]);
+        }else if($exists3 == true){
+            return view('Stat.season', ['season'=>$season], ['team'=>$team]);
+        }
     }
 
     public function showGame($tid , $gid){
         $team = Team::findOrFail($tid);
         $game = Game::findOrFail($gid);
-
-        return view('Stat.game', ['game'=>$game], ['team'=>$team]);
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
+        if($exists == true || $exists2 == true){
+            return view('Stat.gameA', ['game'=>$game], ['team'=>$team]);
+        }else if($exists3 == true){
+            return view('Stat.game', ['game'=>$game], ['team'=>$team]);
+        }
     }
+
+    public function showTrain($tid, $gid){
+        $team = Team::findOrFail($tid);
+        $game = Game::findOrFail($gid);
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
+        if($exists == true || $exists2 == true){
+            return view('Stat.TrainA', ['game'=>$game], ['team'=>$team]);
+        }else if($exists3 == true){
+            return view('Stat.Train', ['game'=>$game], ['team'=>$team]);
+        }
+    }
+
 
     public function playerGame($gid, $uid){
         $user = User::findOrFail($uid);
         $usergame = Usergame::findOrFail($gid);
-        
-        return view('Stat.playerGame' , ['usergame'=>$usergame]);
+        $team = $usergame->game->team;
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
+        if($exists == true || $exists2 == true){
+            return view('Stat.playerGameA' , ['usergame'=>$usergame]);
+        }else if($exists3 == true){
+            return view('Stat.playerGame' , ['usergame'=>$usergame]);
+        }else{
+            return view('Stat.playerGameNP' , ['usergame'=>$usergame]);
+        }
     }
+
 
     public function playerSeason($sid, $uid){
         $user = User::findOrFail($uid);
         $userseason = Userseason::findOrFail($sid);
-        
-        return view('Stat.playerSeason' , ['userseason'=>$userseason]);
+        $team = $userseason->season->team;
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
+        if($exists == true || $exists2 == true){
+            return view('Stat.playerSeasonA' , ['userseason'=>$userseason]);
+        }else if($exists3 == true){
+            return view('Stat.playerSeason' , ['userseason'=>$userseason]);
+        }else{
+            return view('Stat.playerSeasonNP' , ['userseason'=>$userseason]);
+        }
     }
 
     public function playerCareer($tid, $uid){
         $team = Team::findOrFail($tid);
         $usercareer = $team->usercareers->where('user_id' , $uid)->first();
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         
-        
-        return view('Stat.playerCareer' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+        if($exists == true || $exists2 == true){
+            return view('Stat.playerCareerA' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+        }else if($exists3 == true){
+            return view('Stat.playerCareer' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+        }else{  
+            return view('Stat.playerCareerNP' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+        }
     }
 
     
@@ -202,8 +307,17 @@ class StatisticController extends Controller
         $user = User::findOrFail($uid);
         $usercareer = UserCareer::findOrFail($cid);
         $team = $usercareer->team;
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         
-        return view('Stat.playerCareer' , ['usercareer'=>$usercareer], ['team'=>$team]);
+        if($exists == true || $exists2 == true){
+            return view('Stat.playerCareerA' , ['usercareer'=>$usercareer], ['team'=>$team]);
+        }else if($exists3 == true){
+            return view('Stat.playerCareer' , ['usercareer'=>$usercareer], ['team'=>$team]);
+        }else{
+            return view('Stat.playerCareerNP' , ['usercareer'=>$usercareer], ['team'=>$team]);
+        }
     }
 
     public function updatePGame(Request $request){
@@ -353,6 +467,100 @@ class StatisticController extends Controller
         return response()->json(['html' => $html]);
 
     }
+
+    public function addPG($tid, $gid){
+        $team = Team::findOrFail($tid);
+        $game = Game::findOrFail($gid);
+
+        return view('Stat.addPG', ['team'=>$team] , ['game'=>$game]);
+    }
+
+    public function addPS($tid, $sid){
+        $team = Team::findOrFail($tid);
+        $season = Season::findOrFail($sid);
+
+        return view('Stat.addPS', ['team'=>$team] , ['season'=>$season]);
+    }
+
+    public function addPGU($tid, $gid, $uid){
+        $team = Team::findOrFail($tid);
+        $game = Game::findOrFail($gid);
+        $season = $game->season;
+        $user = User::findOrFail($uid);
+        $userseason = $user->userseasons->where('season_id' , $season->id)->first();
+
+        $usergame = new Usergame;
+        $usergame->game_id = $game->id;
+        $usergame->user_id = $user->id;
+        $usergame->us_id = $userseason->id;
+        $usergame->passingTD = "0";
+        $usergame->passingYards = "0";
+        $usergame->rushingTD = "0";
+        $usergame->rushingYards = "0";
+        $usergame->receptions = "0";
+        $usergame->ReceivingYards = "0";
+        $usergame->carries = "0";
+        $usergame->tacklesFL = "0";
+        $usergame->tackles = "0";
+        $usergame->sacks = "0";
+        $usergame->interceptions = "0";
+        $usergame->pick6 = "0";
+        $usergame->penalties = "0";
+        $usergame->save();
+
+            $usertraining = new Usertraining;
+            $usertraining->game_id = $game->id;
+            $usertraining->user_id = $user->id;
+            $usertraining->us_id = $userseason->id;
+            $usertraining->passingTD = "0";
+            $usertraining->passingYards = "0";
+            $usertraining->rushingTD = "0";
+            $usertraining->rushingYards = "0";
+            $usertraining->receptions = "0";
+            $usertraining->ReceivingYards = "0";
+            $usertraining->carries = "0";
+            $usertraining->tacklesFL = "0";
+            $usertraining->tackles = "0";
+            $usertraining->sacks = "0";
+            $usertraining->interceptions = "0";
+            $usertraining->pick6 = "0";
+            $usertraining->penalties = "0";
+            $usertraining->save();
+
+        
+        return view('Stat.addPG', ['team'=>$team] , ['game'=>$game]);
+    }
+
+    public function addPSU($tid, $sid, $uid){
+
+        $team = Team::findOrFail($tid);
+        $season = Season::findOrFail($sid);
+        $user = User::findOrFail($uid);
+        $usercareer = $user->usercareers->where('team_id' , $team->id)->first();
+
+            $userseason = new UserSeason;
+            $userseason->season_id = $season->id;
+            $userseason->user_id = $user->id;
+            $userseason->career_id = $usercareer->id;
+            $userseason->passingTD = "0";
+            $userseason->passingYards = "0";
+            $userseason->rushingTD = "0";
+            $userseason->rushingYards = "0";
+            $userseason->receptions = "0";
+            $userseason->ReceivingYards = "0";
+            $userseason->carries = "0";
+            $userseason->tacklesFL = "0";
+            $userseason->tackles = "0";
+            $userseason->sacks = "0";
+            $userseason->interceptions = "0";
+            $userseason->pick6 = "0";
+            $userseason->penalties = "0";
+            $userseason->save();
+        
+        return view('Stat.addPS', ['team'=>$team] , ['season'=>$season]);
+    }
+
+    
 
 
 

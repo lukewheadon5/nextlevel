@@ -22,8 +22,6 @@
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
-  <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
-  Membership</a></li>
 </ul>
 
 <div class="container-fluid">
@@ -35,7 +33,7 @@
                 <u><a href="/statistic/team/{{$team->id}}/season/{{$game->season->id}}">{{$game->season->year}}</a></u>
                 </h3>
                 <h3 class="text-right">
-                <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}/update" class="btn btn-secondary" tabindex="-1" role="button" >Update Stats</a>
+                <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}/training" class="btn btn-secondary pr-2" tabindex="-1" role="button" >View Training</a>
                 </h3>
 			</h3>
 		</div>
@@ -103,7 +101,7 @@
             <td>{{$game->tackles}}</td>
             <td>{{$game->tacklesFL}}</td>
             <td>{{$game->sacks}}</td>
-            <td>{{$game->interception}}</td>
+            <td>{{$game->interceptions}}</td>
             <td>{{$game->pick6}}</td>
             <td>{{$game->penalties}}</td>
             </tr>

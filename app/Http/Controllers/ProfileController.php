@@ -99,7 +99,7 @@ class ProfileController extends Controller
 
         }
         else{
-            return view('profile.showO', ['profile'=>$profile], ['teams'=>$teams]);
+            return view('profile.showO', ['user'=>$user], ['teams'=>$teams]);
         }
     }
 
