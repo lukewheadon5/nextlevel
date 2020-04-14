@@ -15,18 +15,18 @@
   background-color: #333;"> 
 
 <li style="float:left; padding-left:5px; padding-top:5px;">
-  @if(empty($team->image ))
+  @if(empty($usergame->game->team->image ))
     <img src="/images/sportsballs.png" alt="Team Logo" 
         width="40px" height="40px" class="rounded-circle"/>
   @else
-    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+    <img src="{{asset('images/'. $usergame->game->team->image)}}" alt="Team Logo" 
         width="40px" height="40px" class="rounded-circle"/>                    
     @endif
   </li>
   <li style="float:left"><a class="active" href="{{route('team.show' , $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
-  <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
-  News</a></li>
+  <li style="float:left"><a href="{{route('calendar' , $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Calendar</a></li>
   <li style="float:left"><a href="{{route('player' ,  $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' ,  $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">

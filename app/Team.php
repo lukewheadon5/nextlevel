@@ -49,4 +49,9 @@ class Team extends Model
     {
         return $this->hasMany('App\Usercareer');
     }
+
+    public function tasks()
+    {
+        return $this->hasMany('App\Task');
+    }
 }

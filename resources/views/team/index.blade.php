@@ -12,6 +12,18 @@
     
 		</div>
 		<div class="col-md-4">
+      <div class="row">
+        <div class="col-md-6">
+          <select class="form-control" id="type" name="type">
+              <option value='name'>Team Name</option>
+              <option value='sport'>Sport</option>
+              <option value='country'>Country</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <textarea name="entry" id="entry" style="height:35px;" placeholder="search"></textarea>
+        </div>
+      </div>
 		</div>
 	</div>
 	<div class="row">

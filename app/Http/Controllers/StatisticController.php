@@ -14,6 +14,7 @@ use App\Game;
 use App\Video;
 use App\Playlist;
 use App\Usertraining;
+use App\Task;
 
 class StatisticController extends Controller
 {
@@ -59,6 +60,7 @@ class StatisticController extends Controller
         $game->pick6 = "0";
         $game->penalties = "0";
         $game->save();
+
 
         $team = Team::findOrFail($request->id);
         $userseason = $game->season->userseasons->where('season_id' , $game->season->id)->first();

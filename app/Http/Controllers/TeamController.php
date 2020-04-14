@@ -245,4 +245,8 @@ class TeamController extends Controller
 
         return view('team.members', ['team'=>$team]);
     }
+
+    public function search(Request $request){
+        
+    }
 }
