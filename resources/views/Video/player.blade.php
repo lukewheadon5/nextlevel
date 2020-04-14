@@ -17,6 +17,15 @@
   overflow: hidden;
   background-color: #333;"> 
 
+<li style="float:left; padding-left:5px; padding-top:5px;">
+  @if(empty($team->image ))
+    <img src="/images/sportsballs.png" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>
+  @else
+    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>                    
+    @endif
+  </li>
   <li style="float:left"><a class="active" href="{{route('team.show' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -30,6 +39,17 @@
 </ul>
 
 <div class="container-fluid">
+<div class="row pt-2">
+<div class="col-md-8">
+</div>
+
+<div class="col-md-4 pb-10">
+<div class="text-right pr-2">
+<button class="btn btn-secondary" onClick="share()" >Share Annotations</button>
+<a href="{{ route('vidCreate', $team->id) }}" class="btn btn-secondary" tabindex="-1" role="button" >Upload Film</a>
+</div>
+</div>
+</div>
 
 <div class="row">
 <div class="col-md-8 pt-3">
@@ -130,7 +150,7 @@ color: white;"></i></button>
 <div class="col-md-4 pt-3">
 
 <div>
-<table class="table table-striped table-bordered table-sm" cellspacing="0"
+<table class="table table-striped table-sm" cellspacing="0"
   width="100%">
   <thead class="thead-dark" >
     <tr>
@@ -167,17 +187,25 @@ color: white;"></i></button>
 @endforeach
 </table>
 </div>
-
-
-<div style="padding:10px; float:right;">
-<button class="btn btn-secondary" onClick="share()" >Share Annotations</button>
-<a href="{{ route('vidCreate', $team->id) }}" class="btn btn-secondary" tabindex="-1" role="button" >Upload Film</a>
 </div>
 
+</div>
+<div class="row pt-3">
+<div class="col-md-8">
 
-
-<div>
-<table class="table table-striped table-bordered table-sm" cellspacing="0"
+<table class="table table-striped table-sm" cellspacing="0" id="clips" width="100%">
+  <thead class="thead-dark" >
+  <tr>
+      <th></th>
+      <th scope="col">Clips:</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+</table>
+</div>
+<div class="col-md-4">
+<table class="table table-striped table-sm" cellspacing="0"
   width="100%">
   <thead class="thead-dark" >
     <tr>
@@ -194,25 +222,11 @@ color: white;"></i></button>
 </tr>
 @endforeach
 </table>
-</div>
 
 
 </div>
-
 </div>
 
-<div style = "padding:10px;">
-<table class="table table-striped table-bordered table-sm" cellspacing="0" id="clips" width="100%">
-  <thead class="thead-dark" >
-  <tr>
-      <th></th>
-      <th scope="col">Clips:</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-</table>
-</div>
 </div>
 
 

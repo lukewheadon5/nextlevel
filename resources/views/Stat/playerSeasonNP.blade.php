@@ -13,7 +13,7 @@
 	<div class="row pt-2">
 		<div class="col-md-12">
 			<h3 class="text-center">
-				<u>{{$userseason->user->name}}'s {{$userseason->season->year}} Statistics</u>
+				<u>{{$userseason->user->name}} {{$userseason->season->year}} Statistics</u>
 			</h3>
       <h3  class="text-center">
       @if(empty($userseason->user->profile->image ))
@@ -31,7 +31,7 @@
     <h4>
 				Defensive Statistics 
 		</h4>
-        <table class="table">
+        <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Tackles</th>
@@ -64,7 +64,7 @@
 				Offence Statistics 
 			</h4>
 
-            <table class="table">
+            <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Passing TD's</th>

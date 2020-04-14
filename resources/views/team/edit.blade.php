@@ -47,8 +47,12 @@
     <div class="pb-2">
     </div>
     
-    <label for="country"><b>County:</b></label>
-    <textarea name="country" class="form-control" >{{$team->country}}</textarea>
+    <label for="country"><b>Country:</b></label>
+    <select class="form-control" name="country">
+    @foreach($countries as $country)
+    <option value='{{$country->name}}'>{{$country->name}}</option>
+    @endforeach
+    </select>
     <div class="pb-2">
     </div>
 

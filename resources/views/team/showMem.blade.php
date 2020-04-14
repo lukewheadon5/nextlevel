@@ -11,6 +11,15 @@
   overflow: hidden;
   background-color: #333;"> 
 
+<li style="float:left; padding-left:5px; padding-top:5px;">
+  @if(empty($team->image ))
+    <img src="/images/sportsballs.png" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>
+  @else
+    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>                    
+    @endif
+  </li>
   <li style="float:left"><a class="active" href="#home" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -160,7 +169,7 @@
 
                                 @else
                                     <tr>
-                                    <td class="text-center">{{$user->name}}</td>
+                                    <td class="text-center"><a href="{{ route('profile.show', $user->profile->id) }}">{{$user->name}}</a></td>
                                     <td>
                                     @if(empty($user->profile->image ))
                                         <img src="/images/blankPhoto.png" alt="Profile Picture" 
@@ -187,7 +196,7 @@
                             <tbody>
                             @foreach ($team->coaches as $coach)
                                     <tr>
-                                    <td class="text-center">{{$coach->user->name}}</td>
+                                    <td class="text-center"><a href="{{ route('profile.show', $coach->user->profile->id) }}">{{$coach->user->name}}</a></td>
                                     <td class="text-left">
                                     @if(empty($coach->user->profile->image ))
                                         <img src="/images/blankPhoto.png" alt="Profile Picture" 

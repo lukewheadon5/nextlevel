@@ -47,7 +47,7 @@ class ProfileController extends Controller
     {
         {
             $validatedData = $request->validate([
-                'name'=>'required|max:100',
+                'dob'=>'required|date|date_format:Y-m-d|before:today',
                 'weight'=>'required|digits_between:1,4',
                 'height'=>'required|digits_between:1,4',
                 'phone'=>'required|max:11',
@@ -58,7 +58,7 @@ class ProfileController extends Controller
             $profile = new Profile;
     
             $profile->user_id=auth()->id();
-            $profile->screen_name=$request->name;
+            $profile->dob=$request->dob;
             $profile->weight=$request->weight;
             $profile->height=$request->height;  
             $profile->phone_num=$request->phone;

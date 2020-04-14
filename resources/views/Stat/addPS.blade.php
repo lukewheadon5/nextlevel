@@ -14,6 +14,15 @@
   overflow: hidden;
   background-color: #333;"> 
 
+<li style="float:left; padding-left:5px; padding-top:5px;">
+  @if(empty($team->image ))
+    <img src="/images/sportsballs.png" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>
+  @else
+    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>                    
+    @endif
+  </li>
   <li style="float:left"><a class="active" href="{{route('team.show' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -27,11 +36,11 @@
 </ul>
 
 <div class="container-fluid">
-	<div class="row">
+	<div class="row pt-2">
         <div class="col-md-4">
-            <h2 class="text-left pl-1 pt-1">
-            <a href="/statistic/team/{{$team->id}}/season/{{$season->id}}" class="btn btn-secondary" tabindex="-1" role="button" >Back</a>
-            </h2>
+            <h3 class="text-left pl-2 ">
+            <a href="/statistic/team/{{$team->id}}/season/{{$season->id}}" tabindex="-1" role="button" ><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
+            </h3>
         </div>
 		<div class="col-md-4">
 			<h2 class="text-center">
@@ -46,7 +55,7 @@
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4">
-        <table class="table">
+        <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player Name:</th>

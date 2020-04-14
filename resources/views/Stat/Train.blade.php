@@ -13,7 +13,16 @@
   padding:0px;
   overflow: hidden;
   background-color: #333;"> 
-
+  
+    <li style="float:left; padding-left:5px; padding-top:5px;">
+  @if(empty($team->image ))
+    <img src="/images/sportsballs.png" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>
+  @else
+    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>                    
+    @endif
+  </li>
   <li style="float:left"><a class="active" href="{{route('team.show' , $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -27,23 +36,18 @@
 <div class="container-fluid">
 
 	<div class="row pt-2">
-		<div class="col-md-12">
+        <div class="col-md-4 text-left pl-2">
+        <h3 class="text-left pl-2">
+            <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}"  tabindex="-1" role="button" ><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
+        </h3>
+        </div>
+		<div class="col-md-4">
 			<h3  class="text-center">
-				<u>{{$game->team->name}} Vs {{$game->opponent}}</u>
+				<u>{{$game->team->name}} Vs {{$game->opponent}} Training Statistics</u>
 			</h3>
-      <h3  class="text-center">
-				<u> Training Statistics</u>
-			</h3>
-      <h3  class="text-center">
-      @if(empty($game->team->image ))
-          <img src="/images/sportsballs.png" alt="Profile Picture" 
-        width="200px" height="200px" class="rounded-circle"/> 
-     @else
-          <img src="{{asset('images/'. $usertraining->user->profile->image)}}" alt="Profile Picture" 
-        width="200px" height="200px" class="rounded-circle"/> 
-     @endif
-      <h3>
 		</div>
+        <div class="col-md-4">
+        </div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
@@ -56,13 +60,13 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h4>
-				Passing Yards <button> <i class="fa fa-sort" onclick="sortTable(0)" title="sort"></i></button>
+				Passing Yards 
 			</h4>
-            <table class="table" id="myTable0">
+            <table class="table table-striped table-sm" id="myTable0">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Yards</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(0)" title="sort"></i></th>
+                <th scope="col">Yards <i class="fa fa-sort" onclick="sortTable(0)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -77,14 +81,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Passing TDs <button> <i class="fa fa-sort" onclick="sortTable(1)" title="sort"></i></button></p>
+				Passing TDs 
 			</h4>
 
-            <table class="table" id="myTable1">
+            <table class="table table-striped table-sm" id="myTable1">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">TDs</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(1)" title="sort"></i></th>
+                <th scope="col">TDs <i class="fa fa-sort" onclick="sortTable(1)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -99,14 +103,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Rushing Yards <button> <i class="fa fa-sort" onclick="sortTable(2)" title="sort"></i></button></p>
+				Rushing Yards
 			</h4>
 
-            <table class="table" id="myTable2">
+            <table class="table table-striped table-sm" id="myTable2">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Yards</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(2)" title="sort"></i></th>
+                <th scope="col">Yards <i class="fa fa-sort" onclick="sortTable(2)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -123,14 +127,14 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h4>
-				Rushing TDs <button> <i class="fa fa-sort" onclick="sortTable(3)" title="sort"></i></button></p>
+				Rushing TDs 
 			</h4>
 
-            <table class="table" id="myTable3">
+            <table class="table table-striped table-sm" id="myTable3">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">TDs</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(3)" title="sort"></i></th>
+                <th scope="col">TDs <i class="fa fa-sort" onclick="sortTable(3)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -145,14 +149,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Carries <button> <i class="fa fa-sort" onclick="sortTable(4)" title="sort"></i></button></p>
+				Carries 
 			</h4>
 
-            <table class="table" id="myTable4">
+            <table class="table table-striped table-sm" id="myTable4">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Carries</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(4)" title="sort"></i></th>
+                <th scope="col">Carries <i class="fa fa-sort" onclick="sortTable(4)" title="sort"></i></th>
                 </tr>
                 </thead>
             <tbody>
@@ -167,14 +171,14 @@
 		</div>
 		<div class="col-md-4">
             <h4>
-				Receptions <button> <i class="fa fa-sort" onclick="sortTable(5)" title="sort"></i></button></p>
+				Receptions 
 			</h4>
 
-            <table class="table" id="myTable5">
+            <table class="table table-striped table-sm" id="myTable5">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Receptions</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(5)" title="sort"></i></th>
+                <th scope="col">Receptions <i class="fa fa-sort" onclick="sortTable(5)" title="sort"></i></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -193,14 +197,14 @@
 		</div>
 		<div class="col-md-4">
         <h4>
-				Receiving Yards <button> <i class="fa fa-sort" onclick="sortTable(6)" title="sort"></i></button></p>
+				Receiving Yards 
 			</h4>
 
-            <table class="table" id="myTable6">
+            <table class="table table-striped table-sm" id="myTable6">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Yards</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(6)" title="sort"></i></th>
+                <th scope="col">Yards <i class="fa fa-sort" onclick="sortTable(6)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -226,14 +230,14 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h4>
-				Tackles <button> <i class="fa fa-sort" onclick="sortTable(7)" title="sort"></i></button>
+				Tackles 
 			</h4>
             
-            <table class="table" id="myTable7">
+            <table class="table table-striped table-sm" id="myTable7">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Tackles</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(7)" title="sort"></i></th>
+                <th scope="col">Tackles <i class="fa fa-sort" onclick="sortTable(7)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -248,14 +252,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Tackle-for-loss <button> <i class="fa fa-sort" onclick="sortTable(8)" title="sort"></i></button></p>
+				Tackle-for-loss 
 			</h4>
 
-            <table class="table" id="myTable8">
+            <table class="table table-striped table-sm" id="myTable8">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">TFL</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(8)" title="sort"></i></th>
+                <th scope="col">TFL <i class="fa fa-sort" onclick="sortTable(8)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -271,14 +275,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Sacks <button> <i class="fa fa-sort" onclick="sortTable(9)" title="sort"></i></button></p>
+				Sacks 
 			</h4>
 
-            <table class="table" id="myTable9">
+            <table class="table table-striped table-sm" id="myTable9">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Sacks</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(9)" title="sort"></i></th>
+                <th scope="col">Sacks <i class="fa fa-sort" onclick="sortTable(9)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -295,14 +299,14 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h4>
-				Interceptions <button> <i class="fa fa-sort" onclick="sortTable(10)" title="sort"></i></button></p>
+				Interceptions 
 			</h4>
 
-            <table class="table" id="myTable10">
+            <table class="table table-striped table-sm" id="myTable10">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Interceptions</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(10)" title="sort"></i></th>
+                <th scope="col">Interceptions <i class="fa fa-sort" onclick="sortTable(10)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -318,14 +322,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Pick 6's <button> <i class="fa fa-sort" onclick="sortTable(11)" title="sort"></i></button></p>
+				Pick 6's 
 			</h4>
 
-            <table class="table" id="myTable11">
+            <table class="table table-striped table-sm" id="myTable11">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Pick 6's</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(11)" title="sort"></i></th>
+                <th scope="col">Pick 6's <i class="fa fa-sort" onclick="sortTable(11)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -340,14 +344,14 @@
 
 		<div class="col-md-4">
 			<h4>
-				Penalties <button> <i class="fa fa-sort" onclick="sortTable(12)" title="sort"></i></button></p>
+				Penalties 
 			</h4>
 
-            <table class="table" id="myTable12">
+            <table class="table table-striped table-sm" id="myTable12">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Penalties</th>
+                <th scope="col">Player <i class="fa fa-sort" onclick="sortTable2(12)" title="sort"></i></th>
+                <th scope="col">Penalties <i class="fa fa-sort" onclick="sortTable(12)" title="sort"></i></th>
                 </tr>
                 </thead>
         <tbody>
@@ -365,6 +369,7 @@
 <script>
 
 function sortTable(num) {
+    console.log("sorting 1");
   var table, rows, switching, i, x, y, shouldSwitch;
   table = document.getElementById("myTable"+num);
   switching = true;
@@ -400,6 +405,42 @@ function sortTable(num) {
     }
   }
 
+}
+
+function sortTable2(num) {
+    console.log("sorting");
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable"+num);
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
 }
 </script>
 

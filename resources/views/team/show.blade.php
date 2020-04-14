@@ -144,7 +144,7 @@
 
                                 @else
                                     <tr>
-                                    <td class="text-center">{{$user->name}}</td>
+                                    <td class="text-center"><a href="{{ route('profile.show', $user->profile->id) }}">{{$user->name}}</a></td>
                                     <td>
                                     @if(empty($user->profile->image ))
                                         <img src="/images/blankPhoto.png" alt="Profile Picture" 
@@ -171,7 +171,7 @@
                             <tbody>
                             @foreach ($team->coaches as $coach)
                                     <tr>
-                                    <td class="text-center">{{$coach->user->name}}</td>
+                                    <td class="text-center"><a href="{{ route('profile.show', $coach->user->profile->id) }}">{{$coach->user->name}}</a></td>
                                     <td class="text-left">
                                     @if(empty($coach->user->profile->image ))
                                         <img src="/images/blankPhoto.png" alt="Profile Picture" 

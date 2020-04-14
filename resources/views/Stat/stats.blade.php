@@ -14,6 +14,15 @@
   overflow: hidden;
   background-color: #333;"> 
 
+<li style="float:left; padding-left:5px; padding-top:5px;">
+  @if(empty($team->image ))
+    <img src="/images/sportsballs.png" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>
+  @else
+    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>                    
+    @endif
+  </li>
   <li style="float:left"><a class="active" href="{{route('team.show' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -28,17 +37,17 @@
 	<div class="row pt-2">
 		<div class="col-md-12">
 			<h3 class="text-center">
-				<u>Statistics Hub</u>
+				<u>{{$team->name}} Statistics Hub</u>
 			</h3>
 		</div>
 	</div>
 	<div class="row pt-1">
 		<div class="col-md-4">
 			<h3>
-				Seasons
+				Seasons 
 			</h3>
 
-            <table class="table">
+            <table class="table table-striped table-sm pt-1">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Season</th> 
@@ -48,27 +57,18 @@
         <tbody>
         @foreach ($team->seasons as $season)
             <tr>
-            <td>{{$season->year}}</td>
-            <td><a href="/statistic/team/{{$team->id}}/season/{{$season->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View Season</a></td>
+            <td class="text-center">{{$season->year}}</td>
+            <td class="text-center"><a href="/statistic/team/{{$team->id}}/season/{{$season->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View</a></td>
             </tr>
         @endforeach
     </table> 
 
 		</div>
 		<div class="col-md-4">
-        <h3 class="text-center">
-        @if(empty($team->image ))
-                <img src="/images/sportsballs.png" alt="Team Logo" 
-                width="200px" height="200px" class="rounded-circle"/>
-            @else
-                <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
-                width="200px" height="200px" class="rounded-circle"/>         
-            @endif
-        </h3>
         <h3>
         Player Careers
         </h3>
-        <table class="table pt-2">
+        <table class="table table-striped table-sm">
         <thead class="thead-dark">
             <tr>
             <th scope="col">Name</th>
@@ -80,8 +80,8 @@
         @if($usercareer->user->admins()->where('team_id' , $team->id)->exists())
         @else
             <tr>
-            <td>{{$usercareer->user->name}}</td>
-            <td><a href="/statistic/career/{{$usercareer->id}}/user/{{$usercareer->user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View Player</a></td>
+            <td class="text-center">{{$usercareer->user->name}}</td>
+            <td class="text-center"><a href="/statistic/career/{{$usercareer->id}}/user/{{$usercareer->user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View</a></td>
             </tr>
         @endif
         @endforeach
@@ -91,7 +91,7 @@
 			<h3>
 				Games 
 			</h3>
-            <table class="table">
+            <table class="table table-striped table-sm">
         <thead class="thead-dark">
             <tr>
             <th scope="col">Game</th>
@@ -102,9 +102,9 @@
         <tbody>
         @foreach ($team->games as $game)
             <tr>
-            <td>Vs {{$game->opponent}}</td>
-            <td>{{$game->season->year}}</td>
-            <td><a href="/statistic/team/{{$team->id}}/game/{{$game->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View Game</a></td>
+            <td class="text-center">Vs {{$game->opponent}}</td>
+            <td class="text-center">{{$game->season->year}}</td>
+            <td class="text-center"><a href="/statistic/team/{{$team->id}}/game/{{$game->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View</a></td>
             </tr>
         @endforeach
     </table>

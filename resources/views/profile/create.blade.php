@@ -18,8 +18,8 @@
     <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data">
     @csrf 
 
-    <label for="name"><b>Screen Name:</b></label>
-    <textarea name="name" class="form-control" placeholder="Enter Name"></textarea>
+    <label for="dob"><b>Date of Birth:</b></label>
+    <input type="date" id="dob" name="dob"></input>
     <div class="pb-2">
     </div>
 

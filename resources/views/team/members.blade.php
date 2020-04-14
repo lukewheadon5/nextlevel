@@ -14,6 +14,15 @@
   overflow: hidden;
   background-color: #333;"> 
 
+<li style="float:left; padding-left:5px; padding-top:5px;">
+  @if(empty($team->image ))
+    <img src="/images/sportsballs.png" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>
+  @else
+    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>                    
+    @endif
+  </li>
   <li style="float:left"><a class="active" href="{{route('team.show' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -41,7 +50,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-6">
-    <table class="table">
+    <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
@@ -57,8 +66,8 @@
 
           @else
             <tr>
-            <td>{{$user->name}}</td>
-            <td>
+            <td class="text-center">{{$user->name}}</td>
+            <td class="text-center">
             <a href="/coach/{{$team->id}}/{{$user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >Add Coach</a>
             </td>
             </tr>
@@ -68,7 +77,7 @@
     </table> 
 		</div>
 		<div class="col-md-6">
-    <table class="table">
+    <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Coaches</th>
@@ -77,7 +86,7 @@
     <tbody>
     @foreach ($team->coaches as $coach)
             <tr>
-            <td>{{$coach->user->name}}</td>
+            <td class="text-center">{{$coach->user->name}}</td>
             </tr>
     @endforeach
     </table>

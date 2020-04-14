@@ -14,7 +14,7 @@
 	<div class="row pt-2">
 		<div class="col-md-12">
 			<h3 class="text-center">
-				<u>{{$usercareer->user->name}}'s</u>
+				<u>{{$usercareer->user->name}}</u>
 			</h3>
             <h3 class="text-center">
 				<u>{{$usercareer->team->name}} Statistics</u>
@@ -37,7 +37,7 @@
         <h4>
 				Defensive Statistics 
 		</h4>
-        <table class="table">
+        <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Tackles</th>
@@ -70,7 +70,7 @@
 				Offence Statistics 
 			</h4>
 
-            <table class="table">
+            <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Passing TD's</th>

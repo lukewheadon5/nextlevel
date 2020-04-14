@@ -14,6 +14,15 @@
   overflow: hidden;
   background-color: #333;"> 
 
+<li style="float:left; padding-left:5px; padding-top:5px;">
+  @if(empty($team->image ))
+    <img src="/images/sportsballs.png" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>
+  @else
+    <img src="{{asset('images/'. $team->image)}}" alt="Team Logo" 
+        width="40px" height="40px" class="rounded-circle"/>                    
+    @endif
+  </li>
   <li style="float:left"><a class="active" href="{{route('team.show' , $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="#news" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -32,7 +41,7 @@
 				<u>{{$usergame->game->team->name}} Vs {{$usergame->game->opponent}}</u>
 			</h3>
       <h3  class="text-center">
-				<u>{{$usergame->user->name}}'s Statistics</u>
+				<u>{{$usergame->user->name}} Statistics</u>
 			</h3>
       <h3  class="text-center">
       @if(empty($usergame->user->profile->image ))
@@ -50,7 +59,7 @@
         <h4>
 				Defensive Statistics 
 		</h4>
-        <table class="table">
+        <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Tackles</th>
@@ -83,7 +92,7 @@
 				Offence Statistics 
 			</h4>
 
-            <table class="table">
+            <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Passing TD's</th>

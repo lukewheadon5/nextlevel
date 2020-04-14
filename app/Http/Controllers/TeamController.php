@@ -9,6 +9,7 @@ use App\Team;
 use App\User;
 use App\Admin;
 use App\Coach;
+use App\Country;
 use App\Usercareer;
 use Image;
 
@@ -21,8 +22,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $team = Team::paginate(5);
-       return view('team.index',['team'=>$team]);
+        $teams = Team::paginate(10);
+       return view('team.index',['teams'=>$teams]);
     }
 
     /**
@@ -33,7 +34,8 @@ class TeamController extends Controller
     public function create()
     {
         $sports = Sport::all();
-        return view('team.create')->withSports($sports);
+        $countries = Country::all();
+        return view('team.create')->withSports($sports)->withCountries($countries);
     }
 
     /**

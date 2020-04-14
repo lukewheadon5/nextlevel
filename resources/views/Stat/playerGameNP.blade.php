@@ -17,7 +17,7 @@
 				<u>{{$usergame->game->team->name}} Vs {{$usergame->game->opponent}}</u>
 			</h3>
       <h3  class="text-center">
-				<u>{{$usergame->user->name}}'s Statistics</u>
+				<u>{{$usergame->user->name}} Statistics</u>
 			</h3>
       <h3  class="text-center">
       @if(empty($usergame->user->profile->image ))
@@ -35,7 +35,7 @@
         <h4>
 				Defensive Statistics 
 		</h4>
-        <table class="table">
+        <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Tackles</th>
@@ -68,7 +68,7 @@
 				Offence Statistics 
 			</h4>
 
-            <table class="table">
+            <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Passing TD's</th>
