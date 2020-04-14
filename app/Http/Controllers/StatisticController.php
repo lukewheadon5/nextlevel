@@ -72,7 +72,7 @@ class StatisticController extends Controller
             $usergame = new Usergame;
             $usergame->game_id = $game->id;
             $usergame->user_id = $user->id;
-            $usergame->us_id = $userseason->id;
+            $usergame->userseason_id = $userseason->id;
             $usergame->passingTD = "0";
             $usergame->passingYards = "0";
             $usergame->rushingTD = "0";
@@ -152,7 +152,7 @@ class StatisticController extends Controller
             $userseason = new UserSeason;
             $userseason->season_id = $season->id;
             $userseason->user_id = $user->id;
-            $userseason->career_id = $usercareer->id;
+            $userseason->usercareer_id = $usercareer->id;
             $userseason->passingTD = "0";
             $userseason->passingYards = "0";
             $userseason->rushingTD = "0";

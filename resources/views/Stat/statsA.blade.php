@@ -6,6 +6,12 @@
 <script src="{{ asset('js/tHighlight.js') }}" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="{{ asset('css/video2.css') }}" rel="stylesheet">
+<style>
+  .table thead { display:block; }
+  thead.fixedHeader tr {
+	position: relative;
+}
+</style>
 
 <ul style="list-style-type: none;
   margin: 0;
@@ -62,6 +68,7 @@
             <td class="text-center"><a href="/statistic/team/{{$team->id}}/season/{{$season->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View</a></td>
             </tr>
         @endforeach
+        </tbody>
     </table> 
 
 		</div>
@@ -86,6 +93,7 @@
             </tr>
         @endif
         @endforeach
+        </tbody>
     </table>
 		</div>
 		<div class="col-md-4">
@@ -108,6 +116,7 @@
             <td class="text-center"><a href="/statistic/team/{{$team->id}}/game/{{$game->id}}" class="btn btn-secondary" tabindex="-1" role="button" >View</a></td>
             </tr>
         @endforeach
+        </tbody>
     </table>
 
 		</div>

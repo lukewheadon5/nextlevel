@@ -129,7 +129,6 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'dob'=>'required|date|date_format:Y-m-d|before:today',
             'weight'=>'required|digits_between:1,4',
             'height'=>'required|digits_between:1,4',
             'phone'=>'required|max:11',
@@ -138,8 +137,11 @@ class ProfileController extends Controller
         ]);
 
         $profile = Profile::findOrFail($id);
+        if($request->dob == NULL){
 
-        $profile->dob=$request->input('dob');
+        }else{
+            $profile->dob=$request->input('dob');
+        }
         $profile->weight=$request->input('weight');
         $profile->height=$request->input('height');  
         $profile->phone_num=$request->input('phone');

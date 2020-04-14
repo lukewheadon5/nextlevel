@@ -3,29 +3,56 @@
 @section('content')
 <script src="{{ asset('js/app.js') }}" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
+   input[type=text], .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+</style>
+
+
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8">
-    <h1 class="text-center">
+		<div class="col-md-2">
+    </div>
+    <div class="col-md-4">
+    <h1 class="text-left">
     All Teams 
     </h1>
-    
-		</div>
-		<div class="col-md-4">
-      <div class="row">
-        <div class="col-md-6">
-          <select class="form-control" id="type" name="type">
-              <option value='name'>Team Name</option>
-              <option value='sport'>Sport</option>
-              <option value='country'>Country</option>
-          </select>
+    </div>
+    <div class="col-md-4 text-right pl-1">
+      <form method="post" action="{{ route('search') }}">
+      @csrf
+        <div class="search-container">
+          <input type="text" placeholder="Search.." id="entry" name="entry">
+          <button type="submit"><i class="fa fa-search"></i></button>
         </div>
-        <div class="col-md-6">
-          <textarea name="entry" id="entry" style="height:35px;" placeholder="search"></textarea>
-        </div>
-      </div>
-		</div>
-	</div>
+      </form>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+  
+  
 	<div class="row">
 		<div class="col-md-2">
 		</div>
@@ -65,8 +92,9 @@
   </div>
 </div>
 
-
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+
 function sortTable() {
   var table, rows, switching, i, x, y, shouldSwitch;
   table = document.getElementById("myTable");

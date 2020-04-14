@@ -247,6 +247,11 @@ class TeamController extends Controller
     }
 
     public function search(Request $request){
-        
+        if($request->entry == ""){
+
+        }else{
+                $teams = Team::where('name' , $request->entry)->paginate(10);
+                return view('team.index', ['teams'=>$teams]);
+        }
     }
 }

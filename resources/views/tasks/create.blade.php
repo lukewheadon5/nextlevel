@@ -47,7 +47,7 @@
         {{ csrf_field() }}
         Event name:
         <br />
-        <input type="text" class="form-control" name="name" id="name" />
+        <input type="text" class="form-control" name="name" id="name"/>
         <br />
         Event description:
         <br />

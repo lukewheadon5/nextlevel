@@ -95,19 +95,27 @@ class TasksController extends Controller
         $validatedData = $request->validate([
             'name'=>'required|max:100',
             'description'=>'required|max:255',
-            'start'=>'required',
-            'end'=>'required',
             'color'=>'required',
         ]);
 
         $task = Task::findOrFail($id);
         $team = $task->team;
         $task->name=$request->input('name');
-        $task->start=$request->input('start');
-        $task->end=$request->input('end');  
-        $task->color=$request->input('color');
-        $task->description=$request->input('description');
-        $task->save();
+        if($request->start == NULL){
+
+        }
+        else{
+            $task->start=$request->input('start');
+        }
+        if($request->end == NULL){
+
+        }
+        else{
+            $task->end=$request->input('end');
+        }  
+            $task->color=$request->input('color');
+            $task->description=$request->input('description');
+            $task->save();
 
         return view('calendar.calendarA' , ['team'=>$team]);
     }

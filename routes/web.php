@@ -78,8 +78,11 @@ Route::post('/increment/stat', 'StatisticController@incStat');
 
 
 Route::get('tasks/create/{id}' , 'TasksController@create')->name('taskCreate')->middleware('auth');
+Route::post('tasks/store' , 'TasksController@store');
 Route::get('calendar/{id}' , 'TasksController@calendar')->name('calendar')->middleware('auth');
 Route::get('tasks/edit/{id}' , 'TasksController@edit')->name('cEdit')->middleware('auth');
 Route::get('tasks/show/{id}' , 'TasksController@show')->name('taskShow')->middleware('auth');
 Route::post('tasks/update/{id}' , 'TasksController@update')->name('taskUpdate');
 Route::get('tasks/destroy/{id}' , 'TasksController@destroy')->name('taskDestroy');
+
+Route::post('team/search', 'TeamController@search')->name('search');
