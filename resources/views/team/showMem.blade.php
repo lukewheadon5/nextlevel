@@ -5,6 +5,9 @@
 <script src="{{ asset('js/tHighlight.js') }}" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="{{ asset('css/video2.css') }}" rel="stylesheet">
+<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+
+
 <ul style="list-style-type: none;
   margin: 0;
   padding:0px;
@@ -20,7 +23,7 @@
         width="40px" height="40px" class="rounded-circle"/>                    
     @endif
   </li>
-  <li style="float:left"><a class="active" href="#home" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a class="active" href="{{route('team.show' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
   <li style="float:left"><a href="{{route('calendar' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Calendar</a></li>

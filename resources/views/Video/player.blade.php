@@ -8,6 +8,7 @@
 <link href="{{ asset('css/video.css') }}" rel="stylesheet">
 <link href="{{ asset('css/toolbar.css') }}" rel="stylesheet">
 <script src="{{ asset('js/app.js') }}" defer></script>
+<link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
 </head>

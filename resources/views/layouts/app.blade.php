@@ -21,9 +21,9 @@
 </head>
 <body>
     <div id="app" >
-        <nav class="navbar navbar-expand-md shadow-sm" style="background-color:#3c453e">
+        <nav class="navbar navbar-expand-md shadow-sm" >
             <div class="container" >
-                <a class="navbar-brand" href="{{ url('/') }}" style="color:#fc03e3">
+                <a class="navbar-brand" href="{{ url('/') }}" style="color:#000000">
                     Next Level
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -39,7 +39,7 @@
                     @else 
                     @if (Auth::user()->profile()->exists() == true)
                     <li class="nav-item dropdown"> 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" style="color:#fc03e3" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" style="color:#000000" aria-expanded="false" v-pre>
                                     Teams <span class="caret"></span>
                                 </a>
 
@@ -68,8 +68,20 @@
                                 </li>
                             @endif
                         @else
+                                @if (Auth::user()->profile()->exists() == true)
+                                <li class="nav-item">
+                                @if(empty(Auth::user()->profile->image ))
+                                    <img src="/images/blankPhoto.png" alt="Profile Picture" 
+                                    width="40px" height="40px" class="rounded-circle"/> 
+                                @else
+                                    <img src="{{asset('images/'. Auth::user()->profile->image)}}" alt="Profile Picture" 
+                                    width="40px" height="40px" class="rounded-circle"/> 
+                                            
+                                @endif
+                                </li>
+                                @endif
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" style="color:#fc03e3" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" style="color:#000000" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 

@@ -4,9 +4,8 @@
 
 @section('content')
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/tHighlight.js') }}" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="{{ asset('css/video2.css') }}" rel="stylesheet">
+<link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
 <ul style="list-style-type: none;
   margin: 0;
@@ -66,7 +65,7 @@
 
           @else
             <tr>
-            <td class="text-center">{{$user->name}}</td>
+            <td class="text-center"><a href="{{ route('profile.show', $user->profile->id) }}">{{$user->name}}</a></td>
             <td class="text-center">
             <a href="/coach/{{$team->id}}/{{$user->id}}" class="btn btn-secondary" tabindex="-1" role="button" >Add Coach</a>
             </td>
@@ -86,7 +85,7 @@
     <tbody>
     @foreach ($team->coaches as $coach)
             <tr>
-            <td class="text-center">{{$coach->user->name}}</td>
+            <td class="text-center"><a href="{{ route('profile.show', $coach->user->profile->id) }}">{{$coach->user->name}}</a></td>
             </tr>
     @endforeach
     </table>

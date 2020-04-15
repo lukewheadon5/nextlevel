@@ -271,6 +271,21 @@ class StatisticController extends Controller
         }
     }
 
+    public function playerTrain($gid, $uid){
+        $user = User::findOrFail($uid);
+        $usertraining = Usertraining::findOrFail($gid);
+        $team = $usertraining->game->team;
+        $exists = $team->admins()->where('user_id', auth()->id())->exists();
+        $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
+        $exists3 = $team->users()->where('user_id', auth()->id())->exists();
+        if($exists == true || $exists2 == true){
+            return view('Stat.playerTrainA' , ['usertraining'=>$usertraining]);
+        }else{
+            return view('Stat.playerTrain' , ['usertraining'=>$usertraining]);
+        }
+    }
+
+
 
     public function playerSeason($sid, $uid){
         $user = User::findOrFail($uid);
@@ -320,6 +335,25 @@ class StatisticController extends Controller
         }else{
             return view('Stat.playerCareerNP' , ['usercareer'=>$usercareer], ['team'=>$team]);
         }
+    }
+
+    public function updateTrainView($gid){
+        $game = Game::findOrFail($gid);
+        $team = $game->team;
+        
+        return view('Stat.trainEdit', ['game'=>$game], ['team'=>$team]);
+    }
+
+    public function updatePTrain(Request $request){
+        $utid = $request->utid;
+        $type = $request->type;
+        $amount = $request->amount;
+        $usertraining = Usertraining::findOrFail($utid);
+        $team = $usertraining->game->team;
+        $game = $usertraining->game;
+        $usertraining->decrement($type, $usertraining->$type);
+        $usertraining->increment($type,$amount);
+
     }
 
     public function updatePGame(Request $request){

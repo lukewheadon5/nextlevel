@@ -38,7 +38,7 @@
 		</div>
 		<div class="col-md-8">
             <div class="card">
-                    <h5 class="card-header text-center">
+                    <h5 class="card-header text-center" style="color:white; background:{{$task->color}}">
                         <u>{{$task->name}}</u>
                     </h5>
                     <div class="card-body">
@@ -46,10 +46,10 @@
                             {{$task->description}}
                         </p>
                     </div>
-                    <div class="card-footer">
-                        <b><u>Start date/time:</b></u> {{$task->start}} 
+                    <div class="card-footer text-center " style="color:white; background:{{$task->color}}">
+                        <b>Start date:</b> {{ \Carbon\Carbon::parse($task->start)->format('d /M /Y')}}       <b>Start Time:</b> {{ \Carbon\Carbon::parse($task->start)->format('H:i')}} 
                         <br /> 
-                        <b><u>End date/time:</b></u> {{$task->end}}
+                        <b>End date:</b> {{ \Carbon\Carbon::parse($task->end)->format('d /M /Y')}}       <b>End Time:</b> {{ \Carbon\Carbon::parse($task->end)->format('H:i')}} 
                     </div>
             </div>
 		</div>

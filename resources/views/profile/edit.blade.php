@@ -54,8 +54,8 @@
     <textarea name="bio" class="form-control" rows="15">{{$profile->bio}}</textarea>
     <div class="pb-2">
     </div>
-  <button type="submit" class="btn btn-outline-success">Submit</button>
-  <a href="{{ route('profile.show',$profile->id) }}" class="btn btn-outline-danger">Cancel</a>
+  <button type="submit" class="btn btn-success">Submit</button>
+  <a href="{{ route('profile.show',$profile->id) }}" class="btn btn-danger">Cancel</a>
 </form>
 
 </div>

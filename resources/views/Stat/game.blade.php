@@ -4,9 +4,8 @@
 
 @section('content')
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/tHighlight.js') }}" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="{{ asset('css/video2.css') }}" rel="stylesheet">
+<link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
 <ul style="list-style-type: none;
   margin: 0;
@@ -37,7 +36,7 @@
 	<div class="row pt-2">
         <div class="col-md-4 text-left pl-2">
             <h3>
-            <a href="/statistic/team/{{$team->id}}/season/{{$game->season->id}}" tabindex="-1" role="button" ><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
+            <a href="/statistic/team/{{$team->id}}/season/{{$game->season->id}}" tabindex="-1" role="button" ><i class="fa fa-arrow-circle-o-left" style="color:#000000" aria-hidden="true"></i></a>
             </h3>
         </div>
 		<div class="col-md-4">
@@ -70,7 +69,7 @@
                 <th scope="col">Receiving Yards</th>
                 </tr>
                 </thead>
-        <tbody>
+        <tbody style="height:50px;">
             <tr>
             <td>{{$game->passingTD}}</td>
             <td>{{$game->passingYards}}</td>
@@ -105,7 +104,7 @@
                 <th scope="col">Penalties</th>
                 </tr>
                 </thead>
-        <tbody>
+        <tbody style="height:50px;">
        
             <tr>
             <td>{{$game->allowedPassTD}}</td>

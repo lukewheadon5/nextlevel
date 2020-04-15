@@ -53,8 +53,8 @@
     <textarea name="bio" class="form-control" placeholder="Enter bio" rows="15"></textarea>
     <div class="pb-2">
     </div>
-  <button type="submit" class="btn btn-outline-success">Submit</button>  
-  <a href="{{ route('home') }}" class="btn btn-outline-danger">Cancel</a>
+  <button type="submit" class="btn btn-success">Submit</button>  
+  <a href="{{ route('home') }}" class="btn btn-danger">Cancel</a>
 </form>
 
 </div>

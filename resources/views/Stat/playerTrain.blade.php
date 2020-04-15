@@ -14,21 +14,21 @@
   background-color: #333;"> 
 
 <li style="float:left; padding-left:5px; padding-top:5px;">
-  @if(empty($usergame->game->team->image ))
+  @if(empty($usertraining->game->team->image ))
     <img src="/images/sportsballs.png" alt="Team Logo" 
         width="40px" height="40px" class="rounded-circle"/>
   @else
-    <img src="{{asset('images/'. $usergame->game->team->image)}}" alt="Team Logo" 
+    <img src="{{asset('images/'. $usertraining->game->team->image)}}" alt="Team Logo" 
         width="40px" height="40px" class="rounded-circle"/>                    
     @endif
   </li>
-  <li style="float:left"><a class="active" href="{{route('team.show' , $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a class="active" href="{{route('team.show' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Home</a></li>
-  <li style="float:left"><a href="{{route('calendar' , $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('calendar' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Calendar</a></li>
-  <li style="float:left"><a href="{{route('player' ,  $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('player' ,  $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
-  <li style="float:left"><a href="{{route('stats' ,  $usergame->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('stats' ,  $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
 </ul>
 
@@ -37,17 +37,17 @@
 	<div class="row pt-2">
 		<div class="col-md-12">
 			<h3  class="text-center">
-				<u>{{$usergame->game->team->name}} Vs {{$usergame->game->opponent}}</u>
+				<u>{{$usertraining->game->team->name}} Vs {{$usertraining->game->opponent}}</u>
 			</h3>
       <h3  class="text-center">
-				<u>{{$usergame->user->name}} Statistics</u>
+				<u>{{$usertraining->user->name}} Training Statistics</u>
 			</h3>
       <h3  class="text-center">
-      @if(empty($usergame->user->profile->image ))
+      @if(empty($usertraining->user->profile->image ))
           <img src="/images/blankPhoto.png" alt="Profile Picture" 
         width="200px" height="200px" class="rounded-circle"/> 
      @else
-          <img src="{{asset('images/'. $usergame->user->profile->image)}}" alt="Profile Picture" 
+          <img src="{{asset('images/'. $usertraining->user->profile->image)}}" alt="Profile Picture" 
         width="200px" height="200px" class="rounded-circle"/> 
      @endif
       <h3>
@@ -72,12 +72,12 @@
         <tbody>
        
             <tr>
-            <td>{{$usergame->tackles}}</td>
-            <td>{{$usergame->tacklesFL}}</td>
-            <td>{{$usergame->sacks}}</td>
-            <td>{{$usergame->interceptions}}</td>
-            <td>{{$usergame->pick6}}</td>
-            <td>{{$usergame->penalties}}</td>
+            <td>{{$usertraining->tackles}}</td>
+            <td>{{$usertraining->tacklesFL}}</td>
+            <td>{{$usertraining->sacks}}</td>
+            <td>{{$usertraining->interceptions}}</td>
+            <td>{{$usertraining->pick6}}</td>
+            <td>{{$usertraining->penalties}}</td>
             </tr>
        
     </table> 
@@ -105,13 +105,13 @@
                 </thead>
         <tbody>
             <tr>
-            <td>{{$usergame->passingTD}}</td>
-            <td>{{$usergame->passingYards}}</td>
-            <td>{{$usergame->RushingTD}}</td>
-            <td>{{$usergame->RushingYards}}</td>
-            <td>{{$usergame->Carries}}</td>
-            <td>{{$usergame->Receptions}}</td>
-            <td>{{$usergame->ReceivingYards}}</td>
+            <td>{{$usertraining->passingTD}}</td>
+            <td>{{$usertraining->passingYards}}</td>
+            <td>{{$usertraining->RushingTD}}</td>
+            <td>{{$usertraining->RushingYards}}</td>
+            <td>{{$usertraining->Carries}}</td>
+            <td>{{$usertraining->Receptions}}</td>
+            <td>{{$usertraining->ReceivingYards}}</td>
             </tr>
     </table> 
 
@@ -122,7 +122,3 @@
 
 
 @endsection
-
-
-
-

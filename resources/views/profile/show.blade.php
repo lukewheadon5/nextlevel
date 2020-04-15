@@ -72,12 +72,12 @@
 
             <div class="tab-content about-tab pt-5 pl-3" id="myTabContent">
                 <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                <div class="row">
+                    <div class="row">
                         <div class="col-md-6">
                             <label>Date of Birth:</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{$user->profile->dob}}</p>
+                            <p>{{ \Carbon\Carbon::parse($user->profile->dob)->format('d /M /Y')}}</p>
                         </div>
                     </div>
                     <div class="row">

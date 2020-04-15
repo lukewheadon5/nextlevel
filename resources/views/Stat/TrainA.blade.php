@@ -4,9 +4,8 @@
 
 @section('content')
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/tHighlight.js') }}" defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="{{ asset('css/video2.css') }}" rel="stylesheet">
+<link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
 <ul style="list-style-type: none;
   margin: 0;
@@ -40,7 +39,7 @@
 	<div class="row pt-2">
     <div class="col-md-4 text-left pl-2">
         <h3 class="text-left pl-2">
-            <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}"  tabindex="-1" role="button" ><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
+            <a href="/statistic/team/{{$team->id}}/game/{{$game->id}}"  tabindex="-1" role="button" ><i class="fa fa-arrow-circle-o-left" style="color:#000000" aria-hidden="true"></i></a>
         </h3>
         </div>
 		<div class="col-md-4">
@@ -50,7 +49,7 @@
 		</div>
         <div class="col-md-4">
         <h5 class="text-right pr-2">
-        <a href="" class="btn btn-secondary pr-2" tabindex="-1" role="button" >Update Stats</a>
+        <a href="{{route('trainUp' ,  $game->id)}}" class="btn btn-secondary pr-2" tabindex="-1" role="button" >Update Stats</a>
         </h5>
         </div>
 	</div>
@@ -77,7 +76,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->passingYards}}</td>
             </tr>
         @endforeach
@@ -99,7 +98,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->passingTD}}</td>
             </tr>
         @endforeach
@@ -121,7 +120,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->RushingYards}}</td>
             </tr>
         @endforeach
@@ -145,7 +144,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->RushingTD}}</td>
             </tr>
         @endforeach
@@ -167,7 +166,7 @@
             <tbody>
             @foreach ($game->usertrainings as $ust)
                 <tr>
-                <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+                <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
                 <td>{{$ust->Carries}}</td>
                 </tr>
             @endforeach
@@ -189,7 +188,7 @@
                 <tbody>
             @foreach ($game->usertrainings as $ust)
                 <tr>
-                <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+                <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
                 <td>{{$ust->Receptions}}</td>
                 </tr>
             @endforeach
@@ -215,7 +214,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->ReceivingYards}}</td>
             </tr>
         @endforeach
@@ -248,7 +247,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->tackles}}</td>
             </tr>
         @endforeach
@@ -270,7 +269,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->tacklesFL}}</td>
             </tr>
         @endforeach
@@ -293,7 +292,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->sacks}}</td>
             </tr>
         @endforeach
@@ -317,7 +316,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->interceptions}}</td>
             </tr>
         @endforeach
@@ -340,7 +339,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->pick6}}</td>
             </tr>
         @endforeach
@@ -362,7 +361,7 @@
         <tbody>
         @foreach ($game->usertrainings as $ust)
             <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}">{{$ust->user->name}}</a></td>
+            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
             <td>{{$ust->penalties}}</td>
             </tr>
         @endforeach

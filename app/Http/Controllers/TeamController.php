@@ -123,10 +123,11 @@ class TeamController extends Controller
         $exists = $team->admins()->where('user_id', auth()->id())->exists();
         $exists2 = $team->users()->where('user_id', auth()->id())->exists();
         $sports = Sport::all();
+        $countries = Country::all();
         
 
         if($exists == true){
-            return view('team.edit', ['team'=>$team])->withSports($sports);
+            return view('team.edit', ['team'=>$team])->withSports($sports)->withCountries($countries);
         }
         elseif($exists2 == true){
             return view('team.show', ['team'=>$team]);

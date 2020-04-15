@@ -47,9 +47,9 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <b><u>Start date/time:</b></u> {{$task->start}} 
+                        <b><u>Start date: {{ \Carbon\Carbon::parse($task->start)->format('d /M /Y')}}   Start Time: {{ \Carbon\Carbon::parse($task->start)->format('H:i')}} </b></u> 
                         <br /> 
-                        <b><u>End date/time:</b></u> {{$task->end}}
+                        <b><u>End date/time:</b></u> {{ \Carbon\Carbon::parse($task->end)->format('d /M /Y')}}
                     </div>
                 </div>
             </div>

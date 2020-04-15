@@ -54,6 +54,7 @@ Route::get('/statistic/team/{tid}/user/{uid}' , 'StatisticController@playerCaree
 Route::get('/statistic/career/{cid}/user/{uid}' , 'StatisticController@playerCareer2')->middleware('auth');
 Route::get('/statistic/season/{sid}/user/{uid}' , 'StatisticController@playerSeason')->middleware('auth');
 Route::get('/statistic/game/{gid}/user/{uid}' , 'StatisticController@playerGame')->middleware('auth');
+Route::get('/statistic/game/{gid}/user/{uid}/training' , 'StatisticController@playerTrain')->middleware('auth');
 Route::get('/statistic/team/{gid}/game/{uid}/training' , 'StatisticController@showTrain')->middleware('auth');
 
 
@@ -75,6 +76,8 @@ Route::post('/game/defence/update' , 'StatisticController@updateDGame');
 Route::get('/statistic/games/get/{sid}' , 'StatisticController@get_by_season');
 Route::post('/increment/stat', 'StatisticController@incStat');
 
+Route::get('/statstic/game/{gid}/update/train' , 'StatisticController@updateTrainView')->name('trainUp')->middleware('auth');
+Route::post('/game/player/train/update' , 'StatisticController@updatePTrain');
 
 
 Route::get('tasks/create/{id}' , 'TasksController@create')->name('taskCreate')->middleware('auth');
