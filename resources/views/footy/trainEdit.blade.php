@@ -53,23 +53,15 @@
         </div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<h4>
-				<u>Offensive Player Training Statistics</u>
-			</h4>
-		</div>
-	</div>
-
-	<div class="row">
 		<div class="col-md-4">
 			<h4>
-				Passing Yards
+				Goals
 			</h4>
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">Yards</th>
+                <th scope="col">Goals</th>
                 <th></th>
                 <th></th>
                 </tr>
@@ -78,12 +70,12 @@
         @foreach ($game->usertrainings as $ust)
             <tr>
             <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->passingYards}}</td>
+            <td>{{$ust->goals}}</td>
             <td>
-            <?php echo '<textarea id="pay'.$ust->id.'" name="passingYards"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->passingYards.'"></textarea>'; ?>
+            <?php echo '<textarea id="gol'.$ust->id.'" name="goals"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->goals.'"></textarea>'; ?>
             </td>
             <td>
-            <?php echo '<button id="'.$ust->id.'" name="passingYards" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+            <?php echo '<button id="'.$ust->id.'" name="goals" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
             </td>
             </tr>
         @endforeach
@@ -93,14 +85,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Passing TDs
+				Assists
 			</h4>
 
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">TDs</th>
+                <th scope="col">Assists</th>
                 <th></th>
                 <th></th>
                 </tr>
@@ -109,12 +101,12 @@
         @foreach ($game->usertrainings as $ust)
             <tr>
             <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->passingTD}}</td>
+            <td>{{$ust->assists}}</td>
             <td>
-            <?php echo '<textarea id="ptd'.$ust->id.'" name="passingTD"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->passingTD.'"></textarea>'; ?>
+            <?php echo '<textarea id="ass'.$ust->id.'" name="assists"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->assists.'"></textarea>'; ?>
             </td>
             <td>
-            <?php echo '<button id="'.$ust->id.'" name="passingTD" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+            <?php echo '<button id="'.$ust->id.'" name="assists" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
             </td>
             </tr>
         @endforeach
@@ -124,14 +116,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Rushing Yards
+				Shots
 			</h4>
 
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">Yards</th>
+                <th scope="col">Shots</th>
                 <th></th>
                 <th></th>
                 </tr>
@@ -140,12 +132,12 @@
         @foreach ($game->usertrainings as $ust)
             <tr>
             <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->RushingYards}}</td>
+            <td>{{$ust->shots}}</td>
             <td>
-            <?php echo '<textarea id="ruy'.$ust->id.'" name="RushingYards"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->RushingYards.'"></textarea>'; ?>
+            <?php echo '<textarea id="sho'.$ust->id.'" name="shots" style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->shots.'"></textarea>'; ?>
             </td>
             <td>
-            <?php echo '<button id="'.$ust->id.'" name="RushingYards" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+            <?php echo '<button id="'.$ust->id.'" name="shots" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
             </td>
             </tr>
         @endforeach
@@ -157,14 +149,14 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h4>
-				Rushing TDs
+				Shots on Target
 			</h4>
 
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">TDs</th>
+                <th scope="col">Shots OT</th>
                 <th></th>
                 <th></th>
                 </tr>
@@ -173,12 +165,12 @@
         @foreach ($game->usertrainings as $ust)
             <tr>
             <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->RushingTD}}</td>
+            <td>{{$ust->shotOT}}</td>
             <td>
-            <?php echo '<textarea id="rut'.$ust->id.'" name="RushingTD"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->RushingTD.'"></textarea>'; ?>
+            <?php echo '<textarea id="sot'.$ust->id.'" name="shotOT"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->shotOT.'"></textarea>'; ?>
             </td>
             <td>
-            <?php echo '<button id="'.$ust->id.'" name="RushingTD" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+            <?php echo '<button id="'.$ust->id.'" name="shotOT" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
             </td>
             </tr>
         @endforeach
@@ -188,14 +180,14 @@
 		</div>
 		<div class="col-md-4">
 			<h4>
-				Carries
+				Passes
 			</h4>
 
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">Carries</th>
+                <th scope="col">Passes</th>
                 <th></th>
                 <th></th>
                 </tr>
@@ -204,12 +196,12 @@
             @foreach ($game->usertrainings as $ust)
                 <tr>
                 <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-                <td>{{$ust->Carries}}</td>
+                <td>{{$ust->passes}}</td>
                 <td>
-            <?php echo '<textarea id="car'.$ust->id.'" name="Carries"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->Carries.'"></textarea>'; ?>
+            <?php echo '<textarea id="pas'.$ust->id.'" name="passes"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->passes.'"></textarea>'; ?>
             </td>
             <td>
-            <?php echo '<button id="'.$ust->id.'" name="Carries" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+            <?php echo '<button id="'.$ust->id.'" name="passes" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
             </td>
                 </tr>
             @endforeach
@@ -219,14 +211,14 @@
 		</div>
 		<div class="col-md-4">
             <h4>
-				Receptions
+				Crosses
 			</h4>
 
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">Receptions</th>
+                <th scope="col">Crosses</th>
                 <th></th>
                 <th></th>
                 </tr>
@@ -235,12 +227,12 @@
             @foreach ($game->usertrainings as $ust)
                 <tr>
                 <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-                <td>{{$ust->Receptions}}</td>
+                <td>{{$ust->crosses}}</td>
                 <td>
-            <?php echo '<textarea id="rep'.$ust->id.'" name="Receptions"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->Receptions.'"></textarea>'; ?>
+            <?php echo '<textarea id="cro'.$ust->id.'" name="crosses"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->crosses.'"></textarea>'; ?>
             </td>
             <td>
-            <?php echo '<button id="'.$ust->id.'" name="Receptions" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+            <?php echo '<button id="'.$ust->id.'" name="crosses" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
             </td>
                 </tr>
             @endforeach
@@ -251,54 +243,40 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4">
-		</div>
-		<div class="col-md-4">
         <h4>
-				Receiving Yards
+				Successful Dribbles
 			</h4>
 
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">Yards</th>
+                <th scope="col">Dribbles</th>
                 <th></th>
                 <th></th>
                 </tr>
                 </thead>
-        <tbody>
-        @foreach ($game->usertrainings as $ust)
-            <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->ReceivingYards}}</td>
-            <td>
-            <?php echo '<textarea id="rey'.$ust->id.'" name="ReceivingYards"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->ReceivingYards.'"></textarea>'; ?>
-            </td>
-            <td>
-            <?php echo '<button id="'.$ust->id.'" name="ReceivingYards" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
-            </td>
-            </tr>
-        @endforeach
-</tbody>   
-    </table>
+                <tbody>
+                @foreach ($game->usertrainings as $ust)
+                    <tr>
+                    <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
+                    <td>{{$ust->dribbles}}</td>
+                    <td>
+                    <?php echo '<textarea id="dri'.$ust->id.'" name="dribbles"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->dribbles.'"></textarea>'; ?>
+                    </td>
+                    <td>
+                    <?php echo '<button id="'.$ust->id.'" name="dribbles" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+                    </td>
+                    </tr>
+                @endforeach
+                </tbody>   
+            </table>
 		</div>
 		<div class="col-md-4">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h4>
-				<u>Defensive Player Training Statistics</u>
-			</h4>
-            
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<h4>
+        <h4>
 				Tackles
 			</h4>
-            
+
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
@@ -308,90 +286,24 @@
                 <th></th>
                 </tr>
                 </thead>
-        <tbody>
-        @foreach ($game->usertrainings as $ust)
-            <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->tackles}}</td>
-            <td>
-            <?php echo '<textarea id="tac'.$ust->id.'" name="tackles"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->tackles.'"></textarea>'; ?>
-            </td>
-            <td>
-            <?php echo '<button id="'.$ust->id.'" name="tackles" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
-            </td>
-            </tr>
-        @endforeach
-</tbody>
-    </table> 
-
+                <tbody>
+                @foreach ($game->usertrainings as $ust)
+                    <tr>
+                    <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
+                    <td>{{$ust->tackles}}</td>
+                    <td>
+                    <?php echo '<textarea id="tac'.$ust->id.'" name="tackles"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->tackles.'"></textarea>'; ?>
+                    </td>
+                    <td>
+                    <?php echo '<button id="'.$ust->id.'" name="tackles" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+                    </td>
+                    </tr>
+                @endforeach
+                </tbody>   
+            </table>
 		</div>
 		<div class="col-md-4">
-			<h4>
-				Tackle-for-loss
-			</h4>
-
-            <table class="table table-striped table-sm">
-                <thead class="thead-dark">
-                <tr>
-                <th scope="col">Player</th>
-                <th scope="col">TFL</th>
-                <th></th>
-                <th></th>
-                </tr>
-                </thead>
-        <tbody>
-        @foreach ($game->usertrainings as $ust)
-            <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->tacklesFL}}</td>
-            <td>
-            <?php echo '<textarea id="tfl'.$ust->id.'" name="tacklesFL"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->tacklesFL.'"></textarea>'; ?>
-            </td>
-            <td>
-            <?php echo '<button id="'.$ust->id.'" name="tacklesFL" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
-            </td>
-            </tr>
-        @endforeach
-
-</tbody>
-    </table> 
-
-		</div>
-		<div class="col-md-4">
-			<h4>
-				Sacks
-			</h4>
-
-            <table class="table table-striped table-sm">
-                <thead class="thead-dark">
-                <tr>
-                <th scope="col">Player</th>
-                <th scope="col">Sacks</th>
-                <th></th>
-                <th></th>
-                </tr>
-                </thead>
-        <tbody>
-        @foreach ($game->usertrainings as $ust)
-            <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->sacks}}</td>
-            <td>
-            <?php echo '<textarea id="sac'.$ust->id.'" name="sacks"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->sacks.'"></textarea>'; ?>
-            </td>
-            <td>
-            <?php echo '<button id="'.$ust->id.'" name="sacks" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
-            </td>
-            </tr>
-        @endforeach
-</tbody>
-    </table> 
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-md-4">
-			<h4>
+        <h4>
 				Interceptions
 			</h4>
 
@@ -404,34 +316,34 @@
                 <th></th>
                 </tr>
                 </thead>
-        <tbody>
-        @foreach ($game->usertrainings as $ust)
-            <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->interceptions}}</td>
-            <td>
-            <?php echo '<textarea id="int'.$ust->id.'" name="interceptions"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->interceptions.'"></textarea>'; ?>
-            </td>
-            <td>
-            <?php echo '<button id="'.$ust->id.'" name="interceptions" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
-            </td>
-            </tr>
-        @endforeach
-</tbody>
-    </table> 
-
-
+                <tbody>
+                @foreach ($game->usertrainings as $ust)
+                    <tr>
+                    <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
+                    <td>{{$ust->interceptions}}</td>
+                    <td>
+                    <?php echo '<textarea id="int'.$ust->id.'" name="interceptions"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->interceptions.'"></textarea>'; ?>
+                    </td>
+                    <td>
+                    <?php echo '<button id="'.$ust->id.'" name="interceptions" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+                    </td>
+                    </tr>
+                @endforeach
+                </tbody>   
+            </table>
 		</div>
+	</div>
+	<div class="row">
 		<div class="col-md-4">
 			<h4>
-				Pick6's
+				Clearances
 			</h4>
-
+            
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">Pick 6's</th>
+                <th scope="col">Clearances</th>
                 <th></th>
                 <th></th>
                 </tr>
@@ -440,48 +352,117 @@
         @foreach ($game->usertrainings as $ust)
             <tr>
             <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->pick6}}</td>
+            <td>{{$ust->clearances}}</td>
             <td>
-            <?php echo '<textarea id="pic'.$ust->id.'" name="pick6" style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->pick6.'"></textarea>'; ?>
+            <?php echo '<textarea id="cle'.$ust->id.'" name="clearances"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->clearances.'"></textarea>'; ?>
             </td>
             <td>
-            <?php echo '<button id="'.$ust->id.'" name="pick6" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+            <?php echo '<button id="'.$ust->id.'" name="clearances" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
             </td>
             </tr>
         @endforeach
 </tbody>
     </table> 
-		</div>
 
+		</div>
 		<div class="col-md-4">
 			<h4>
-				Penalties
+				Headers Won
 			</h4>
 
             <table class="table table-striped table-sm">
                 <thead class="thead-dark">
                 <tr>
                 <th scope="col">Player</th>
-                <th scope="col">Penalties</th>
+                <th scope="col">Headers</th>
                 <th></th>
                 <th></th>
                 </tr>
                 </thead>
-        <tbody>
-        @foreach ($game->usertrainings as $ust)
-            <tr>
-            <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
-            <td>{{$ust->penalties}}</td>
-            <td>
-            <?php echo '<textarea id="pen'.$ust->id.'" name="penalties"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->penalties.'"></textarea>'; ?>
-            </td>
-            <td>
-            <?php echo '<button id="'.$ust->id.'" name="penalties" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
-            </td>
-            </tr>
-        @endforeach
-</tbody>
-    </table> 
+                <tbody>
+                @foreach ($game->usertrainings as $ust)
+                    <tr>
+                    <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
+                    <td>{{$ust->headers}}</td>
+                    <td>
+                    <?php echo '<textarea id="hea'.$ust->id.'" name="headers"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->headers.'"></textarea>'; ?>
+                    </td>
+                    <td>
+                    <?php echo '<button id="'.$ust->id.'" name="headers" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+                    </td>
+                    </tr>
+                @endforeach
+
+                </tbody>
+            </table> 
+		</div>
+		<div class="col-md-4">
+			<h4>
+				Saves
+			</h4>
+
+            <table class="table table-striped table-sm">
+                <thead class="thead-dark">
+                <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Saves</th>
+                <th></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($game->usertrainings as $ust)
+                    <tr>
+                    <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
+                    <td>{{$ust->saves}}</td>
+                    <td>
+                    <?php echo '<textarea id="sav'.$ust->id.'" name="saves"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->saves.'"></textarea>'; ?>
+                    </td>
+                    <td>
+                    <?php echo '<button id="'.$ust->id.'" name="saves" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+                    </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table> 
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<h4>
+				Fouls
+			</h4>
+
+            <table class="table table-striped table-sm">
+                <thead class="thead-dark">
+                <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Fouls</th>
+                <th></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($game->usertrainings as $ust)
+                    <tr>
+                    <td><a href="/statistic/game/{{$ust->id}}/user/{{$ust->user_id}}/training">{{$ust->user->name}}</a></td>
+                    <td>{{$ust->penalties}}</td>
+                    <td>
+                    <?php echo '<textarea id="pen'.$ust->id.'" name="penalties"style=" resize: none; width: 80px; height: 30px" class="form-control" placeholder="'.$ust->penalties.'"></textarea>'; ?>
+                    </td>
+                    <td>
+                    <?php echo '<button id="'.$ust->id.'" name="penalties" type="submit"  onClick="updateStat(this.id, this.name)">Update</button>'; ?>
+                    </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table> 
+		</div>
+		<div class="col-md-4">
+		</div>
+
+		<div class="col-md-4">
 		</div>
 	</div>
 </div>
@@ -496,32 +477,32 @@ var team = <?php echo json_encode($game->team->id); ?>;
 function updateStat(utid,type){
 
 
-    if(type == "penalties"){
-        var amount = document.getElementById("pen"+utid).value;
-    }else if(type == "passingTD"){
-        var amount = document.getElementById("ptd"+utid).value;
-    }else if(type == "passingYards"){
-        var amount = document.getElementById("pay"+utid).value;
-    }else if(type == "RushingTD"){
-        var amount = document.getElementById("rut"+utid).value;
-    }else if(type == "RushingYards"){
-        var amount = document.getElementById("ruy"+utid).value;
-    }else if(type == "Receptions"){
-        var amount = document.getElementById("rep"+utid).value;
-    }else if(type == "Carries"){
-        var amount = document.getElementById("car"+utid).value;
-    }else if(type == "ReceivingYards"){
-        var amount = document.getElementById("rey"+utid).value;
-    }else if(type == "tacklesFL"){
-        var amount = document.getElementById("tfl"+utid).value;
+    if(type == "goals"){
+        var amount = document.getElementById("gol"+utid).value;
+    }else if(type == "assists"){
+        var amount = document.getElementById("ass"+utid).value;
+    }else if(type == "shots"){
+        var amount = document.getElementById("sho"+utid).value;
+    }else if(type == "shotOT"){
+        var amount = document.getElementById("sot"+utid).value;
+    }else if(type == "passes"){
+        var amount = document.getElementById("pas"+utid).value;
+    }else if(type == "crosses"){
+        var amount = document.getElementById("cro"+utid).value;
+    }else if(type == "dribbles"){
+        var amount = document.getElementById("dri"+utid).value;
     }else if(type == "tackles"){
         var amount = document.getElementById("tac"+utid).value;
-    }else if(type == "sacks"){
-        var amount = document.getElementById("sac"+utid).value;
+    }else if(type == "clearances"){
+        var amount = document.getElementById("cle"+utid).value;
     }else if(type == "interceptions"){
         var amount = document.getElementById("int"+utid).value;
-    }else if(type == "pick6"){
-        var amount = document.getElementById("pic"+utid).value;
+    }else if(type == "saves"){
+        var amount = document.getElementById("sav"+utid).value;
+    }else if(type == "headers"){
+        var amount = document.getElementById("hea"+utid).value;
+    }else if(type == "penalties"){
+        var amount = document.getElementById("pen"+utid).value;
     }
 
     console.log(amount);
@@ -531,7 +512,7 @@ function updateStat(utid,type){
             url: '/game/player/train/update',
             data: {"_token": "{{ csrf_token() }}", "type":type, "utid":utid, "amount":amount},
             success: function (data) {
-                alert("Successfully updated player")
+                alert("Successfully updated player stat")
                 window.location = '/statstic/game/'+game+'/update/train';
             },
             error:function(data){ 

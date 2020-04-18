@@ -214,6 +214,18 @@ class TeamController extends Controller
             $usercareer->interceptions = "0";
             $usercareer->pick6 = "0";
             $usercareer->penalties = "0";
+            $usercareer->passes = "0";
+            $usercareer->crosses = "0";
+            $usercareer->goals = "0";
+            $usercareer->assists = "0";
+            $usercareer->clearances = "0";
+            $usercareer->saves = "0";
+            $usercareer->headers = "0";
+            $usercareer->shots = "0";
+            $usercareer->shotOT = "0";
+            $usercareer->goalsCon = "0";
+            $usercareer->dribbles = "0";
+            $usercareer->bookings = "0";
             $usercareer->save();
             return view('team.showMem', ['team'=>$team]);
         }else{

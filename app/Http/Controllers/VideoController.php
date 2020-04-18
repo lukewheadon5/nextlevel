@@ -36,7 +36,11 @@ class VideoController extends Controller
         $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
 
         if($exists == true || $exists2 == true){
-            return view('video.player', ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footyVid.player', ['team'=>$team]);
+            }else{
+                return view('video.player', ['team'=>$team]);
+            }
         }
         else{
             return view('video.playerUser', ['team'=>$team]);

@@ -59,6 +59,18 @@ class StatisticController extends Controller
         $game->interceptions = "0";
         $game->pick6 = "0";
         $game->penalties = "0";
+        $game->passes = "0";
+        $game->crosses = "0";
+        $game->goals = "0";
+        $game->assists = "0";
+        $game->clearances = "0";
+        $game->saves = "0";
+        $game->headers = "0";
+        $game->shots = "0";
+        $game->shotOT = "0";
+        $game->goalsCon = "0";
+        $game->dribbles = "0";
+        $game->bookings = "0";
         $game->save();
 
 
@@ -86,6 +98,18 @@ class StatisticController extends Controller
             $usergame->interceptions = "0";
             $usergame->pick6 = "0";
             $usergame->penalties = "0";
+            $usergame->passes = "0";
+            $usergame->crosses = "0";
+            $usergame->goals = "0";
+            $usergame->assists = "0";
+            $usergame->clearances = "0";
+            $usergame->saves = "0";
+            $usergame->headers = "0";
+            $usergame->shots = "0";
+            $usergame->shotOT = "0";
+            $usergame->goalsCon = "0";
+            $usergame->dribbles = "0";
+            $usergame->bookings = "0";
             $usergame->save();
 
             $usertraining = new Usertraining;
@@ -105,6 +129,18 @@ class StatisticController extends Controller
             $usertraining->interceptions = "0";
             $usertraining->pick6 = "0";
             $usertraining->penalties = "0";
+            $usertraining->passes = "0";
+            $usertraining->crosses = "0";
+            $usertraining->goals = "0";
+            $usertraining->assists = "0";
+            $usertraining->clearances = "0";
+            $usertraining->saves = "0";
+            $usertraining->headers = "0";
+            $usertraining->shots = "0";
+            $usertraining->shotOT = "0";
+            $usertraining->goalsCon = "0";
+            $usertraining->dribbles = "0";
+            $usertraining->bookings = "0";
             $usertraining->save();
             }
         }
@@ -139,6 +175,18 @@ class StatisticController extends Controller
         $season->interceptions = "0";
         $season->pick6 = "0";
         $season->penalties = "0";
+        $season->passes = "0";
+        $season->crosses = "0";
+        $season->goals = "0";
+        $season->assists = "0";
+        $season->clearances = "0";
+        $season->saves = "0";
+        $season->headers = "0";
+        $season->shots = "0";
+        $season->shotOT = "0";
+        $season->goalsCon = "0";
+        $season->dribbles = "0";
+        $season->bookings = "0";
         $season->save();
 
         $team = Team::findOrFail($request->id);
@@ -166,6 +214,18 @@ class StatisticController extends Controller
             $userseason->interceptions = "0";
             $userseason->pick6 = "0";
             $userseason->penalties = "0";
+            $userseason->passes = "0";
+            $userseason->crosses = "0";
+            $userseason->goals = "0";
+            $userseason->assists = "0";
+            $userseason->clearances = "0";
+            $userseason->saves = "0";
+            $userseason->headers = "0";
+            $userseason->shots = "0";
+            $userseason->shotOT = "0";
+            $userseason->goalsCon = "0";
+            $userseason->dribbles = "0";
+            $userseason->bookings = "0";
             $userseason->save();
             }
         }
@@ -222,9 +282,17 @@ class StatisticController extends Controller
         $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         if($exists == true || $exists2 == true){
-            return view('Stat.seasonA', ['season'=>$season], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.seasonA', ['season'=>$season], ['team'=>$team]);
+            }else{
+                return view('Stat.seasonA', ['season'=>$season], ['team'=>$team]);
+            }
         }else if($exists3 == true){
-            return view('Stat.season', ['season'=>$season], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.season', ['season'=>$season], ['team'=>$team]);
+            }else{
+                return view('Stat.season', ['season'=>$season], ['team'=>$team]);
+            }   
         }
     }
 
@@ -235,9 +303,17 @@ class StatisticController extends Controller
         $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         if($exists == true || $exists2 == true){
-            return view('Stat.gameA', ['game'=>$game], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.gameA', ['game'=>$game], ['team'=>$team]);
+            }else{
+                return view('Stat.gameA', ['game'=>$game], ['team'=>$team]);
+            }
         }else if($exists3 == true){
-            return view('Stat.game', ['game'=>$game], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.game', ['game'=>$game], ['team'=>$team]);
+            }else{
+                return view('Stat.game', ['game'=>$game], ['team'=>$team]);
+            }
         }
     }
 
@@ -248,9 +324,17 @@ class StatisticController extends Controller
         $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         if($exists == true || $exists2 == true){
-            return view('Stat.TrainA', ['game'=>$game], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.TrainA', ['game'=>$game], ['team'=>$team]);
+            }else{
+                return view('Stat.TrainA', ['game'=>$game], ['team'=>$team]);
+            }
         }else if($exists3 == true){
-            return view('Stat.Train', ['game'=>$game], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.Train', ['game'=>$game], ['team'=>$team]);
+            }else{
+                return view('Stat.Train', ['game'=>$game], ['team'=>$team]);
+            }
         }
     }
 
@@ -263,11 +347,23 @@ class StatisticController extends Controller
         $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         if($exists == true || $exists2 == true){
-            return view('Stat.playerGameA' , ['usergame'=>$usergame]);
+            if($team->sport_id == 2){
+                return view('footy.playerGameA', ['usergame'=>$usergame], ['team'=>$team]);
+            }else{
+                return view('Stat.playerGameA' , ['usergame'=>$usergame]);
+            }
         }else if($exists3 == true){
-            return view('Stat.playerGame' , ['usergame'=>$usergame]);
+            if($team->sport_id == 2){
+                return view('footy.playerGame', ['usergame'=>$usergame], ['team'=>$team]);
+            }else{
+                return view('Stat.playerGame' , ['usergame'=>$usergame]);
+            }
         }else{
-            return view('Stat.playerGameNP' , ['usergame'=>$usergame]);
+            if($team->sport_id == 2){
+                return view('footy.playerGameNP', ['usergame'=>$usergame], ['team'=>$team]);
+            }else{
+                return view('Stat.playerGameNP' , ['usergame'=>$usergame]);
+            }
         }
     }
 
@@ -279,9 +375,17 @@ class StatisticController extends Controller
         $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         if($exists == true || $exists2 == true){
-            return view('Stat.playerTrainA' , ['usertraining'=>$usertraining]);
+            if($team->sport_id == 2){
+                return view('footy.playerTrainA', ['usertraining'=>$usertraining], ['team'=>$team]);
+            }else{
+                return view('Stat.playerTrainA' , ['usertraining'=>$usertraining]);
+            }
         }else{
-            return view('Stat.playerTrain' , ['usertraining'=>$usertraining]);
+            if($team->sport_id == 2){
+                return view('footy.playerTrain', ['usertraining'=>$usertraining], ['team'=>$team]);
+            }else{
+                return view('Stat.playerTrain' , ['usertraining'=>$usertraining]);
+            }
         }
     }
 
@@ -295,11 +399,23 @@ class StatisticController extends Controller
         $exists2 = $team->coaches()->where('user_id', auth()->id())->exists();
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         if($exists == true || $exists2 == true){
-            return view('Stat.playerSeasonA' , ['userseason'=>$userseason]);
+            if($team->sport_id == 2){
+                return view('footy.playerSeasonA', ['userseason'=>$userseason], ['team'=>$team]);
+            }else{
+                return view('Stat.playerSeasonA' , ['userseason'=>$userseason]);
+            }
         }else if($exists3 == true){
-            return view('Stat.playerSeason' , ['userseason'=>$userseason]);
+            if($team->sport_id == 2){
+                return view('footy.playerSeasonA', ['userseason'=>$userseason], ['team'=>$team]);
+            }else{
+                return view('Stat.playerSeason' , ['userseason'=>$userseason]);
+            }
         }else{
-            return view('Stat.playerSeasonNP' , ['userseason'=>$userseason]);
+            if($team->sport_id == 2){
+                return view('footy.playerSeasonA', ['userseason'=>$userseason], ['team'=>$team]);
+            }else{
+                return view('Stat.playerSeasonNP' , ['userseason'=>$userseason]);
+            }
         }
     }
 
@@ -311,11 +427,23 @@ class StatisticController extends Controller
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         
         if($exists == true || $exists2 == true){
-            return view('Stat.playerCareerA' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.playerCareerA', ['usercareer'=>$usercareer], ['team'=>$team]);
+            }else{
+                return view('Stat.playerCareerA' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            }
         }else if($exists3 == true){
-            return view('Stat.playerCareer' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.playerCareer', ['usercareer'=>$usercareer], ['team'=>$team]);
+            }else{
+                return view('Stat.playerCareer' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            }
         }else{  
-            return view('Stat.playerCareerNP' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.playerCareerNP', ['usercareer'=>$usercareer], ['team'=>$team]);
+            }else{
+                return view('Stat.playerCareerNP' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            }
         }
     }
 
@@ -329,19 +457,34 @@ class StatisticController extends Controller
         $exists3 = $team->users()->where('user_id', auth()->id())->exists();
         
         if($exists == true || $exists2 == true){
-            return view('Stat.playerCareerA' , ['usercareer'=>$usercareer], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.playerCareerA', ['usercareer'=>$usercareer], ['team'=>$team]);
+            }else{
+                return view('Stat.playerCareerA' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            }
         }else if($exists3 == true){
-            return view('Stat.playerCareer' , ['usercareer'=>$usercareer], ['team'=>$team]);
-        }else{
-            return view('Stat.playerCareerNP' , ['usercareer'=>$usercareer], ['team'=>$team]);
+            if($team->sport_id == 2){
+                return view('footy.playerCareer', ['usercareer'=>$usercareer], ['team'=>$team]);
+            }else{
+                return view('Stat.playerCareer' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            }
+        }else{  
+            if($team->sport_id == 2){
+                return view('footy.playerCareerNP', ['usercareer'=>$usercareer], ['team'=>$team]);
+            }else{
+                return view('Stat.playerCareerNP' , ['usercareer'=>$usercareer] , ['team'=>$team]);
+            }
         }
     }
 
     public function updateTrainView($gid){
         $game = Game::findOrFail($gid);
         $team = $game->team;
-        
-        return view('Stat.trainEdit', ['game'=>$game], ['team'=>$team]);
+        if($team->sport_id == 2){
+            return view('footy.trainEdit', ['game'=>$game], ['team'=>$team]);
+        }else{
+            return view('Stat.trainEdit', ['game'=>$game], ['team'=>$team]);
+        }
     }
 
     public function updatePTrain(Request $request){
@@ -391,102 +534,183 @@ class StatisticController extends Controller
     public function updateView($tid, $gid){
         $team = Team::findOrFail($tid);
         $game = Game::findOrFail($gid);
-
-        return view('Stat.gameEdit', ['game'=>$game], ['team'=>$team]);
+        if($team->sport_id == 2){
+            return view('footy.gameEdit', ['game'=>$game], ['team'=>$team]);
+        }else{
+            return view('Stat.gameEdit', ['game'=>$game], ['team'=>$team]);
+        }
     }
 
     public function updateOGame(Request $request){
         $game = Game::findOrFail($request->game);
         $season = $game->season;
+        $team = $season->team;
 
-        $season->decrement("passingTD", $game->passingTD);
-        $season->decrement("passingYards", $game->passingYards);
-        $season->decrement("RushingTD", $game->RushingTD);
-        $season->decrement("RushingYards", $game->RushingYards);
-        $season->decrement("Carries", $game->Carries);
-        $season->decrement("Receptions", $game->Receptions);
-        $season->decrement("ReceivingYards", $game->ReceivingYards);
+        if($team->sport_id == 2){
+            $season->decrement("goals", $game->goals);
+            $season->decrement("assists", $game->assists);
+            $season->decrement("goalsCon", $game->goalsCon);
+            $season->decrement("shots", $game->shots);
+            $season->decrement("shotOT", $game->shotOT);
+            $season->decrement("passes", $game->passes);
+            $season->decrement("dribbles", $game->dribbles);
+            
+
+            $game->decrement("goals", $game->goals);
+            $game->decrement("assists", $game->assists);
+            $game->decrement("goalsCon", $game->goalsCon);
+            $game->decrement("shots", $game->shots);
+            $game->decrement("shotOT", $game->shotOT);
+            $game->decrement("passes", $game->passes);
+            $game->decrement("dribbles", $game->dribbles);
+            
         
 
-        $game->decrement("passingTD", $game->passingTD);
-        $game->decrement("passingYards", $game->passingYards);
-        $game->decrement("RushingTD", $game->RushingTD);
-        $game->decrement("RushingYards", $game->RushingYards);
-        $game->decrement("Carries", $game->Carries);
-        $game->decrement("Receptions", $game->Receptions);
-        $game->decrement("ReceivingYards", $game->ReceivingYards);
-        
-    
+            $game->increment("goals", $request->gol);
+            $game->increment("assists", $request->ass);
+            $game->increment("goalsCon", $request->goc);
+            $game->increment("shots", $request->sho);
+            $game->increment("shotOT", $request->sot);
+            $game->increment("passes", $request->pas);
+            $game->increment("dribbles", $request->dri);
+            
 
-        $game->increment("passingTD", $request->ptd);
-        $game->increment("passingYards", $request->pay);
-        $game->increment("RushingTD", $request->rtd);
-        $game->increment("RushingYards", $request->ruy);
-        $game->increment("Carries", $request->car);
-        $game->increment("Receptions", $request->rec);
-        $game->increment("ReceivingYards", $request->rey);
+            $season->increment("goals", $request->gol);
+            $season->increment("assists", $request->ass);
+            $season->increment("goalsCon", $request->goc);
+            $season->increment("shots", $request->sho);
+            $season->increment("shotOT", $request->sot);
+            $season->increment("passes", $request->pas);
+            $season->increment("dribbles", $request->dri);
+
+        }else{
+
+            $season->decrement("passingTD", $game->passingTD);
+            $season->decrement("passingYards", $game->passingYards);
+            $season->decrement("RushingTD", $game->RushingTD);
+            $season->decrement("RushingYards", $game->RushingYards);
+            $season->decrement("Carries", $game->Carries);
+            $season->decrement("Receptions", $game->Receptions);
+            $season->decrement("ReceivingYards", $game->ReceivingYards);
+            
+
+            $game->decrement("passingTD", $game->passingTD);
+            $game->decrement("passingYards", $game->passingYards);
+            $game->decrement("RushingTD", $game->RushingTD);
+            $game->decrement("RushingYards", $game->RushingYards);
+            $game->decrement("Carries", $game->Carries);
+            $game->decrement("Receptions", $game->Receptions);
+            $game->decrement("ReceivingYards", $game->ReceivingYards);
+            
         
 
-        $season->increment("passingTD", $request->ptd);
-        $season->increment("passingYards", $request->pay);
-        $season->increment("RushingTD", $request->rtd);
-        $season->increment("RushingYards", $request->ruy);
-        $season->increment("Carries", $request->car);
-        $season->increment("Receptions", $request->rec);
-        $season->increment("ReceivingYards", $request->rey);
+            $game->increment("passingTD", $request->ptd);
+            $game->increment("passingYards", $request->pay);
+            $game->increment("RushingTD", $request->rtd);
+            $game->increment("RushingYards", $request->ruy);
+            $game->increment("Carries", $request->car);
+            $game->increment("Receptions", $request->rec);
+            $game->increment("ReceivingYards", $request->rey);
+            
+
+            $season->increment("passingTD", $request->ptd);
+            $season->increment("passingYards", $request->pay);
+            $season->increment("RushingTD", $request->rtd);
+            $season->increment("RushingYards", $request->ruy);
+            $season->increment("Carries", $request->car);
+            $season->increment("Receptions", $request->rec);
+            $season->increment("ReceivingYards", $request->rey);
+        }
 
     }
 
     public function updateDGame(Request $request){
         $game = Game::findOrFail($request->game);
         $season = $game->season;
+        $team = $season->team;
 
-        $season->decrement("allowedPassTD", $game->allowedPassTD);
-        $season->decrement("allowedPassYards", $game->allowedPassYards);
-        $season->decrement("allowedRunTD", $game->allowedRunTD);
-        $season->decrement("allowedRunYards", $game->allowedRunYards);
-        $season->decrement("tacklesFL", $game->tacklesFL);
-        $season->decrement("sacks", $game->sacks);
-        $season->decrement("tackles", $game->tackles);
-        $season->decrement("interceptions", $game->interceptions);
-        $season->decrement("pick6", $game->pick6);
-        $season->decrement("penalties", $game->penalties);
+        if($team->sport_id == 2){
+            $season->decrement("crosses", $game->crosses);
+            $season->decrement("headers", $game->headers);
+            $season->decrement("clearances", $game->clearances);
+            $season->decrement("saves", $game->saves);
+            $season->decrement("tackles", $game->tackles);
+            $season->decrement("interceptions", $game->interceptions);
+            $season->decrement("penalties", $game->penalties);
 
-        $game->decrement("allowedPassTD", $game->allowedPassTD);
-        $game->decrement("allowedPassYards", $game->allowedPassYards);
-        $game->decrement("allowedRunTD", $game->allowedRunTD);
-        $game->decrement("allowedRunYards", $game->allowedRunYards);
-        $game->decrement("tacklesFL", $game->tacklesFL);
-        $game->decrement("sacks", $game->sacks);
-        $game->decrement("tackles", $game->tackles);
-        $game->decrement("interceptions", $game->interceptions);
-        $game->decrement("pick6", $game->pick6);
-        $game->decrement("penalties", $game->penalties);
+            $game->decrement("crosses", $game->crosses);
+            $game->decrement("headers", $game->headers);
+            $game->decrement("clearances", $game->clearances);
+            $game->decrement("saves", $game->saves);
+            $game->decrement("tackles", $game->tackles);
+            $game->decrement("interceptions", $game->interceptions);
+            $game->decrement("penalties", $game->penalties);
 
-    
+        
+            $game->increment("crosses", $request->cro);
+            $game->increment("headers", $request->hea);
+            $game->increment("clearances", $request->cle);
+            $game->increment("saves", $request->sav);
+            $game->increment("tackles", $request->tac);
+            $game->increment("interceptions", $request->int);
+            $game->increment("penalties", $request->pen);
+
+            $season->increment("crosses", $request->cro);
+            $season->increment("headers", $request->hea);
+            $season->increment("clearances", $request->cle);
+            $season->increment("saves", $request->sav);
+            $season->increment("tackles", $request->tac);
+            $season->increment("interceptions", $request->int);
+            $season->increment("penalties", $request->pen);
+        
+        }else{
+            $season->decrement("allowedPassTD", $game->allowedPassTD);
+            $season->decrement("allowedPassYards", $game->allowedPassYards);
+            $season->decrement("allowedRunTD", $game->allowedRunTD);
+            $season->decrement("allowedRunYards", $game->allowedRunYards);
+            $season->decrement("tacklesFL", $game->tacklesFL);
+            $season->decrement("sacks", $game->sacks);
+            $season->decrement("tackles", $game->tackles);
+            $season->decrement("interceptions", $game->interceptions);
+            $season->decrement("pick6", $game->pick6);
+            $season->decrement("penalties", $game->penalties);
+
+            $game->decrement("allowedPassTD", $game->allowedPassTD);
+            $game->decrement("allowedPassYards", $game->allowedPassYards);
+            $game->decrement("allowedRunTD", $game->allowedRunTD);
+            $game->decrement("allowedRunYards", $game->allowedRunYards);
+            $game->decrement("tacklesFL", $game->tacklesFL);
+            $game->decrement("sacks", $game->sacks);
+            $game->decrement("tackles", $game->tackles);
+            $game->decrement("interceptions", $game->interceptions);
+            $game->decrement("pick6", $game->pick6);
+            $game->decrement("penalties", $game->penalties);
+
+        
 
 
-        $game->increment("allowedPassTD", $request->apt);
-        $game->increment("allowedPassYards", $request->apy);
-        $game->increment("allowedRunTD", $request->art);
-        $game->increment("allowedRunYards", $request->ary);
-        $game->increment("tacklesFL", $request->tfl);
-        $game->increment("sacks", $request->sac);
-        $game->increment("tackles", $request->tac);
-        $game->increment("interceptions", $request->int);
-        $game->increment("pick6", $request->pic);
-        $game->increment("penalties", $request->pen);
+            $game->increment("allowedPassTD", $request->apt);
+            $game->increment("allowedPassYards", $request->apy);
+            $game->increment("allowedRunTD", $request->art);
+            $game->increment("allowedRunYards", $request->ary);
+            $game->increment("tacklesFL", $request->tfl);
+            $game->increment("sacks", $request->sac);
+            $game->increment("tackles", $request->tac);
+            $game->increment("interceptions", $request->int);
+            $game->increment("pick6", $request->pic);
+            $game->increment("penalties", $request->pen);
 
-        $season->increment("allowedPassTD", $request->apt);
-        $season->increment("allowedPassYards", $request->apy);
-        $season->increment("allowedRunTD", $request->art);
-        $season->increment("allowedRunYards", $request->ary);
-        $season->increment("tacklesFL", $request->tfl);
-        $season->increment("sacks", $request->sac);
-        $season->increment("tackles", $request->tac);
-        $season->increment("interceptions", $request->int);
-        $season->increment("pick6", $request->pic);
-        $season->increment("penalties", $request->pen);
+            $season->increment("allowedPassTD", $request->apt);
+            $season->increment("allowedPassYards", $request->apy);
+            $season->increment("allowedRunTD", $request->art);
+            $season->increment("allowedRunYards", $request->ary);
+            $season->increment("tacklesFL", $request->tfl);
+            $season->increment("sacks", $request->sac);
+            $season->increment("tackles", $request->tac);
+            $season->increment("interceptions", $request->int);
+            $season->increment("pick6", $request->pic);
+            $season->increment("penalties", $request->pen);
+        }
 
     }
 
@@ -528,7 +752,7 @@ class StatisticController extends Controller
         $usergame = new Usergame;
         $usergame->game_id = $game->id;
         $usergame->user_id = $user->id;
-        $usergame->us_id = $userseason->id;
+        $usergame->userseason_id = $userseason->id;
         $usergame->passingTD = "0";
         $usergame->passingYards = "0";
         $usergame->rushingTD = "0";
@@ -542,6 +766,18 @@ class StatisticController extends Controller
         $usergame->interceptions = "0";
         $usergame->pick6 = "0";
         $usergame->penalties = "0";
+        $usergame->passes = "0";
+        $usergame->crosses = "0";
+        $usergame->goals = "0";
+        $usergame->assists = "0";
+        $usergame->clearances = "0";
+        $usergame->saves = "0";
+        $usergame->headers = "0";
+        $usergame->shots = "0";
+        $usergame->shotOT = "0";
+        $usergame->goalsCon = "0";
+        $usergame->dribbles = "0";
+        $usergame->bookings = "0";
         $usergame->save();
 
             $usertraining = new Usertraining;
@@ -561,6 +797,18 @@ class StatisticController extends Controller
             $usertraining->interceptions = "0";
             $usertraining->pick6 = "0";
             $usertraining->penalties = "0";
+            $usertraining->passes = "0";
+            $usertraining->crosses = "0";
+            $usertraining->goals = "0";
+            $usertraining->assists = "0";
+            $usertraining->clearances = "0";
+            $usertraining->saves = "0";
+            $usertraining->headers = "0";
+            $usertraining->shots = "0";
+            $usertraining->shotOT = "0";
+            $usertraining->goalsCon = "0";
+            $usertraining->dribbles = "0";
+            $usertraining->bookings = "0";
             $usertraining->save();
 
         
@@ -577,7 +825,7 @@ class StatisticController extends Controller
             $userseason = new UserSeason;
             $userseason->season_id = $season->id;
             $userseason->user_id = $user->id;
-            $userseason->career_id = $usercareer->id;
+            $userseason->usercareer_id = $usercareer->id;
             $userseason->passingTD = "0";
             $userseason->passingYards = "0";
             $userseason->rushingTD = "0";
@@ -591,6 +839,18 @@ class StatisticController extends Controller
             $userseason->interceptions = "0";
             $userseason->pick6 = "0";
             $userseason->penalties = "0";
+            $userseason->passes = "0";
+            $userseason->crosses = "0";
+            $userseason->goals = "0";
+            $userseason->assists = "0";
+            $userseason->clearances = "0";
+            $userseason->saves = "0";
+            $userseason->headers = "0";
+            $userseason->shots = "0";
+            $userseason->shotOT = "0";
+            $userseason->goalsCon = "0";
+            $userseason->dribbles = "0";
+            $userseason->bookings = "0";
             $userseason->save();
         
         return view('Stat.addPS', ['team'=>$team] , ['season'=>$season]);

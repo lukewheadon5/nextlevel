@@ -30,6 +30,18 @@ class CreateUsercareersTable extends Migration
             $table->string('interceptions');
             $table->string('pick6');
             $table->string('penalties');
+            $table->string('passes');
+            $table->string('crosses');
+            $table->string('goals');
+            $table->string('assists');
+            $table->string('clearances');
+            $table->string('saves');
+            $table->string('headers');
+            $table->string('shots');
+            $table->string('shotOT');
+            $table->string('goalsCon');
+            $table->string('dribbles');
+            $table->string('bookings');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
