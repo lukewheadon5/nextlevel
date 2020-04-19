@@ -4,19 +4,22 @@
 <script src="{{ asset('js/app.js') }}" defer></script>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-    
+        <div class="col-md-10 text-center pt-5">
+            <h1>
+                <div>
+                Welcome To Next Level Analysis: 
                 </div>
-            </div>
+                <div>
+                This is a Dissertation project created by Luke Wheadon. 
+                The Goal of this project is to produce a high quality video and 
+                statistical analysis web application for use by sports teams.<br>
+
+                Enjoy!!!
+                </div>
+            </h1>
+
+                
+            
         </div>
     </div>
 </div>

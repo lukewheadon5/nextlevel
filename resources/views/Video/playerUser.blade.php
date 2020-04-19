@@ -149,6 +149,8 @@ color: white;"></i></button>
   <thead class="thead-dark" >
     <tr>
       <th scope="col">PlayList:</th>
+      <th scope="col">Opponent:</th>
+      <th scope="col">Type:</th>
       <th></th>
     </tr>
   </thead>
@@ -157,7 +159,13 @@ color: white;"></i></button>
 @foreach ($team->playlists as $play)
  <tr>
 <td>{{$play->name}}</td>
-<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select Playlist</button></td>
+<td>{{$play->game->opponent}}</td>
+@if($play->isTraining == "false")
+<td>Game</td>
+@else
+<td>Training</td>
+@endif
+<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select</button></td>
 </tr>
 @endforeach
 </table>

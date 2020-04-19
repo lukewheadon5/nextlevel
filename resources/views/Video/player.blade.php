@@ -229,7 +229,7 @@ color: white;"></i></button>
 @else
 <td>Training</td>
 @endif
-<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select Playlist</button></td>
+<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select</button></td>
 </tr>
 @endforeach
 </table>
