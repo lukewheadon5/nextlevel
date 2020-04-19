@@ -31,6 +31,8 @@
   Home</a></li>
   <li style="float:left"><a href="{{route('calendar' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Calendar</a></li>
+  <li style="float:left"><a href="{{route('roster' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Lineup</a></li>
   <li style="float:left"><a href="{{route('player' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -152,10 +154,10 @@ color: white;"></i></button>
 
 <div>
 <table class="table table-striped table-sm" cellspacing="0"
-  width="100%">
+  width="100%" id="myTable">
   <thead class="thead-dark" >
     <tr>
-      <th scope="col">Player:</th>
+      <th scope="col">Player: <i class="fa fa-sort" onclick="sortTable()" title="sort"></th>
       <th>
       <select class="form-control" name="stat" id="stat">     
       <option value='goals'>Goal</option>
@@ -215,6 +217,8 @@ color: white;"></i></button>
   <thead class="thead-dark" >
     <tr>
       <th scope="col">PlayList:</th>
+      <th scope="col">Opponent:</th>
+      <th scope="col">Type:</th>
       <th></th>
     </tr>
   </thead>
@@ -223,7 +227,13 @@ color: white;"></i></button>
 @foreach ($team->playlists as $play)
  <tr>
 <td>{{$play->name}}</td>
-<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select Playlist</button></td>
+<td>{{$play->game->opponent}}</td>
+@if($play->isTraining == "false")
+<td>Game</td>
+@else
+<td>Training</td>
+@endif
+<td><button class="btn btn-secondary" id="{{$play->id}}" onClick="getPlaylist(this.id)" tabindex="-1" role="button" >Select</button></td>
 </tr>
 @endforeach
 </table>
@@ -246,6 +256,41 @@ var anns = [];
 var anns2 = [];
 var team = <?php echo json_encode($team->id); ?>;
 var user = <?php echo json_encode(auth()->user()); ?>;
+
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
 
 
 

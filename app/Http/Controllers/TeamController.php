@@ -12,6 +12,7 @@ use App\Coach;
 use App\Country;
 use App\Usercareer;
 use Image;
+use App\Lineup;
 
 class TeamController extends Controller
 {
@@ -74,6 +75,10 @@ class TeamController extends Controller
     
        
         $team->save();
+
+        $lineup = new Lineup;
+        $lineup->team_id = $team->id;
+        $lineup->save();
 
         $admin = new Admin;
         $admin->user_id=auth()->id();

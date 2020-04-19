@@ -24,12 +24,12 @@
   Home</a></li>
   <li style="float:left"><a href="{{route('calendar' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Calendar</a></li>
+  <li style="float:left"><a href="{{route('roster' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Lineup</a></li>
   <li style="float:left"><a href="{{route('player' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
-  <li style="float:left"><a href="{{route('members' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
-  Membership</a></li>
 </ul>
 
 <div class="container-fluid">

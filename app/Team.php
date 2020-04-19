@@ -54,4 +54,14 @@ class Team extends Model
     {
         return $this->hasMany('App\Task');
     }
+
+    public function rosters()
+    {
+        return $this->hasMany('App\Roster');
+    }
+
+    public function lineup()
+    {
+        return $this->hasOne('App\Lineup');
+    }
 }

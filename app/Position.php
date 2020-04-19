@@ -6,13 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model
 {
-    public function sport()
+    public function lineup()
     {
-        return $this->belongsTo('App\Sport');
+        return $this->belongsTo('App\Lineup');
     }
 
-    public function users()
-    {
-        return $this->belongsToMany('App\User');
-    }
 }

@@ -27,6 +27,8 @@
   Home</a></li>
   <li style="float:left"><a href="{{route('calendar' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Calendar</a></li>
+  <li style="float:left"><a href="{{route('roster' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Lineup</a></li>
   <li style="float:left"><a href="{{route('player' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
@@ -49,10 +51,10 @@
 				Seasons <a href="/statistic/{{$team->id}}/season/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Season</a>
 			</h3>
 
-            <table class="table table-striped table-sm pt-1">
+            <table class="table table-striped table-sm pt-1" id="myTable1">
                 <thead class="thead-dark">
                 <tr>
-                <th scope="col">Season</th> 
+                <th scope="col">Season <i class="fa fa-sort" onclick="sortTable3(1)" title="sort"></th> 
                 <th></th>
                 </tr>
                 </thead>
@@ -71,10 +73,10 @@
         <h3>
         Player Careers
         </h3>
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm" id="myTable2">
         <thead class="thead-dark">
             <tr>
-            <th scope="col">Name</th>
+            <th scope="col">Name <i class="fa fa-sort" onclick="sortTable2(2)" title="sort"></th>
             <th></th>
             </tr>
         </thead>
@@ -95,11 +97,11 @@
 			<h3>
 				Games  <a href="/statistic/{{$team->id}}/game/create" class="btn btn-secondary" tabindex="-1" role="button" >Add Game</a>
 			</h3>
-            <table class="table table-striped table-sm">
+            <table class="table table-striped table-sm" id="myTable3">
         <thead class="thead-dark">
             <tr>
-            <th scope="col">Game</th>
-            <th scope="col">Season</th>
+            <th scope="col">Game <i class="fa fa-sort" onclick="sortTable2(3)" title="sort"></th>
+            <th scope="col">Season <i class="fa fa-sort" onclick="sortTable(3)" title="sort"></th>
             <th></th>
             </tr>
         </thead>
@@ -118,6 +120,119 @@
 	</div>
 	
 </div>
+
+<script>
+function sortTable(num) {
+    console.log("sorting 1");
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable"+num);
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[1];
+      y = rows[i + 1].getElementsByTagName("TD")[1];
+      //check if the two rows should switch place:
+      if (Number(x.innerHTML) < Number(y.innerHTML)) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+
+}
+
+function sortTable2(num) {
+    console.log("sorting");
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable"+num);
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+
+function sortTable3(num) {
+    console.log("sorting 1");
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable"+num);
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (Number(x.innerHTML) < Number(y.innerHTML)) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+
+}
+
+</script>
 
 
 @endsection

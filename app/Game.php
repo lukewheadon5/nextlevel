@@ -37,6 +37,11 @@ class Game extends Model
         return $this->hasMany('App\Playlist');
     }
 
+    public function rosters()
+    {
+        return $this->hasMany('App\Roster');
+    }
+
     
 
 

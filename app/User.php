@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Usercareer');
     }
 
+    public function usertrainings()
+    {
+        return $this->hasMany('App\Usertraining');
+    }
+
     
 
     /**

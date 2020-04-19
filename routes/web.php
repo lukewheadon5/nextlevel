@@ -89,3 +89,14 @@ Route::post('tasks/update/{id}' , 'TasksController@update')->name('taskUpdate');
 Route::get('tasks/destroy/{id}' , 'TasksController@destroy')->name('taskDestroy');
 
 Route::post('team/search', 'TeamController@search')->name('search');
+
+
+Route::get('team/{id}/roster' , 'RosterController@rosterCenter')->name('roster')->middleware('auth');
+Route::get('team/{id}/create/roster' , 'RosterController@rosterCreate')->name('rosterCreate')->middleware('auth');
+Route::post('/store/roster' , 'RosterController@store');
+Route::get('/roster/{id}' , 'RosterController@show')->name('rosterShow')->middleware('auth');
+Route::get('/roster/{id}/delete', 'RosterController@destroy')->name('rosterDelete');
+
+Route::get('team/{id}/lineup/create' , 'RosterController@lineup')->name('lineupCreate')->middleware('auth');
+Route::post('/lineup/store' , 'RosterController@lineupStore');
+Route::post('/lineup/af/store' , 'RosterController@lineupAFStore');

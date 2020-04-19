@@ -15,12 +15,13 @@ class CreatePositionsTable extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('sport_id')->unsigned();
-            $table->string('name');
-
-            $table->foreign('sport_id')->references('id')->on('sports')
-            ->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('lineup_id')->unsigned();
+            $table->string('pName');
+            $table->string('type');
+            $table->string('position');
             $table->timestamps();
+            $table->foreign('lineup_id')->references('id')->on('lineups')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
