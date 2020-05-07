@@ -1,1 +1,1 @@
-This is the code created by Luke Wheadon, 901298, of Swansea University for the undergraduate disseration project.  
+This is the code created by Luke Wheadon, 901298, of Swansea University for the undergraduate disseration project. This repositiory contains all the laravel files needed for the created web application. 
