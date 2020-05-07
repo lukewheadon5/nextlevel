@@ -31,10 +31,14 @@
   Calendar</a></li>
   <li style="float:left"><a href="{{route('roster' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Lineup</a></li>
+  <li style="float:left"><a href="{{route('playIndex' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Playbook</a></li>
   <li style="float:left"><a href="{{route('player' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('quizIndex' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Quizzes</a></li>
   <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Membership</a></li>
 </ul>
@@ -50,7 +54,7 @@
 	<div class="row">
 		<div class="col-md-4">
             <label for="name"><b>Formation Name:</b></label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" required>
 		</div>
 		<div class="col-md-4">
                 <label for="season"><b>Season:</b></label>
@@ -103,6 +107,7 @@
                 <label for="player"><b>Player:</b></label>
                 <select class="form-control" name="player" id="player">
                 <option value="" selected disabled hidden>Choose here</option>
+                <option value="">No Name</option>
                 @foreach($team->users as $user)
                     @if($team->admins()->where('user_id' , $user->id)->exists())
 
@@ -184,7 +189,7 @@ function saveRoster(){
             window.location = "{{route('roster' , $team->id)}}";
           },error:function(data){ 
              console.log(data);
-             alert("Something went wrong.");
+             alert("Something went wrong. Check you have entered a name, season and game");
           }
     });
 }

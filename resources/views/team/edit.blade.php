@@ -24,11 +24,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="name"><b>Team Name:</b></label>
-                        <input type="text" name="name" class="form-control" value="{{$team->name}}">
+                        <input type="text" name="name" class="form-control" value="{{$team->name}}" required>
                     </div>
                     <div class="col-md-6">
                         <label for="email"><b>Team Email:</b></label>
-                        <input type="email" name="email" class="form-control" value="{{$team->email}}">
+                        <input type="email" name="email" class="form-control" value="{{$team->email}}" required>
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -64,13 +64,13 @@
                     </div>
                     <div class="col-md-6">
                         <label for="city"><b>City:</b></label>
-                        <input type="text" name="city" class="form-control" value="{{$team->city}}">
+                        <input type="text" name="city" class="form-control" value="{{$team->city}}" required>
                     </div>
                 </div>
                 <div class="row pt-2">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success">Submit</button>
-                        <a href="{{ route('home') }}" class="btn btn-danger">Cancel</a>
+                        <a href="{{route('team.show' , $team->id)}}" class="btn btn-danger">Cancel</a>
                     </div>
                 </div>
             </form>

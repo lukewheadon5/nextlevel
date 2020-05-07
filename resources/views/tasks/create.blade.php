@@ -26,10 +26,14 @@
   Calendar</a></li>
   <li style="float:left"><a href="{{route('roster' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Lineup</a></li>
+  <li style="float:left"><a href="{{route('playIndex' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Playbook</a></li>
   <li style="float:left"><a href="{{route('player' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('quizIndex' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Quizzes</a></li>
   <li style="float:left"><a href="{{route('members' , $team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Membership</a></li>
 </ul>
@@ -49,7 +53,7 @@
         {{ csrf_field() }}
         Event name:
         <br />
-        <input type="text" class="form-control" name="name" id="name"/>
+        <input type="text" class="form-control" name="name" id="name" required/>
         <br />
         Event description:
         <br />
@@ -57,11 +61,11 @@
         <br />
         Start date & time:
         <br />
-        <input type="datetime-local" class="form-control" id="start" name="start">
+        <input type="datetime-local" class="form-control" id="start" name="start" required>
         <br />
         End date & time:
         <br />
-        <input type="datetime-local" class="form-control" id="end" name="end">
+        <input type="datetime-local" class="form-control" id="end" name="end" required>
         <br />
         Badge Colour:
         <br />

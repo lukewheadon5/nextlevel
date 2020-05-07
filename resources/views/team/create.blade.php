@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="name"><b>Team Name:</b></label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                        <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
                     </div>
                     <div class="col-md-6">
                         <label for="email"><b>Team Email:</b></label>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="city"><b>City:</b></label>
-                        <input type="text" name="city" class="form-control" placeholder="Enter City">
+                        <input type="text" name="city" class="form-control" placeholder="Enter City" required>
                     </div>
                 </div>
                 <div class="row pt-2">

@@ -75,75 +75,79 @@ class StatisticController extends Controller
 
 
         $team = Team::findOrFail($request->id);
-        $userseason = $game->season->userseasons->where('season_id' , $game->season->id)->first();
+
+        
         foreach($team->users as $user){
             if($user->admins()->where('team_id' , $team->id)->exists()){
 
             }else{
-            
-            $usergame = new Usergame;
-            $usergame->game_id = $game->id;
-            $usergame->user_id = $user->id;
-            $usergame->userseason_id = $userseason->id;
-            $usergame->passingTD = "0";
-            $usergame->passingYards = "0";
-            $usergame->rushingTD = "0";
-            $usergame->rushingYards = "0";
-            $usergame->receptions = "0";
-            $usergame->ReceivingYards = "0";
-            $usergame->carries = "0";
-            $usergame->tacklesFL = "0";
-            $usergame->tackles = "0";
-            $usergame->sacks = "0";
-            $usergame->interceptions = "0";
-            $usergame->pick6 = "0";
-            $usergame->penalties = "0";
-            $usergame->passes = "0";
-            $usergame->crosses = "0";
-            $usergame->goals = "0";
-            $usergame->assists = "0";
-            $usergame->clearances = "0";
-            $usergame->saves = "0";
-            $usergame->headers = "0";
-            $usergame->shots = "0";
-            $usergame->shotOT = "0";
-            $usergame->goalsCon = "0";
-            $usergame->dribbles = "0";
-            $usergame->bookings = "0";
-            $usergame->save();
+                if($user->userseasons()->where('season_id' , $season)->exists()){
+                    $userseason = $user->userseasons->where('season_id' , $season)->first();
+                    $usergame = new Usergame;
+                    $usergame->game_id = $game->id;
+                    $usergame->user_id = $user->id;
+                    $usergame->userseason_id = $userseason->id;
+                    $usergame->passingTD = "0";
+                    $usergame->passingYards = "0";
+                    $usergame->rushingTD = "0";
+                    $usergame->rushingYards = "0";
+                    $usergame->receptions = "0";
+                    $usergame->ReceivingYards = "0";
+                    $usergame->carries = "0";
+                    $usergame->tacklesFL = "0";
+                    $usergame->tackles = "0";
+                    $usergame->sacks = "0";
+                    $usergame->interceptions = "0";
+                    $usergame->pick6 = "0";
+                    $usergame->penalties = "0";
+                    $usergame->passes = "0";
+                    $usergame->crosses = "0";
+                    $usergame->goals = "0";
+                    $usergame->assists = "0";
+                    $usergame->clearances = "0";
+                    $usergame->saves = "0";
+                    $usergame->headers = "0";
+                    $usergame->shots = "0";
+                    $usergame->shotOT = "0";
+                    $usergame->goalsCon = "0";
+                    $usergame->dribbles = "0";
+                    $usergame->bookings = "0";
+                    $usergame->save();
 
-            $usertraining = new Usertraining;
-            $usertraining->game_id = $game->id;
-            $usertraining->user_id = $user->id;
-            $usertraining->us_id = $userseason->id;
-            $usertraining->passingTD = "0";
-            $usertraining->passingYards = "0";
-            $usertraining->rushingTD = "0";
-            $usertraining->rushingYards = "0";
-            $usertraining->receptions = "0";
-            $usertraining->ReceivingYards = "0";
-            $usertraining->carries = "0";
-            $usertraining->tacklesFL = "0";
-            $usertraining->tackles = "0";
-            $usertraining->sacks = "0";
-            $usertraining->interceptions = "0";
-            $usertraining->pick6 = "0";
-            $usertraining->penalties = "0";
-            $usertraining->passes = "0";
-            $usertraining->crosses = "0";
-            $usertraining->goals = "0";
-            $usertraining->assists = "0";
-            $usertraining->clearances = "0";
-            $usertraining->saves = "0";
-            $usertraining->headers = "0";
-            $usertraining->shots = "0";
-            $usertraining->shotOT = "0";
-            $usertraining->goalsCon = "0";
-            $usertraining->dribbles = "0";
-            $usertraining->bookings = "0";
-            $usertraining->save();
-            }
+                    $usertraining = new Usertraining;
+                    $usertraining->game_id = $game->id;
+                    $usertraining->user_id = $user->id;
+                    $usertraining->us_id = $userseason->id;
+                    $usertraining->passingTD = "0";
+                    $usertraining->passingYards = "0";
+                    $usertraining->rushingTD = "0";
+                    $usertraining->rushingYards = "0";
+                    $usertraining->receptions = "0";
+                    $usertraining->ReceivingYards = "0";
+                    $usertraining->carries = "0";
+                    $usertraining->tacklesFL = "0";
+                    $usertraining->tackles = "0";
+                    $usertraining->sacks = "0";
+                    $usertraining->interceptions = "0";
+                    $usertraining->pick6 = "0";
+                    $usertraining->penalties = "0";
+                    $usertraining->passes = "0";
+                    $usertraining->crosses = "0";
+                    $usertraining->goals = "0";
+                    $usertraining->assists = "0";
+                    $usertraining->clearances = "0";
+                    $usertraining->saves = "0";
+                    $usertraining->headers = "0";
+                    $usertraining->shots = "0";
+                    $usertraining->shotOT = "0";
+                    $usertraining->goalsCon = "0";
+                    $usertraining->dribbles = "0";
+                    $usertraining->bookings = "0";
+                    $usertraining->save();
+            }   }
         }
+
+        
     }
 
     public function storeSeason(Request $request){
@@ -747,38 +751,39 @@ class StatisticController extends Controller
         $game = Game::findOrFail($gid);
         $season = $game->season;
         $user = User::findOrFail($uid);
-        $userseason = $user->userseasons->where('season_id' , $season->id)->first();
+        if($user->userseasons()->where('season_id' , $season->id)->exists()){
+            $userseason = $user->userseasons->where('season_id' , $season->id)->first();
 
-        $usergame = new Usergame;
-        $usergame->game_id = $game->id;
-        $usergame->user_id = $user->id;
-        $usergame->userseason_id = $userseason->id;
-        $usergame->passingTD = "0";
-        $usergame->passingYards = "0";
-        $usergame->rushingTD = "0";
-        $usergame->rushingYards = "0";
-        $usergame->receptions = "0";
-        $usergame->ReceivingYards = "0";
-        $usergame->carries = "0";
-        $usergame->tacklesFL = "0";
-        $usergame->tackles = "0";
-        $usergame->sacks = "0";
-        $usergame->interceptions = "0";
-        $usergame->pick6 = "0";
-        $usergame->penalties = "0";
-        $usergame->passes = "0";
-        $usergame->crosses = "0";
-        $usergame->goals = "0";
-        $usergame->assists = "0";
-        $usergame->clearances = "0";
-        $usergame->saves = "0";
-        $usergame->headers = "0";
-        $usergame->shots = "0";
-        $usergame->shotOT = "0";
-        $usergame->goalsCon = "0";
-        $usergame->dribbles = "0";
-        $usergame->bookings = "0";
-        $usergame->save();
+            $usergame = new Usergame;
+            $usergame->game_id = $game->id;
+            $usergame->user_id = $user->id;
+            $usergame->userseason_id = $userseason->id;
+            $usergame->passingTD = "0";
+            $usergame->passingYards = "0";
+            $usergame->rushingTD = "0";
+            $usergame->rushingYards = "0";
+            $usergame->receptions = "0";
+            $usergame->ReceivingYards = "0";
+            $usergame->carries = "0";
+            $usergame->tacklesFL = "0";
+            $usergame->tackles = "0";
+            $usergame->sacks = "0";
+            $usergame->interceptions = "0";
+            $usergame->pick6 = "0";
+            $usergame->penalties = "0";
+            $usergame->passes = "0";
+            $usergame->crosses = "0";
+            $usergame->goals = "0";
+            $usergame->assists = "0";
+            $usergame->clearances = "0";
+            $usergame->saves = "0";
+            $usergame->headers = "0";
+            $usergame->shots = "0";
+            $usergame->shotOT = "0";
+            $usergame->goalsCon = "0";
+            $usergame->dribbles = "0";
+            $usergame->bookings = "0";
+            $usergame->save();
 
             $usertraining = new Usertraining;
             $usertraining->game_id = $game->id;
@@ -810,7 +815,7 @@ class StatisticController extends Controller
             $usertraining->dribbles = "0";
             $usertraining->bookings = "0";
             $usertraining->save();
-
+        }
         
         return view('Stat.addPG', ['team'=>$team] , ['game'=>$game]);
     }

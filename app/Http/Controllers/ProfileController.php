@@ -129,6 +129,7 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
+            'dob'=>'required|date|date_format:Y-m-d|before:today',
             'weight'=>'required|digits_between:1,4',
             'height'=>'required|digits_between:1,4',
             'phone'=>'required|max:11',
@@ -173,4 +174,6 @@ class ProfileController extends Controller
     {
         //
     }
+
+    
 }

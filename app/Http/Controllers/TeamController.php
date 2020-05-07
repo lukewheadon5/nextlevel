@@ -155,7 +155,7 @@ class TeamController extends Controller
         $validatedData = $request->validate([
             'name'=>'required|string|max:255',
             'sport'=>'required',
-            'email' => 'required|string|email|max:255|unique:teams',
+            'email' => 'string|email|max:255',
             'country' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             ]);

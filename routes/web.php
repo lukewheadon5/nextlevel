@@ -100,3 +100,30 @@ Route::get('/roster/{id}/delete', 'RosterController@destroy')->name('rosterDelet
 Route::get('team/{id}/lineup/create' , 'RosterController@lineup')->name('lineupCreate')->middleware('auth');
 Route::post('/lineup/store' , 'RosterController@lineupStore');
 Route::post('/lineup/af/store' , 'RosterController@lineupAFStore');
+
+
+Route::get('team/{id}/playbook' , 'PlayController@playView')->name('playIndex')->middleware('auth');
+Route::get('team/{id}/playbook/create' , 'PlayController@create')->name('playCreate')->middleware('auth');
+Route::get('play/{id}' , 'PlayController@show')->name('playShow')->middleware('auth');
+Route::get('play/{id}/edit' , 'PlayController@edit')->name('playEdit')->middleware('auth');
+
+Route::post('/play/store' , 'PlayController@store');
+Route::post('play/{id}/update' , 'PlayController@update')->name('playUpdate');
+Route::get('play/{id}/destroy' , 'PlayController@destroy')->name('playDestroy');
+
+
+Route::get('team/{id}/quizzes' , 'QuizController@index')->name('quizIndex')->middleware('auth');
+Route::get('team/{id}/quiz/create' , 'QuizController@create')->name('quizCreate')->middleware('auth');
+Route::get('quiz/{id}/edit' , 'QuizController@edit')->name('quizEdit')->middleware('auth');
+Route::post('/quiz/store' , 'QuizController@store');
+
+Route::get('quiz/{id}/addQ' , 'QuizController@addQ')->name('quizAddQ')->middleware('auth');
+Route::get('quiz/{id}/addMQ' , 'QuizController@addMQ')->name('quizAddMQ')->middleware('auth');
+Route::post('/quiz/storeQ' , 'QuizController@storeQ');
+
+Route::get('quiz/{id}/show' , 'QuizController@show')->name('quizShow')->middleware('auth');
+Route::get('question/{id}/answer' , 'QuizController@answerQ')->name('quizAnswerQ')->middleware('auth');
+Route::post('/quiz/store/result' , 'QuizController@storeResult');
+
+Route::get('quiz/{id}/destroy' , 'QuizController@destroy')->name('quizDestroy');
+

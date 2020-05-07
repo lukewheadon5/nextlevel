@@ -26,10 +26,14 @@
   Calendar</a></li>
   <li style="float:left"><a href="{{route('roster' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Lineup</a></li>
+  <li style="float:left"><a href="{{route('playIndex' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Playbook</a></li>
   <li style="float:left"><a href="{{route('player' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
   <li style="float:left"><a href="{{route('stats' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('quizIndex' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Quizzes</a></li>
   <li style="float:left"><a href="{{route('members' , $task->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Membership</a></li>
 </ul>
@@ -48,7 +52,7 @@
         {{ csrf_field() }}
         Event name:
         <br />
-        <input type="text" class="form-control" name="name" id="name" value="{{$task->name}}"/>
+        <input type="text" class="form-control" name="name" id="name" value="{{$task->name}}" required/>
         <br />
         Event description:
         <br />
@@ -56,11 +60,11 @@
         <br />
         Start date & time:
         <br />
-        <input type="datetime-local" class="form-control" id="start" name="start" value="{{$task->start}}"/>
+        <input type="datetime-local" class="form-control" id="start" name="start"  required/>
         <br />
         End date & time:
         <br />
-        <input type="datetime-local" class="form-control" id="end" name="end" value="{{$task->end}}"/>
+        <input type="datetime-local" class="form-control" id="end" name="end"  required/>
         <br />
         Badge Colour:
         <br />

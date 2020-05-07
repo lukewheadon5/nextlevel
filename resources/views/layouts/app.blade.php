@@ -23,6 +23,9 @@
     <div id="app" >
         <nav class="navbar navbar-expand-md shadow-sm" >
             <div class="container" >
+            <img src="/images/Artboard 1.png" alt="Profile Picture" 
+                width="80px" height="100%" /> 
+
                 <a class="navbar-brand" href="{{ url('/') }}" style="color:#000000">
                     Next Level
                 </a>

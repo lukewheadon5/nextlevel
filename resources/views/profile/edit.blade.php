@@ -8,7 +8,7 @@
 		<div class="col-md-3">
 		</div>
 		<div class="col-md-6">
-            <h1>Create Profile</h1>
+            <h1>Edit Profile</h1>
             <form method="POST" action="{{ route('profile.update', $profile->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -56,7 +56,7 @@
                         <textarea name="bio" class="form-control" placeholder="Enter bio" rows="15">{{$profile->bio}}</textarea>
                         <div class="pt-2"> 
                         <button type="submit" class="btn btn-success">Submit</button>  
-                        <a href="{{ route('home') }}" class="btn btn-danger">Cancel</a>
+                        <a href="{{route('profile.show' , $profile->id)}}" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
                 </div>

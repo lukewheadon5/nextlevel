@@ -65,7 +65,7 @@ class VideoController extends Controller
             'season'=>'required',
             'game'=>'required',
             'training'=>'required',
-            'file.*' => 'required|file|mimes:mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv',
+            //'file.*' => 'required|file|mimes:MP4,mp4,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv',
             
         ]);
 

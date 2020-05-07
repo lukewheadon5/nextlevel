@@ -12,7 +12,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #4F4858;
+                background-color: #5E5E5D;
                 color: #EC9040;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -49,7 +49,7 @@
             }
 
             .links > a {
-                color: #EC9040;
+                color: #FFF81E;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -82,9 +82,8 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md" >
-                   Next Level Analysis
-                </div>
+            <img src="/images/Artboard 1.png" alt="Profile Picture" 
+                width="100%" height="100%" /> 
 
                 
             </div>

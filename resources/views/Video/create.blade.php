@@ -21,12 +21,12 @@
             <form method="post" action="{{ route('vidStore' , $team->id) }}" enctype="multipart/form-data">
             @csrf 
                 <label for="name"><b>Playlist Name:</b></label>
-                <textarea name="name" class="form-control" placeholder="Enter Name"></textarea>
+                <textarea name="name" class="form-control" placeholder="Enter Name" required></textarea>
                 <div class="pb-2">
                 </div>
 
                 <label for="season"><b>Season:</b></label>
-                <select class="form-control" name="season" id="season">
+                <select class="form-control" name="season" id="season" required>
                     <option value="" selected disabled hidden>Choose here</option>
                     @foreach($team->seasons as $season)
                     <option value='{{ $season->id }}'>{{$season->year}}</option>
@@ -37,7 +37,7 @@
         
 
                 <label for="game"><b>Game:</b></label>
-                <select class="form-control" name="game" id="game">
+                <select class="form-control" name="game" id="game" requried>
                     <option value="" selected disabled hidden>Choose here</option>
                     <option value=''></option>
                 </select>

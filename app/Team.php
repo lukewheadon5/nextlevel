@@ -64,4 +64,14 @@ class Team extends Model
     {
         return $this->hasOne('App\Lineup');
     }
+
+    public function plays()
+    {
+        return $this->hasMany('App\Play');
+    }
+
+    public function quizs()
+    {
+        return $this->hasMany('App\Quiz');
+    }
 }

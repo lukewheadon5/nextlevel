@@ -28,10 +28,14 @@
   Calendar</a></li>
   <li style="float:left"><a href="{{route('roster' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Lineup</a></li>
-  <li style="float:left"><a href="{{route('player' ,  $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('playIndex' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Playbook</a></li>
+  <li style="float:left"><a href="{{route('player' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
-  <li style="float:left"><a href="{{route('stats' ,  $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('stats' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('quizIndex' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Quizzes</a></li>
   <li style="float:left"><a href="{{route('members' , $usertraining->game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Membership</a></li>
 </ul>

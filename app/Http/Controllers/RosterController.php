@@ -38,6 +38,9 @@ class RosterController extends Controller
     }
 
     public function store(Request $request){
+        $validatedData = $request->validate([
+            'name'=>'required|string|max:255',
+        ]);
         $roster = new Roster;
         $roster->team_id = $request->team_id;
         $roster->game_id = $request->game_id;

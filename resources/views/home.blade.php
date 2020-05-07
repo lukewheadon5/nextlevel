@@ -2,25 +2,19 @@
 
 @section('content')
 <script src="{{ asset('js/app.js') }}" defer></script>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10 text-center pt-5">
-            <h1>
-                <div>
-                Welcome To Next Level Analysis: 
-                </div>
-                <div>
-                This is a Dissertation project created by Luke Wheadon. 
-                The Goal of this project is to produce a high quality video and 
-                statistical analysis web application for use by sports teams.<br>
+<div class="container pt-10 text-center">
+    
+        <h1>
+                Welcome to 
+        </h1>
 
-                Enjoy!!!
-                </div>
-            </h1>
+        <h1>
+                Next Level Analysis
+        </h1>
 
-                
+        <img src="/images/Artboard 1.png" alt="Profile Picture" 
+                width="400px" height="400px" /> 
+
             
-        </div>
-    </div>
 </div>
 @endsection

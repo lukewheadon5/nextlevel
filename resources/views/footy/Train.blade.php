@@ -28,10 +28,14 @@
   Calendar</a></li>
   <li style="float:left"><a href="{{route('roster' , $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Lineup</a></li>
-  <li style="float:left"><a href="{{route('player' ,  $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('playIndex' , $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Playbook</a></li>
+  <li style="float:left"><a href="{{route('player' , $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Video</a></li>
-  <li style="float:left"><a href="{{route('stats' ,  $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  <li style="float:left"><a href="{{route('stats' , $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
   Statistics</a></li>
+  <li style="float:left"><a href="{{route('quizIndex' , $game->team->id)}}" style = "display:block; color:white; text-align:center; padding:14px 16px; text-decoration:none ">
+  Quizzes</a></li>
 </ul>
 
 <div class="container-fluid">
